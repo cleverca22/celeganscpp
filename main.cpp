@@ -9,12 +9,23 @@ typedef struct {
     int values[2];
 } neuron;
 
-std::unordered_map<std::string, neuron> postSynaptic;
+enum {
+  nADAL,nADAR,nADEL,nADER,nADFL,nADFR,nADL,nADLL,nADLR,nAFDL,nAFDR,nAIAL,nAIAR,nAIBL,nAIBR,nAIML,nAIMR,nAINL,nAINR,nAIYL,nAIYR,nAIZL,nAIZR,nALA,nALML,nALMR,nALNL,nALNR,nAQR,nAS1,nAS10,nAS11,nAS2,nAS3,nAS4,nAS5,nAS6,nAS7,nAS8,nAS9,nASEL,nASER,nASGL,nASGLL,nASGR,nASHL,nASHR,nASIL,nASIR,nASJL,nASJR,nASKL,nASKR,nAUAL,nAUAR,nAVAL,nAVAR,nAVBL,nAVBR,nAVDL,nAVDR,nAVEL,nAVER,nAVFL,nAVFR,nAVG,nAVHL,nAVHR,nAVJL,nAVJR,nAVKL,nAVKR,nAVL,nAVM,nAWAL,nAWAR,nAWBL,nAWBR,nAWCL,nAWCR,nBAGL,nBAGR,nBDUL,nBDUR,nCEPDL,nCEPDR,nCEPVL,nCEPVR,nDA1,nDA2,nDA3,nDA4,nDA5,nDA6,nDA7,nDA8,nDA9,nDB1,nDB2,nDB3,nDB4,nDB5,nDB6,nDB7,nDD1,nDD2,nDD3,nDD4,nDD5,nDD6,nDVA,nDVB,nDVC,nFLPL,nFLPR,nHSNL,nHSNR,nI1L,nI1R,nI2L,nI2R,nI3,nI4,nI5,nI6,nIL1DL,nIL1DR,nIL1L,nIL1R,nIL1VL,nIL1VR,nIL2DL,nIL2DR,nIL2L,nIL2R,nIL2VL,nIL2VR,nLUAL,nLUAR,nM1,nM2L,nM2R,nM3L,nM3R,nM4,nM5,nMANAL,nMCL,nMCR,
+  nMDL01,nMDL02,nMDL03,nMDL04,nMDL05,nMDL06,nMDL07,nMDL08,nMDL09,nMDL10,nMDL11,nMDL12,nMDL13,nMDL14,nMDL15,nMDL16,nMDL17,nMDL18,nMDL19,nMDL20,nMDL21,nMDL22,nMDL23,nMDL24,
+  nMDR01,nMDR02,nMDR03,nMDR04,nMDR05,nMDR06,nMDR07,nMDR08,nMDR09,nMDR10,nMDR11,nMDR12,nMDR13,nMDR14,nMDR15,nMDR16,nMDR17,nMDR18,nMDR19,nMDR20,nMDR21,nMDR22,nMDR23,nMDR24,
+  nMI,
+  nMVL01,nMVL02,nMVL03,nMVL04,nMVL05,nMVL06,nMVL07,nMVL08,nMVL09,nMVL10,nMVL11,nMVL12,nMVL13,nMVL14,nMVL15,nMVL16,nMVL17,nMVL18,nMVL19,nMVL20,nMVL21,nMVL22,nMVL23,
+  nMVR01,nMVR02,nMVR03,nMVR04,nMVR05,nMVR06,nMVR07,nMVR08,nMVR09,nMVR10,nMVR11,nMVR12,nMVR13,nMVR14,nMVR15,nMVR16,nMVR17,nMVR18,nMVR19,nMVR20,nMVR21,nMVR22,nMVR23,nMVR24,
+  nMVULVA,nNSML,nNSMR,nOLLL,nOLLR,nOLQDL,nOLQDR,nOLQVL,nOLQVR,nPDA,nPDB,nPDEL,nPDER,nPHAL,nPHAR,nPHBL,nPHBR,nPHCL,nPHCR,nPLML,nPLMR,nPLNL,nPLNR,nPQR,nPVCL,nPVCR,nPVDL,nPVDR,nPVM,nPVNL,nPVNR,nPVPL,nPVPR,nPVQL,nPVQR,nPVR,nPVT,nPVWL,nPVWR,nRIAL,nRIAR,nRIBL,nRIBR,nRICL,nRICR,nRID,nRIFL,nRIFR,nRIGL,nRIGR,nRIH,nRIML,nRIMR,nRIPL,nRIPR,nRIR,nRIS,nRIVL,nRIVR,nRMDDL,nRMDDR,nRMDL,nRMDR,nRMDVL,nRMDVR,nRMED,nRMEL,nRMER,nRMEV,nRMFL,nRMFR,nRMGL,nRMGR,nRMHL,nRMHR,nSAADL,nSAADR,nSAAVL,nSAAVR,nSABD,nSABVL,nSABVR,nSDQL,nSDQR,nSIADL,nSIADR,nSIAVL,nSIAVR,nSIBDL,nSIBDR,nSIBVL,nSIBVR,nSMBDL,nSMBDR,nSMBVL,nSMBVR,nSMDDL,nSMDDR,nSMDVL,nSMDVR,nURADL,nURADR,nURAVL,nURAVR,nURBL,nURBR,nURXL,nURXR,nURYDL,nURYDR,nURYVL,nURYVR,nVA1,nVA10,nVA11,nVA12,nVA2,nVA3,nVA4,nVA5,nVA6,nVA7,nVA8,nVA9,nVB1,nVB10,nVB11,nVB2,nVB3,nVB4,nVB5,nVB6,nVB7,nVB8,nVB9,nVC1,nVC2,nVC3,nVC4,nVC5,nVC6,nVD1,nVD10,nVD11,nVD12,nVD13,nVD2,nVD3,nVD4,nVD5,nVD6,nVD7,nVD8,nVD9,
+  neuron_count
+};
+
+neuron postSynaptic[neuron_count];
 
 int thisState = 0;
 int nextState = 1;
 
-int fireThreshold = 30;
+const int fireThreshold = 30;
 
 int accumLeft = 0;
 int accumRight = 0;
@@ -24,5032 +35,5034 @@ bool stimulateNoseTouchNeurons = false;
 bool stimulateFoodSenseNeurons = false;
 
 void ADAL() {
-    postSynaptic["ADAR"].values[nextState] += 2;
-    postSynaptic["ADFL"].values[nextState] += 1;
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["AIBR"].values[nextState] += 2;
-    postSynaptic["ASHL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 4;
-    postSynaptic["AVBR"].values[nextState] += 7;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVJR"].values[nextState] += 5;
-    postSynaptic["FLPR"].values[nextState] += 1;
-    postSynaptic["PVQL"].values[nextState] += 1;
-    postSynaptic["RICL"].values[nextState] += 1;
-    postSynaptic["RICR"].values[nextState] += 1;
-    postSynaptic["RIML"].values[nextState] += 3;
-    postSynaptic["RIPL"].values[nextState] += 1;
-    postSynaptic["SMDVR"].values[nextState] += 2;
+    postSynaptic[nADAR].values[nextState] += 2;
+    postSynaptic[nADFL].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 2;
+    postSynaptic[nASHL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 4;
+    postSynaptic[nAVBR].values[nextState] += 7;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVJR].values[nextState] += 5;
+    postSynaptic[nFLPR].values[nextState] += 1;
+    postSynaptic[nPVQL].values[nextState] += 1;
+    postSynaptic[nRICL].values[nextState] += 1;
+    postSynaptic[nRICR].values[nextState] += 1;
+    postSynaptic[nRIML].values[nextState] += 3;
+    postSynaptic[nRIPL].values[nextState] += 1;
+    postSynaptic[nSMDVR].values[nextState] += 2;
 }
 
 void ADAR() {
-    postSynaptic["ADAL"].values[nextState] += 1;
-    postSynaptic["ADFR"].values[nextState] += 1;
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["ASHR"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 5;
-    postSynaptic["AVDL"].values[nextState] += 2;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 3;
-    postSynaptic["PVQR"].values[nextState] += 1;
-    postSynaptic["RICL"].values[nextState] += 1;
-    postSynaptic["RIMR"].values[nextState] += 5;
-    postSynaptic["RIPR"].values[nextState] += 1;
-    postSynaptic["RIVR"].values[nextState] += 1;
-    postSynaptic["SMDVL"].values[nextState] += 2;
+    postSynaptic[nADAL].values[nextState] += 1;
+    postSynaptic[nADFR].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nASHR].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 5;
+    postSynaptic[nAVDL].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 3;
+    postSynaptic[nPVQR].values[nextState] += 1;
+    postSynaptic[nRICL].values[nextState] += 1;
+    postSynaptic[nRIMR].values[nextState] += 5;
+    postSynaptic[nRIPR].values[nextState] += 1;
+    postSynaptic[nRIVR].values[nextState] += 1;
+    postSynaptic[nSMDVL].values[nextState] += 2;
 }
 
 void ADEL() {
-    postSynaptic["ADAL"].values[nextState] += 1;
-    postSynaptic["ADER"].values[nextState] += 1;
-    postSynaptic["AINL"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVAR"].values[nextState] += 3;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVKR"].values[nextState] += 1;
-    postSynaptic["AVL"].values[nextState] += 1;
-    postSynaptic["BDUL"].values[nextState] += 1;
-    postSynaptic["CEPDL"].values[nextState] += 1;
-    postSynaptic["FLPL"].values[nextState] += 1;
-    postSynaptic["IL1L"].values[nextState] += 1;
-    postSynaptic["IL2L"].values[nextState] += 1;
-    postSynaptic["MDL05"].values[nextState] += 1;
-    postSynaptic["OLLL"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 1;
-    postSynaptic["RIFL"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 5;
-    postSynaptic["RIGR"].values[nextState] += 3;
-    postSynaptic["RIH"].values[nextState] += 2;
-    postSynaptic["RIVL"].values[nextState] += 1;
-    postSynaptic["RIVR"].values[nextState] += 1;
-    postSynaptic["RMDL"].values[nextState] += 2;
-    postSynaptic["RMGL"].values[nextState] += 1;
-    postSynaptic["RMHL"].values[nextState] += 1;
-    postSynaptic["SIADR"].values[nextState] += 1;
-    postSynaptic["SIBDR"].values[nextState] += 1;
-    postSynaptic["SMBDR"].values[nextState] += 1;
-    postSynaptic["URBL"].values[nextState] += 1;
+    postSynaptic[nADAL].values[nextState] += 1;
+    postSynaptic[nADER].values[nextState] += 1;
+    postSynaptic[nAINL].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 3;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVKR].values[nextState] += 1;
+    postSynaptic[nAVL].values[nextState] += 1;
+    postSynaptic[nBDUL].values[nextState] += 1;
+    postSynaptic[nCEPDL].values[nextState] += 1;
+    postSynaptic[nFLPL].values[nextState] += 1;
+    postSynaptic[nIL1L].values[nextState] += 1;
+    postSynaptic[nIL2L].values[nextState] += 1;
+    postSynaptic[nMDL05].values[nextState] += 1;
+    postSynaptic[nOLLL].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 1;
+    postSynaptic[nRIFL].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 5;
+    postSynaptic[nRIGR].values[nextState] += 3;
+    postSynaptic[nRIH].values[nextState] += 2;
+    postSynaptic[nRIVL].values[nextState] += 1;
+    postSynaptic[nRIVR].values[nextState] += 1;
+    postSynaptic[nRMDL].values[nextState] += 2;
+    postSynaptic[nRMGL].values[nextState] += 1;
+    postSynaptic[nRMHL].values[nextState] += 1;
+    postSynaptic[nSIADR].values[nextState] += 1;
+    postSynaptic[nSIBDR].values[nextState] += 1;
+    postSynaptic[nSMBDR].values[nextState] += 1;
+    postSynaptic[nURBL].values[nextState] += 1;
 }
 
 void ADER() {
-    postSynaptic["ADAR"].values[nextState] += 1;
-    postSynaptic["ADEL"].values[nextState] += 2;
-    postSynaptic["ALA"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 5;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["AVJR"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 2;
-    postSynaptic["AVKR"].values[nextState] += 1;
-    postSynaptic["CEPDR"].values[nextState] += 1;
-    postSynaptic["FLPL"].values[nextState] += 1;
-    postSynaptic["FLPR"].values[nextState] += 1;
-    postSynaptic["OLLR"].values[nextState] += 2;
-    postSynaptic["PVR"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 7;
-    postSynaptic["RIGR"].values[nextState] += 4;
-    postSynaptic["RIH"].values[nextState] += 1;
-    postSynaptic["RMDR"].values[nextState] += 2;
-    postSynaptic["SAAVR"].values[nextState] += 1;
+    postSynaptic[nADAR].values[nextState] += 1;
+    postSynaptic[nADEL].values[nextState] += 2;
+    postSynaptic[nALA].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 5;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nAVJR].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 2;
+    postSynaptic[nAVKR].values[nextState] += 1;
+    postSynaptic[nCEPDR].values[nextState] += 1;
+    postSynaptic[nFLPL].values[nextState] += 1;
+    postSynaptic[nFLPR].values[nextState] += 1;
+    postSynaptic[nOLLR].values[nextState] += 2;
+    postSynaptic[nPVR].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 7;
+    postSynaptic[nRIGR].values[nextState] += 4;
+    postSynaptic[nRIH].values[nextState] += 1;
+    postSynaptic[nRMDR].values[nextState] += 2;
+    postSynaptic[nSAAVR].values[nextState] += 1;
 }
 
 void ADFL() {
-    postSynaptic["ADAL"].values[nextState] += 2;
-    postSynaptic["AIZL"].values[nextState] += 12;
-    postSynaptic["AUAL"].values[nextState] += 5;
-    postSynaptic["OLQVL"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 15;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RIR"].values[nextState] += 2;
-    postSynaptic["SMBVL"].values[nextState] += 2;
+    postSynaptic[nADAL].values[nextState] += 2;
+    postSynaptic[nAIZL].values[nextState] += 12;
+    postSynaptic[nAUAL].values[nextState] += 5;
+    postSynaptic[nOLQVL].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 15;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRIR].values[nextState] += 2;
+    postSynaptic[nSMBVL].values[nextState] += 2;
 }
 
 void ADFR() {
-    postSynaptic["ADAR"].values[nextState] += 2;
-    postSynaptic["AIAR"].values[nextState] += 1;
-    postSynaptic["AIYR"].values[nextState] += 1;
-    postSynaptic["AIZR"].values[nextState] += 8;
-    postSynaptic["ASHR"].values[nextState] += 1;
-    postSynaptic["AUAR"].values[nextState] += 4;
-    postSynaptic["AWBR"].values[nextState] += 1;
-    postSynaptic["PVPR"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 16;
-    postSynaptic["RIGR"].values[nextState] += 3;
-    postSynaptic["RIR"].values[nextState] += 3;
-    postSynaptic["SMBDR"].values[nextState] += 1;
-    postSynaptic["SMBVR"].values[nextState] += 2;
-    postSynaptic["URXR"].values[nextState] += 1;
+    postSynaptic[nADAR].values[nextState] += 2;
+    postSynaptic[nAIAR].values[nextState] += 1;
+    postSynaptic[nAIYR].values[nextState] += 1;
+    postSynaptic[nAIZR].values[nextState] += 8;
+    postSynaptic[nASHR].values[nextState] += 1;
+    postSynaptic[nAUAR].values[nextState] += 4;
+    postSynaptic[nAWBR].values[nextState] += 1;
+    postSynaptic[nPVPR].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 16;
+    postSynaptic[nRIGR].values[nextState] += 3;
+    postSynaptic[nRIR].values[nextState] += 3;
+    postSynaptic[nSMBDR].values[nextState] += 1;
+    postSynaptic[nSMBVR].values[nextState] += 2;
+    postSynaptic[nURXR].values[nextState] += 1;
 }
 
 void ADLL() {
-    postSynaptic["ADLR"].values[nextState] += 1;
-    postSynaptic["AIAL"].values[nextState] += 6;
-    postSynaptic["AIBL"].values[nextState] += 7;
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["ALA"].values[nextState] += 2;
-    postSynaptic["ASER"].values[nextState] += 3;
-    postSynaptic["ASHL"].values[nextState] += 2;
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVAR"].values[nextState] += 3;
-    postSynaptic["AVBL"].values[nextState] += 2;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AVJR"].values[nextState] += 3;
-    postSynaptic["AWBL"].values[nextState] += 2;
-    postSynaptic["OLQVL"].values[nextState] += 2;
-    postSynaptic["RIPL"].values[nextState] += 1;
-    postSynaptic["RMGL"].values[nextState] += 1;
+    postSynaptic[nADLR].values[nextState] += 1;
+    postSynaptic[nAIAL].values[nextState] += 6;
+    postSynaptic[nAIBL].values[nextState] += 7;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nALA].values[nextState] += 2;
+    postSynaptic[nASER].values[nextState] += 3;
+    postSynaptic[nASHL].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 3;
+    postSynaptic[nAVBL].values[nextState] += 2;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAVJR].values[nextState] += 3;
+    postSynaptic[nAWBL].values[nextState] += 2;
+    postSynaptic[nOLQVL].values[nextState] += 2;
+    postSynaptic[nRIPL].values[nextState] += 1;
+    postSynaptic[nRMGL].values[nextState] += 1;
 }
 
 void ADLR() {
-    postSynaptic["ADLL"].values[nextState] += 1;
-    postSynaptic["AIAR"].values[nextState] += 10;
-    postSynaptic["AIBR"].values[nextState] += 10;
-    postSynaptic["ASER"].values[nextState] += 1;
-    postSynaptic["ASHR"].values[nextState] += 3;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["AVDL"].values[nextState] += 5;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["AVJR"].values[nextState] += 1;
-    postSynaptic["AWCR"].values[nextState] += 3;
-    postSynaptic["OLLR"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["RICL"].values[nextState] += 1;
-    postSynaptic["RICR"].values[nextState] += 1;
+    postSynaptic[nADLL].values[nextState] += 1;
+    postSynaptic[nAIAR].values[nextState] += 10;
+    postSynaptic[nAIBR].values[nextState] += 10;
+    postSynaptic[nASER].values[nextState] += 1;
+    postSynaptic[nASHR].values[nextState] += 3;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nAVDL].values[nextState] += 5;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nAVJR].values[nextState] += 1;
+    postSynaptic[nAWCR].values[nextState] += 3;
+    postSynaptic[nOLLR].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nRICL].values[nextState] += 1;
+    postSynaptic[nRICR].values[nextState] += 1;
 }
 
 void AFDL() {
-    postSynaptic["AFDR"].values[nextState] += 1;
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["AINR"].values[nextState] += 1;
-    postSynaptic["AIYL"].values[nextState] += 7;
+    postSynaptic[nAFDR].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nAINR].values[nextState] += 1;
+    postSynaptic[nAIYL].values[nextState] += 7;
 }
 
 void AFDR() {
-    postSynaptic["AFDL"].values[nextState] += 1;
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["AIYR"].values[nextState] += 13;
-    postSynaptic["ASER"].values[nextState] += 1;
+    postSynaptic[nAFDL].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nAIYR].values[nextState] += 13;
+    postSynaptic[nASER].values[nextState] += 1;
 }
 
 void AIAL() {
-    postSynaptic["ADAL"].values[nextState] += 1;
-    postSynaptic["AIAR"].values[nextState] += 1;
-    postSynaptic["AIBL"].values[nextState] += 10;
-    postSynaptic["AIML"].values[nextState] += 2;
-    postSynaptic["AIZL"].values[nextState] += 1;
-    postSynaptic["ASER"].values[nextState] += 3;
-    postSynaptic["ASGL"].values[nextState] += 1;
-    postSynaptic["ASHL"].values[nextState] += 1;
-    postSynaptic["ASIL"].values[nextState] += 2;
-    postSynaptic["ASKL"].values[nextState] += 3;
-    postSynaptic["AWAL"].values[nextState] += 1;
-    postSynaptic["AWCR"].values[nextState] += 1;
-    postSynaptic["HSNL"].values[nextState] += 1;
-    postSynaptic["RIFL"].values[nextState] += 1;
-    postSynaptic["RMGL"].values[nextState] += 1;
+    postSynaptic[nADAL].values[nextState] += 1;
+    postSynaptic[nAIAR].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 10;
+    postSynaptic[nAIML].values[nextState] += 2;
+    postSynaptic[nAIZL].values[nextState] += 1;
+    postSynaptic[nASER].values[nextState] += 3;
+    postSynaptic[nASGL].values[nextState] += 1;
+    postSynaptic[nASHL].values[nextState] += 1;
+    postSynaptic[nASIL].values[nextState] += 2;
+    postSynaptic[nASKL].values[nextState] += 3;
+    postSynaptic[nAWAL].values[nextState] += 1;
+    postSynaptic[nAWCR].values[nextState] += 1;
+    postSynaptic[nHSNL].values[nextState] += 1;
+    postSynaptic[nRIFL].values[nextState] += 1;
+    postSynaptic[nRMGL].values[nextState] += 1;
 }
 
 void AIAR() {
-    postSynaptic["ADAR"].values[nextState] += 1;
-    postSynaptic["ADFR"].values[nextState] += 1;
-    postSynaptic["ADLR"].values[nextState] += 2;
-    postSynaptic["AIAL"].values[nextState] += 1;
-    postSynaptic["AIBR"].values[nextState] += 14;
-    postSynaptic["AIZR"].values[nextState] += 1;
-    postSynaptic["ASER"].values[nextState] += 1;
-    postSynaptic["ASGR"].values[nextState] += 1;
-    postSynaptic["ASIR"].values[nextState] += 2;
-    postSynaptic["AWAR"].values[nextState] += 2;
-    postSynaptic["AWCL"].values[nextState] += 1;
-    postSynaptic["AWCR"].values[nextState] += 3;
-    postSynaptic["RIFR"].values[nextState] += 2;
+    postSynaptic[nADAR].values[nextState] += 1;
+    postSynaptic[nADFR].values[nextState] += 1;
+    postSynaptic[nADLR].values[nextState] += 2;
+    postSynaptic[nAIAL].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 14;
+    postSynaptic[nAIZR].values[nextState] += 1;
+    postSynaptic[nASER].values[nextState] += 1;
+    postSynaptic[nASGR].values[nextState] += 1;
+    postSynaptic[nASIR].values[nextState] += 2;
+    postSynaptic[nAWAR].values[nextState] += 2;
+    postSynaptic[nAWCL].values[nextState] += 1;
+    postSynaptic[nAWCR].values[nextState] += 3;
+    postSynaptic[nRIFR].values[nextState] += 2;
 }
 
 void AIBL() {
-    postSynaptic["AFDL"].values[nextState] += 1;
-    postSynaptic["AIYL"].values[nextState] += 1;
-    postSynaptic["ASER"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 5;
-    postSynaptic["DVC"].values[nextState] += 1;
-    postSynaptic["FLPL"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 4;
-    postSynaptic["RIFL"].values[nextState] += 1;
-    postSynaptic["RIGR"].values[nextState] += 3;
-    postSynaptic["RIML"].values[nextState] += 2;
-    postSynaptic["RIMR"].values[nextState] += 1;
-    postSynaptic["RIVL"].values[nextState] += 1;
-    postSynaptic["SAADL"].values[nextState] += 2;
-    postSynaptic["SAADR"].values[nextState] += 2;
-    postSynaptic["SMDDR"].values[nextState] += 4;
+    postSynaptic[nAFDL].values[nextState] += 1;
+    postSynaptic[nAIYL].values[nextState] += 1;
+    postSynaptic[nASER].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 5;
+    postSynaptic[nDVC].values[nextState] += 1;
+    postSynaptic[nFLPL].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 4;
+    postSynaptic[nRIFL].values[nextState] += 1;
+    postSynaptic[nRIGR].values[nextState] += 3;
+    postSynaptic[nRIML].values[nextState] += 2;
+    postSynaptic[nRIMR].values[nextState] += 1;
+    postSynaptic[nRIVL].values[nextState] += 1;
+    postSynaptic[nSAADL].values[nextState] += 2;
+    postSynaptic[nSAADR].values[nextState] += 2;
+    postSynaptic[nSMDDR].values[nextState] += 4;
 }
 
 void AIBR() {
-    postSynaptic["AFDR"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 3;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["DB1"].values[nextState] += 1;
-    postSynaptic["DVC"].values[nextState] += 2;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 4;
-    postSynaptic["RIGL"].values[nextState] += 3;
-    postSynaptic["RIML"].values[nextState] += 1;
-    postSynaptic["RIMR"].values[nextState] += 1;
-    postSynaptic["RIS"].values[nextState] += 1;
-    postSynaptic["RIVR"].values[nextState] += 1;
-    postSynaptic["SAADL"].values[nextState] += 1;
-    postSynaptic["SMDDL"].values[nextState] += 3;
-    postSynaptic["SMDVL"].values[nextState] += 1;
-    postSynaptic["VB1"].values[nextState] += 3;
+    postSynaptic[nAFDR].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 3;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nDB1].values[nextState] += 1;
+    postSynaptic[nDVC].values[nextState] += 2;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 4;
+    postSynaptic[nRIGL].values[nextState] += 3;
+    postSynaptic[nRIML].values[nextState] += 1;
+    postSynaptic[nRIMR].values[nextState] += 1;
+    postSynaptic[nRIS].values[nextState] += 1;
+    postSynaptic[nRIVR].values[nextState] += 1;
+    postSynaptic[nSAADL].values[nextState] += 1;
+    postSynaptic[nSMDDL].values[nextState] += 3;
+    postSynaptic[nSMDVL].values[nextState] += 1;
+    postSynaptic[nVB1].values[nextState] += 3;
 }
 
 void AIML() {
-    postSynaptic["AIAL"].values[nextState] += 5;
-    postSynaptic["ALML"].values[nextState] += 1;
-    postSynaptic["ASGL"].values[nextState] += 2;
-    postSynaptic["ASKL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["AVFL"].values[nextState] += 4;
-    postSynaptic["AVFR"].values[nextState] += 1;
-    postSynaptic["AVHL"].values[nextState] += 2;
-    postSynaptic["AVHR"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["PVQL"].values[nextState] += 1;
-    postSynaptic["RIFL"].values[nextState] += 1;
-    postSynaptic["SIBDR"].values[nextState] += 1;
-    postSynaptic["SMBVL"].values[nextState] += 1;
+    postSynaptic[nAIAL].values[nextState] += 5;
+    postSynaptic[nALML].values[nextState] += 1;
+    postSynaptic[nASGL].values[nextState] += 2;
+    postSynaptic[nASKL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nAVFL].values[nextState] += 4;
+    postSynaptic[nAVFR].values[nextState] += 1;
+    postSynaptic[nAVHL].values[nextState] += 2;
+    postSynaptic[nAVHR].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nPVQL].values[nextState] += 1;
+    postSynaptic[nRIFL].values[nextState] += 1;
+    postSynaptic[nSIBDR].values[nextState] += 1;
+    postSynaptic[nSMBVL].values[nextState] += 1;
 }
 
 void AIMR() {
-    postSynaptic["AIAR"].values[nextState] += 5;
-    postSynaptic["ASGR"].values[nextState] += 2;
-    postSynaptic["ASJR"].values[nextState] += 2;
-    postSynaptic["ASKR"].values[nextState] += 3;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVFL"].values[nextState] += 1;
-    postSynaptic["AVFR"].values[nextState] += 1;
-    postSynaptic["HSNL"].values[nextState] += 1;
-    postSynaptic["HSNR"].values[nextState] += 2;
-    postSynaptic["OLQDR"].values[nextState] += 1;
-    postSynaptic["PVNR"].values[nextState] += 1;
-    postSynaptic["RIFR"].values[nextState] += 1;
-    postSynaptic["RMGR"].values[nextState] += 1;
+    postSynaptic[nAIAR].values[nextState] += 5;
+    postSynaptic[nASGR].values[nextState] += 2;
+    postSynaptic[nASJR].values[nextState] += 2;
+    postSynaptic[nASKR].values[nextState] += 3;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVFL].values[nextState] += 1;
+    postSynaptic[nAVFR].values[nextState] += 1;
+    postSynaptic[nHSNL].values[nextState] += 1;
+    postSynaptic[nHSNR].values[nextState] += 2;
+    postSynaptic[nOLQDR].values[nextState] += 1;
+    postSynaptic[nPVNR].values[nextState] += 1;
+    postSynaptic[nRIFR].values[nextState] += 1;
+    postSynaptic[nRMGR].values[nextState] += 1;
 }
 
 void AINL() {
-    postSynaptic["ADEL"].values[nextState] += 1;
-    postSynaptic["AFDR"].values[nextState] += 5;
-    postSynaptic["AINR"].values[nextState] += 2;
-    postSynaptic["ASEL"].values[nextState] += 3;
-    postSynaptic["ASGR"].values[nextState] += 2;
-    postSynaptic["AUAR"].values[nextState] += 2;
-    postSynaptic["BAGL"].values[nextState] += 3;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 2;
+    postSynaptic[nADEL].values[nextState] += 1;
+    postSynaptic[nAFDR].values[nextState] += 5;
+    postSynaptic[nAINR].values[nextState] += 2;
+    postSynaptic[nASEL].values[nextState] += 3;
+    postSynaptic[nASGR].values[nextState] += 2;
+    postSynaptic[nAUAR].values[nextState] += 2;
+    postSynaptic[nBAGL].values[nextState] += 3;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 2;
 }
 
 void AINR() {
-    postSynaptic["AFDL"].values[nextState] += 4;
-    postSynaptic["AFDR"].values[nextState] += 1;
-    postSynaptic["AIAL"].values[nextState] += 2;
-    postSynaptic["AIBL"].values[nextState] += 2;
-    postSynaptic["AINL"].values[nextState] += 2;
-    postSynaptic["ASEL"].values[nextState] += 1;
-    postSynaptic["ASER"].values[nextState] += 1;
-    postSynaptic["ASGL"].values[nextState] += 1;
-    postSynaptic["AUAL"].values[nextState] += 1;
-    postSynaptic["AUAR"].values[nextState] += 1;
-    postSynaptic["BAGR"].values[nextState] += 3;
-    postSynaptic["RIBL"].values[nextState] += 2;
-    postSynaptic["RID"].values[nextState] += 1;
+    postSynaptic[nAFDL].values[nextState] += 4;
+    postSynaptic[nAFDR].values[nextState] += 1;
+    postSynaptic[nAIAL].values[nextState] += 2;
+    postSynaptic[nAIBL].values[nextState] += 2;
+    postSynaptic[nAINL].values[nextState] += 2;
+    postSynaptic[nASEL].values[nextState] += 1;
+    postSynaptic[nASER].values[nextState] += 1;
+    postSynaptic[nASGL].values[nextState] += 1;
+    postSynaptic[nAUAL].values[nextState] += 1;
+    postSynaptic[nAUAR].values[nextState] += 1;
+    postSynaptic[nBAGR].values[nextState] += 3;
+    postSynaptic[nRIBL].values[nextState] += 2;
+    postSynaptic[nRID].values[nextState] += 1;
 }
 
 void AIYL() {
-    postSynaptic["AIYR"].values[nextState] += 1;
-    postSynaptic["AIZL"].values[nextState] += 13;
-    postSynaptic["AWAL"].values[nextState] += 3;
-    postSynaptic["AWCL"].values[nextState] += 1;
-    postSynaptic["AWCR"].values[nextState] += 1;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 7;
-    postSynaptic["RIBL"].values[nextState] += 4;
-    postSynaptic["RIML"].values[nextState] += 1;
+    postSynaptic[nAIYR].values[nextState] += 1;
+    postSynaptic[nAIZL].values[nextState] += 13;
+    postSynaptic[nAWAL].values[nextState] += 3;
+    postSynaptic[nAWCL].values[nextState] += 1;
+    postSynaptic[nAWCR].values[nextState] += 1;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 7;
+    postSynaptic[nRIBL].values[nextState] += 4;
+    postSynaptic[nRIML].values[nextState] += 1;
 }
 
 void AIYR() {
-    postSynaptic["ADFR"].values[nextState] += 1;
-    postSynaptic["AIYL"].values[nextState] += 1;
-    postSynaptic["AIZR"].values[nextState] += 8;
-    postSynaptic["AWAR"].values[nextState] += 1;
-    postSynaptic["HSNL"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 6;
-    postSynaptic["RIBR"].values[nextState] += 2;
-    postSynaptic["RIMR"].values[nextState] += 1;
+    postSynaptic[nADFR].values[nextState] += 1;
+    postSynaptic[nAIYL].values[nextState] += 1;
+    postSynaptic[nAIZR].values[nextState] += 8;
+    postSynaptic[nAWAR].values[nextState] += 1;
+    postSynaptic[nHSNL].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 6;
+    postSynaptic[nRIBR].values[nextState] += 2;
+    postSynaptic[nRIMR].values[nextState] += 1;
 }
 
 void AIZL() {
-    postSynaptic["AIAL"].values[nextState] += 3;
-    postSynaptic["AIBL"].values[nextState] += 2;
-    postSynaptic["AIBR"].values[nextState] += 8;
-    postSynaptic["AIZR"].values[nextState] += 2;
-    postSynaptic["ASEL"].values[nextState] += 1;
-    postSynaptic["ASGL"].values[nextState] += 1;
-    postSynaptic["ASHL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 5;
-    postSynaptic["DVA"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 8;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RIML"].values[nextState] += 4;
-    postSynaptic["SMBDL"].values[nextState] += 9;
-    postSynaptic["SMBVL"].values[nextState] += 7;
-    postSynaptic["VB2"].values[nextState] += 1;
+    postSynaptic[nAIAL].values[nextState] += 3;
+    postSynaptic[nAIBL].values[nextState] += 2;
+    postSynaptic[nAIBR].values[nextState] += 8;
+    postSynaptic[nAIZR].values[nextState] += 2;
+    postSynaptic[nASEL].values[nextState] += 1;
+    postSynaptic[nASGL].values[nextState] += 1;
+    postSynaptic[nASHL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 5;
+    postSynaptic[nDVA].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 8;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRIML].values[nextState] += 4;
+    postSynaptic[nSMBDL].values[nextState] += 9;
+    postSynaptic[nSMBVL].values[nextState] += 7;
+    postSynaptic[nVB2].values[nextState] += 1;
 }
 
 void AIZR() {
-    postSynaptic["AIAR"].values[nextState] += 1;
-    postSynaptic["AIBL"].values[nextState] += 8;
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["AIZL"].values[nextState] += 2;
-    postSynaptic["ASGR"].values[nextState] += 1;
-    postSynaptic["ASHR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 4;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["AWAR"].values[nextState] += 1;
-    postSynaptic["DVA"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 7;
-    postSynaptic["RIMR"].values[nextState] += 4;
-    postSynaptic["SMBDR"].values[nextState] += 5;
-    postSynaptic["SMBVR"].values[nextState] += 3;
-    postSynaptic["SMDDR"].values[nextState] += 1;
+    postSynaptic[nAIAR].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 8;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nAIZL].values[nextState] += 2;
+    postSynaptic[nASGR].values[nextState] += 1;
+    postSynaptic[nASHR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 4;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nAWAR].values[nextState] += 1;
+    postSynaptic[nDVA].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 7;
+    postSynaptic[nRIMR].values[nextState] += 4;
+    postSynaptic[nSMBDR].values[nextState] += 5;
+    postSynaptic[nSMBVR].values[nextState] += 3;
+    postSynaptic[nSMDDR].values[nextState] += 1;
 }
 
 void ALA() {
-    postSynaptic["ADEL"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 2;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["RID"].values[nextState] += 1;
-    postSynaptic["RMDR"].values[nextState] += 1;
+    postSynaptic[nADEL].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 2;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nRID].values[nextState] += 1;
+    postSynaptic[nRMDR].values[nextState] += 1;
 }
 
 void ALML() {
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVM"].values[nextState] += 1;
-    postSynaptic["BDUL"].values[nextState] += 6;
-    postSynaptic["CEPDL"].values[nextState] += 3;
-    postSynaptic["CEPVL"].values[nextState] += 2;
-    postSynaptic["PVCL"].values[nextState] += 2;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["PVR"].values[nextState] += 1;
-    postSynaptic["RMDDR"].values[nextState] += 1;
-    postSynaptic["RMGL"].values[nextState] += 1;
-    postSynaptic["SDQL"].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVM].values[nextState] += 1;
+    postSynaptic[nBDUL].values[nextState] += 6;
+    postSynaptic[nCEPDL].values[nextState] += 3;
+    postSynaptic[nCEPVL].values[nextState] += 2;
+    postSynaptic[nPVCL].values[nextState] += 2;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nPVR].values[nextState] += 1;
+    postSynaptic[nRMDDR].values[nextState] += 1;
+    postSynaptic[nRMGL].values[nextState] += 1;
+    postSynaptic[nSDQL].values[nextState] += 1;
 }
 
 void ALMR() {
-    postSynaptic["AVM"].values[nextState] += 1;
-    postSynaptic["BDUR"].values[nextState] += 5;
-    postSynaptic["CEPDR"].values[nextState] += 1;
-    postSynaptic["CEPVR"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 3;
-    postSynaptic["RMDDL"].values[nextState] += 1;
-    postSynaptic["SIADL"].values[nextState] += 1;
+    postSynaptic[nAVM].values[nextState] += 1;
+    postSynaptic[nBDUR].values[nextState] += 5;
+    postSynaptic[nCEPDR].values[nextState] += 1;
+    postSynaptic[nCEPVR].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 3;
+    postSynaptic[nRMDDL].values[nextState] += 1;
+    postSynaptic[nSIADL].values[nextState] += 1;
 }
 
 void ALNL() {
-    postSynaptic["SAAVL"].values[nextState] += 3;
-    postSynaptic["SMBDR"].values[nextState] += 1;
-    postSynaptic["SMDVL"].values[nextState] += 1;
+    postSynaptic[nSAAVL].values[nextState] += 3;
+    postSynaptic[nSMBDR].values[nextState] += 1;
+    postSynaptic[nSMDVL].values[nextState] += 1;
 }
 
 void ALNR() {
-    postSynaptic["ADER"].values[nextState] += 1;
-    postSynaptic["RMHR"].values[nextState] += 1;
-    postSynaptic["SAAVR"].values[nextState] += 2;
-    postSynaptic["SMBDL"].values[nextState] += 2;
-    postSynaptic["SMDDR"].values[nextState] += 1;
-    postSynaptic["SMDVL"].values[nextState] += 1;
+    postSynaptic[nADER].values[nextState] += 1;
+    postSynaptic[nRMHR].values[nextState] += 1;
+    postSynaptic[nSAAVR].values[nextState] += 2;
+    postSynaptic[nSMBDL].values[nextState] += 2;
+    postSynaptic[nSMDDR].values[nextState] += 1;
+    postSynaptic[nSMDVL].values[nextState] += 1;
 }
 
 void AQR() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 3;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 4;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 2;
-    postSynaptic["AVKR"].values[nextState] += 1;
-    postSynaptic["BAGL"].values[nextState] += 2;
-    postSynaptic["BAGR"].values[nextState] += 2;
-    postSynaptic["PVCR"].values[nextState] += 2;
-    postSynaptic["PVPL"].values[nextState] += 7;
-    postSynaptic["PVPR"].values[nextState] += 9;
-    postSynaptic["RIAL"].values[nextState] += 3;
-    postSynaptic["RIAR"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 2;
-    postSynaptic["RIGR"].values[nextState] += 1;
-    postSynaptic["URXL"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 3;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 4;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 2;
+    postSynaptic[nAVKR].values[nextState] += 1;
+    postSynaptic[nBAGL].values[nextState] += 2;
+    postSynaptic[nBAGR].values[nextState] += 2;
+    postSynaptic[nPVCR].values[nextState] += 2;
+    postSynaptic[nPVPL].values[nextState] += 7;
+    postSynaptic[nPVPR].values[nextState] += 9;
+    postSynaptic[nRIAL].values[nextState] += 3;
+    postSynaptic[nRIAR].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 2;
+    postSynaptic[nRIGR].values[nextState] += 1;
+    postSynaptic[nURXL].values[nextState] += 1;
 }
 
 void AS1() {
-    postSynaptic["AVAL"].values[nextState] += 3;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["DA1"].values[nextState] += 2;
-    postSynaptic["MDL05"].values[nextState] += 3;
-    postSynaptic["MDL08"].values[nextState] += 3;
-    postSynaptic["MDR05"].values[nextState] += 3;
-    postSynaptic["MDR08"].values[nextState] += 4;
-    postSynaptic["VA3"].values[nextState] += 1;
-    postSynaptic["VD1"].values[nextState] += 5;
-    postSynaptic["VD2"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 3;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nDA1].values[nextState] += 2;
+    postSynaptic[nMDL05].values[nextState] += 3;
+    postSynaptic[nMDL08].values[nextState] += 3;
+    postSynaptic[nMDR05].values[nextState] += 3;
+    postSynaptic[nMDR08].values[nextState] += 4;
+    postSynaptic[nVA3].values[nextState] += 1;
+    postSynaptic[nVD1].values[nextState] += 5;
+    postSynaptic[nVD2].values[nextState] += 1;
 }
 
 void AS2() {
-    postSynaptic["DA2"].values[nextState] += 1;
-    postSynaptic["DB1"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 1;
-    postSynaptic["MDL07"].values[nextState] += 3;
-    postSynaptic["MDL08"].values[nextState] += 2;
-    postSynaptic["MDR07"].values[nextState] += 3;
-    postSynaptic["MDR08"].values[nextState] += 3;
-    postSynaptic["VA4"].values[nextState] += 2;
-    postSynaptic["VD2"].values[nextState] += 10;
+    postSynaptic[nDA2].values[nextState] += 1;
+    postSynaptic[nDB1].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 1;
+    postSynaptic[nMDL07].values[nextState] += 3;
+    postSynaptic[nMDL08].values[nextState] += 2;
+    postSynaptic[nMDR07].values[nextState] += 3;
+    postSynaptic[nMDR08].values[nextState] += 3;
+    postSynaptic[nVA4].values[nextState] += 2;
+    postSynaptic[nVD2].values[nextState] += 10;
 }
 
 void AS3() {
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["DA2"].values[nextState] += 1;
-    postSynaptic["DA3"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 1;
-    postSynaptic["MDL09"].values[nextState] += 3;
-    postSynaptic["MDL10"].values[nextState] += 3;
-    postSynaptic["MDR09"].values[nextState] += 3;
-    postSynaptic["MDR10"].values[nextState] += 3;
-    postSynaptic["VA5"].values[nextState] += 2;
-    postSynaptic["VD2"].values[nextState] += 1;
-    postSynaptic["VD3"].values[nextState] += 15;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nDA2].values[nextState] += 1;
+    postSynaptic[nDA3].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 1;
+    postSynaptic[nMDL09].values[nextState] += 3;
+    postSynaptic[nMDL10].values[nextState] += 3;
+    postSynaptic[nMDR09].values[nextState] += 3;
+    postSynaptic[nMDR10].values[nextState] += 3;
+    postSynaptic[nVA5].values[nextState] += 2;
+    postSynaptic[nVD2].values[nextState] += 1;
+    postSynaptic[nVD3].values[nextState] += 15;
 }
 
 void AS4() {
-    postSynaptic["AS5"].values[nextState] += 1;
-    postSynaptic["DA3"].values[nextState] += 1;
-    postSynaptic["MDL11"].values[nextState] += 2;
-    postSynaptic["MDL12"].values[nextState] += 2;
-    postSynaptic["MDR11"].values[nextState] += 3;
-    postSynaptic["MDR12"].values[nextState] += 2;
-    postSynaptic["VD4"].values[nextState] += 11;
+    postSynaptic[nAS5].values[nextState] += 1;
+    postSynaptic[nDA3].values[nextState] += 1;
+    postSynaptic[nMDL11].values[nextState] += 2;
+    postSynaptic[nMDL12].values[nextState] += 2;
+    postSynaptic[nMDR11].values[nextState] += 3;
+    postSynaptic[nMDR12].values[nextState] += 2;
+    postSynaptic[nVD4].values[nextState] += 11;
 }
 
 void AS5() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["DD2"].values[nextState] += 1;
-    postSynaptic["MDL11"].values[nextState] += 2;
-    postSynaptic["MDL14"].values[nextState] += 3;
-    postSynaptic["MDR11"].values[nextState] += 2;
-    postSynaptic["MDR14"].values[nextState] += 3;
-    postSynaptic["VA7"].values[nextState] += 1;
-    postSynaptic["VD5"].values[nextState] += 9;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nDD2].values[nextState] += 1;
+    postSynaptic[nMDL11].values[nextState] += 2;
+    postSynaptic[nMDL14].values[nextState] += 3;
+    postSynaptic[nMDR11].values[nextState] += 2;
+    postSynaptic[nMDR14].values[nextState] += 3;
+    postSynaptic[nVA7].values[nextState] += 1;
+    postSynaptic[nVD5].values[nextState] += 9;
 }
 
 void AS6() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DA5"].values[nextState] += 2;
-    postSynaptic["MDL13"].values[nextState] += 3;
-    postSynaptic["MDL14"].values[nextState] += 2;
-    postSynaptic["MDR13"].values[nextState] += 3;
-    postSynaptic["MDR14"].values[nextState] += 2;
-    postSynaptic["VA8"].values[nextState] += 1;
-    postSynaptic["VD6"].values[nextState] += 13;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDA5].values[nextState] += 2;
+    postSynaptic[nMDL13].values[nextState] += 3;
+    postSynaptic[nMDL14].values[nextState] += 2;
+    postSynaptic[nMDR13].values[nextState] += 3;
+    postSynaptic[nMDR14].values[nextState] += 2;
+    postSynaptic[nVA8].values[nextState] += 1;
+    postSynaptic[nVD6].values[nextState] += 13;
 }
 
 void AS7() {
-    postSynaptic["AVAL"].values[nextState] += 6;
-    postSynaptic["AVAR"].values[nextState] += 5;
-    postSynaptic["AVBL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["MDL13"].values[nextState] += 2;
-    postSynaptic["MDL16"].values[nextState] += 3;
-    postSynaptic["MDR13"].values[nextState] += 2;
-    postSynaptic["MDR16"].values[nextState] += 3;
+    postSynaptic[nAVAL].values[nextState] += 6;
+    postSynaptic[nAVAR].values[nextState] += 5;
+    postSynaptic[nAVBL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nMDL13].values[nextState] += 2;
+    postSynaptic[nMDL16].values[nextState] += 3;
+    postSynaptic[nMDR13].values[nextState] += 2;
+    postSynaptic[nMDR16].values[nextState] += 3;
 }
 
 void AS8() {
-    postSynaptic["AVAL"].values[nextState] += 4;
-    postSynaptic["AVAR"].values[nextState] += 3;
-    postSynaptic["MDL15"].values[nextState] += 2;
-    postSynaptic["MDL18"].values[nextState] += 3;
-    postSynaptic["MDR15"].values[nextState] += 2;
-    postSynaptic["MDR18"].values[nextState] += 3;
+    postSynaptic[nAVAL].values[nextState] += 4;
+    postSynaptic[nAVAR].values[nextState] += 3;
+    postSynaptic[nMDL15].values[nextState] += 2;
+    postSynaptic[nMDL18].values[nextState] += 3;
+    postSynaptic[nMDR15].values[nextState] += 2;
+    postSynaptic[nMDR18].values[nextState] += 3;
 }
 
 void AS9() {
-    postSynaptic["AVAL"].values[nextState] += 4;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["DVB"].values[nextState] += 7;
-    postSynaptic["MDL17"].values[nextState] += 2;
-    postSynaptic["MDL20"].values[nextState] += 3;
-    postSynaptic["MDR17"].values[nextState] += 2;
-    postSynaptic["MDR20"].values[nextState] += 3;
+    postSynaptic[nAVAL].values[nextState] += 4;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nDVB].values[nextState] += 7;
+    postSynaptic[nMDL17].values[nextState] += 2;
+    postSynaptic[nMDL20].values[nextState] += 3;
+    postSynaptic[nMDR17].values[nextState] += 2;
+    postSynaptic[nMDR20].values[nextState] += 3;
 }
 
 void AS10() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["MDL19"].values[nextState] += 3;
-    postSynaptic["MDL20"].values[nextState] += 2;
-    postSynaptic["MDR19"].values[nextState] += 3;
-    postSynaptic["MDR20"].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nMDL19].values[nextState] += 3;
+    postSynaptic[nMDL20].values[nextState] += 2;
+    postSynaptic[nMDR19].values[nextState] += 3;
+    postSynaptic[nMDR20].values[nextState] += 2;
 }
 
 void AS11() {
-    postSynaptic["MDL21"].values[nextState] += 1;
-    postSynaptic["MDL22"].values[nextState] += 1;
-    postSynaptic["MDL23"].values[nextState] += 1;
-    postSynaptic["MDL24"].values[nextState] += 1;
-    postSynaptic["MDR21"].values[nextState] += 1;
-    postSynaptic["MDR22"].values[nextState] += 1;
-    postSynaptic["MDR23"].values[nextState] += 1;
-    postSynaptic["MDR24"].values[nextState] += 1;
-    postSynaptic["PDA"].values[nextState] += 1;
-    postSynaptic["PDB"].values[nextState] += 2;
-    postSynaptic["VD13"].values[nextState] += 2;
+    postSynaptic[nMDL21].values[nextState] += 1;
+    postSynaptic[nMDL22].values[nextState] += 1;
+    postSynaptic[nMDL23].values[nextState] += 1;
+    postSynaptic[nMDL24].values[nextState] += 1;
+    postSynaptic[nMDR21].values[nextState] += 1;
+    postSynaptic[nMDR22].values[nextState] += 1;
+    postSynaptic[nMDR23].values[nextState] += 1;
+    postSynaptic[nMDR24].values[nextState] += 1;
+    postSynaptic[nPDA].values[nextState] += 1;
+    postSynaptic[nPDB].values[nextState] += 2;
+    postSynaptic[nVD13].values[nextState] += 2;
 }
 
 void ASEL() {
-    postSynaptic["ADFR"].values[nextState] += 1;
-    postSynaptic["AIAL"].values[nextState] += 3;
-    postSynaptic["AIBL"].values[nextState] += 7;
-    postSynaptic["AIBR"].values[nextState] += 2;
-    postSynaptic["AIYL"].values[nextState] += 13;
-    postSynaptic["AIYR"].values[nextState] += 6;
-    postSynaptic["AWCL"].values[nextState] += 4;
-    postSynaptic["AWCR"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 1;
+    postSynaptic[nADFR].values[nextState] += 1;
+    postSynaptic[nAIAL].values[nextState] += 3;
+    postSynaptic[nAIBL].values[nextState] += 7;
+    postSynaptic[nAIBR].values[nextState] += 2;
+    postSynaptic[nAIYL].values[nextState] += 13;
+    postSynaptic[nAIYR].values[nextState] += 6;
+    postSynaptic[nAWCL].values[nextState] += 4;
+    postSynaptic[nAWCR].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 1;
 }
 
 void ASER() {
-    postSynaptic["AFDL"].values[nextState] += 1;
-    postSynaptic["AFDR"].values[nextState] += 2;
-    postSynaptic["AIAL"].values[nextState] += 1;
-    postSynaptic["AIAR"].values[nextState] += 3;
-    postSynaptic["AIBL"].values[nextState] += 2;
-    postSynaptic["AIBR"].values[nextState] += 10;
-    postSynaptic["AIYL"].values[nextState] += 2;
-    postSynaptic["AIYR"].values[nextState] += 14;
-    postSynaptic["AWAR"].values[nextState] += 1;
-    postSynaptic["AWCL"].values[nextState] += 1;
-    postSynaptic["AWCR"].values[nextState] += 1;
+    postSynaptic[nAFDL].values[nextState] += 1;
+    postSynaptic[nAFDR].values[nextState] += 2;
+    postSynaptic[nAIAL].values[nextState] += 1;
+    postSynaptic[nAIAR].values[nextState] += 3;
+    postSynaptic[nAIBL].values[nextState] += 2;
+    postSynaptic[nAIBR].values[nextState] += 10;
+    postSynaptic[nAIYL].values[nextState] += 2;
+    postSynaptic[nAIYR].values[nextState] += 14;
+    postSynaptic[nAWAR].values[nextState] += 1;
+    postSynaptic[nAWCL].values[nextState] += 1;
+    postSynaptic[nAWCR].values[nextState] += 1;
 }
 
 void ASGL() {
-    postSynaptic["AIAL"].values[nextState] += 9;
-    postSynaptic["AIBL"].values[nextState] += 3;
-    postSynaptic["AINR"].values[nextState] += 2;
-    postSynaptic["AIZL"].values[nextState] += 1;
-    postSynaptic["ASKL"].values[nextState] += 1;
+    postSynaptic[nAIAL].values[nextState] += 9;
+    postSynaptic[nAIBL].values[nextState] += 3;
+    postSynaptic[nAINR].values[nextState] += 2;
+    postSynaptic[nAIZL].values[nextState] += 1;
+    postSynaptic[nASKL].values[nextState] += 1;
 }
 
 void ASGR() {
-    postSynaptic["AIAR"].values[nextState] += 10;
-    postSynaptic["AIBR"].values[nextState] += 2;
-    postSynaptic["AINL"].values[nextState] += 1;
-    postSynaptic["AIYR"].values[nextState] += 1;
-    postSynaptic["AIZR"].values[nextState] += 1;
+    postSynaptic[nAIAR].values[nextState] += 10;
+    postSynaptic[nAIBR].values[nextState] += 2;
+    postSynaptic[nAINL].values[nextState] += 1;
+    postSynaptic[nAIYR].values[nextState] += 1;
+    postSynaptic[nAIZR].values[nextState] += 1;
 }
 
 void ASHL() {
-    postSynaptic["ADAL"].values[nextState] += 2;
-    postSynaptic["ADFL"].values[nextState] += 3;
-    postSynaptic["AIAL"].values[nextState] += 7;
-    postSynaptic["AIBL"].values[nextState] += 5;
-    postSynaptic["AIZL"].values[nextState] += 1;
-    postSynaptic["ASHR"].values[nextState] += 1;
-    postSynaptic["ASKL"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 6;
-    postSynaptic["AVDL"].values[nextState] += 2;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["RIAL"].values[nextState] += 4;
-    postSynaptic["RICL"].values[nextState] += 2;
-    postSynaptic["RIML"].values[nextState] += 1;
-    postSynaptic["RIPL"].values[nextState] += 1;
-    postSynaptic["RMGL"].values[nextState] += 1;
+    postSynaptic[nADAL].values[nextState] += 2;
+    postSynaptic[nADFL].values[nextState] += 3;
+    postSynaptic[nAIAL].values[nextState] += 7;
+    postSynaptic[nAIBL].values[nextState] += 5;
+    postSynaptic[nAIZL].values[nextState] += 1;
+    postSynaptic[nASHR].values[nextState] += 1;
+    postSynaptic[nASKL].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 6;
+    postSynaptic[nAVDL].values[nextState] += 2;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nRIAL].values[nextState] += 4;
+    postSynaptic[nRICL].values[nextState] += 2;
+    postSynaptic[nRIML].values[nextState] += 1;
+    postSynaptic[nRIPL].values[nextState] += 1;
+    postSynaptic[nRMGL].values[nextState] += 1;
 }
 
 void ASHR() {
-    postSynaptic["ADAR"].values[nextState] += 3;
-    postSynaptic["ADFR"].values[nextState] += 2;
-    postSynaptic["AIAR"].values[nextState] += 10;
-    postSynaptic["AIBR"].values[nextState] += 3;
-    postSynaptic["AIZR"].values[nextState] += 1;
-    postSynaptic["ASHL"].values[nextState] += 1;
-    postSynaptic["ASKR"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 5;
-    postSynaptic["AVBR"].values[nextState] += 3;
-    postSynaptic["AVDL"].values[nextState] += 5;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 3;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["PVPR"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 2;
-    postSynaptic["RICR"].values[nextState] += 2;
-    postSynaptic["RMGR"].values[nextState] += 1;
+    postSynaptic[nADAR].values[nextState] += 3;
+    postSynaptic[nADFR].values[nextState] += 2;
+    postSynaptic[nAIAR].values[nextState] += 10;
+    postSynaptic[nAIBR].values[nextState] += 3;
+    postSynaptic[nAIZR].values[nextState] += 1;
+    postSynaptic[nASHL].values[nextState] += 1;
+    postSynaptic[nASKR].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 5;
+    postSynaptic[nAVBR].values[nextState] += 3;
+    postSynaptic[nAVDL].values[nextState] += 5;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 3;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nPVPR].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 2;
+    postSynaptic[nRICR].values[nextState] += 2;
+    postSynaptic[nRMGR].values[nextState] += 1;
 }
 
 void ASIL() {
-    postSynaptic["AIAL"].values[nextState] += 2;
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["AIYL"].values[nextState] += 2;
-    postSynaptic["AIZL"].values[nextState] += 1;
-    postSynaptic["ASER"].values[nextState] += 1;
-    postSynaptic["ASIR"].values[nextState] += 1;
-    postSynaptic["ASKL"].values[nextState] += 2;
-    postSynaptic["AWCL"].values[nextState] += 1;
-    postSynaptic["AWCR"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 1;
+    postSynaptic[nAIAL].values[nextState] += 2;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nAIYL].values[nextState] += 2;
+    postSynaptic[nAIZL].values[nextState] += 1;
+    postSynaptic[nASER].values[nextState] += 1;
+    postSynaptic[nASIR].values[nextState] += 1;
+    postSynaptic[nASKL].values[nextState] += 2;
+    postSynaptic[nAWCL].values[nextState] += 1;
+    postSynaptic[nAWCR].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 1;
 }
 
 void ASIR() {
-    postSynaptic["AIAL"].values[nextState] += 1;
-    postSynaptic["AIAR"].values[nextState] += 2;
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["ASEL"].values[nextState] += 2;
-    postSynaptic["ASHR"].values[nextState] += 1;
-    postSynaptic["ASIL"].values[nextState] += 1;
-    postSynaptic["AWCL"].values[nextState] += 1;
-    postSynaptic["AWCR"].values[nextState] += 1;
+    postSynaptic[nAIAL].values[nextState] += 1;
+    postSynaptic[nAIAR].values[nextState] += 2;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nASEL].values[nextState] += 2;
+    postSynaptic[nASHR].values[nextState] += 1;
+    postSynaptic[nASIL].values[nextState] += 1;
+    postSynaptic[nAWCL].values[nextState] += 1;
+    postSynaptic[nAWCR].values[nextState] += 1;
 }
 
 void ASJL() {
-    postSynaptic["ASJR"].values[nextState] += 1;
-    postSynaptic["ASKL"].values[nextState] += 4;
-    postSynaptic["HSNL"].values[nextState] += 1;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["PVQL"].values[nextState] += 14;
+    postSynaptic[nASJR].values[nextState] += 1;
+    postSynaptic[nASKL].values[nextState] += 4;
+    postSynaptic[nHSNL].values[nextState] += 1;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nPVQL].values[nextState] += 14;
 }
 
 void ASJR() {
-    postSynaptic["ASJL"].values[nextState] += 1;
-    postSynaptic["ASKR"].values[nextState] += 4;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["PVQR"].values[nextState] += 13;
+    postSynaptic[nASJL].values[nextState] += 1;
+    postSynaptic[nASKR].values[nextState] += 4;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nPVQR].values[nextState] += 13;
 }
 
 void ASKL() {
-    postSynaptic["AIAL"].values[nextState] += 11;
-    postSynaptic["AIBL"].values[nextState] += 2;
-    postSynaptic["AIML"].values[nextState] += 2;
-    postSynaptic["ASKR"].values[nextState] += 1;
-    postSynaptic["PVQL"].values[nextState] += 5;
-    postSynaptic["RMGL"].values[nextState] += 1;
+    postSynaptic[nAIAL].values[nextState] += 11;
+    postSynaptic[nAIBL].values[nextState] += 2;
+    postSynaptic[nAIML].values[nextState] += 2;
+    postSynaptic[nASKR].values[nextState] += 1;
+    postSynaptic[nPVQL].values[nextState] += 5;
+    postSynaptic[nRMGL].values[nextState] += 1;
 }
 
 void ASKR() {
-    postSynaptic["AIAR"].values[nextState] += 11;
-    postSynaptic["AIMR"].values[nextState] += 1;
-    postSynaptic["ASHR"].values[nextState] += 1;
-    postSynaptic["ASKL"].values[nextState] += 1;
-    postSynaptic["AWAR"].values[nextState] += 1;
-    postSynaptic["CEPVR"].values[nextState] += 1;
-    postSynaptic["PVQR"].values[nextState] += 4;
-    postSynaptic["RIFR"].values[nextState] += 1;
-    postSynaptic["RMGR"].values[nextState] += 1;
+    postSynaptic[nAIAR].values[nextState] += 11;
+    postSynaptic[nAIMR].values[nextState] += 1;
+    postSynaptic[nASHR].values[nextState] += 1;
+    postSynaptic[nASKL].values[nextState] += 1;
+    postSynaptic[nAWAR].values[nextState] += 1;
+    postSynaptic[nCEPVR].values[nextState] += 1;
+    postSynaptic[nPVQR].values[nextState] += 4;
+    postSynaptic[nRIFR].values[nextState] += 1;
+    postSynaptic[nRMGR].values[nextState] += 1;
 }
 
 void AUAL() {
-    postSynaptic["AINR"].values[nextState] += 1;
-    postSynaptic["AUAR"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 3;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 3;
-    postSynaptic["AWBL"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 5;
-    postSynaptic["RIBL"].values[nextState] += 9;
+    postSynaptic[nAINR].values[nextState] += 1;
+    postSynaptic[nAUAR].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 3;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 3;
+    postSynaptic[nAWBL].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 5;
+    postSynaptic[nRIBL].values[nextState] += 9;
 }
 
 void AUAR() {
-    postSynaptic["AINL"].values[nextState] += 1;
-    postSynaptic["AIYR"].values[nextState] += 1;
-    postSynaptic["AUAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 4;
-    postSynaptic["AWBR"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 6;
-    postSynaptic["RIBR"].values[nextState] += 13;
-    postSynaptic["URXR"].values[nextState] += 1;
+    postSynaptic[nAINL].values[nextState] += 1;
+    postSynaptic[nAIYR].values[nextState] += 1;
+    postSynaptic[nAUAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 4;
+    postSynaptic[nAWBR].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 6;
+    postSynaptic[nRIBR].values[nextState] += 13;
+    postSynaptic[nURXR].values[nextState] += 1;
 }
 
 void AVAL() {
-    postSynaptic["AS1"].values[nextState] += 3;
-    postSynaptic["AS10"].values[nextState] += 3;
-    postSynaptic["AS11"].values[nextState] += 4;
-    postSynaptic["AS2"].values[nextState] += 1;
-    postSynaptic["AS3"].values[nextState] += 3;
-    postSynaptic["AS4"].values[nextState] += 1;
-    postSynaptic["AS5"].values[nextState] += 4;
-    postSynaptic["AS6"].values[nextState] += 1;
-    postSynaptic["AS7"].values[nextState] += 14;
-    postSynaptic["AS8"].values[nextState] += 9;
-    postSynaptic["AS9"].values[nextState] += 12;
-    postSynaptic["AVAR"].values[nextState] += 7;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVHL"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 2;
-    postSynaptic["DA1"].values[nextState] += 4;
-    postSynaptic["DA2"].values[nextState] += 4;
-    postSynaptic["DA3"].values[nextState] += 6;
-    postSynaptic["DA4"].values[nextState] += 10;
-    postSynaptic["DA5"].values[nextState] += 8;
-    postSynaptic["DA6"].values[nextState] += 21;
-    postSynaptic["DA7"].values[nextState] += 4;
-    postSynaptic["DA8"].values[nextState] += 4;
-    postSynaptic["DA9"].values[nextState] += 3;
-    postSynaptic["DB5"].values[nextState] += 2;
-    postSynaptic["DB6"].values[nextState] += 4;
-    postSynaptic["FLPL"].values[nextState] += 1;
-    postSynaptic["LUAL"].values[nextState] += 2;
-    postSynaptic["PVCL"].values[nextState] += 12;
-    postSynaptic["PVCR"].values[nextState] += 11;
-    postSynaptic["PVPL"].values[nextState] += 1;
-    postSynaptic["RIMR"].values[nextState] += 3;
-    postSynaptic["SABD"].values[nextState] += 4;
-    postSynaptic["SABVR"].values[nextState] += 1;
-    postSynaptic["SDQR"].values[nextState] += 1;
-    postSynaptic["URYDL"].values[nextState] += 1;
-    postSynaptic["URYVR"].values[nextState] += 1;
-    postSynaptic["VA1"].values[nextState] += 3;
-    postSynaptic["VA10"].values[nextState] += 6;
-    postSynaptic["VA11"].values[nextState] += 7;
-    postSynaptic["VA12"].values[nextState] += 2;
-    postSynaptic["VA2"].values[nextState] += 5;
-    postSynaptic["VA3"].values[nextState] += 3;
-    postSynaptic["VA4"].values[nextState] += 3;
-    postSynaptic["VA5"].values[nextState] += 8;
-    postSynaptic["VA6"].values[nextState] += 10;
-    postSynaptic["VA7"].values[nextState] += 2;
-    postSynaptic["VA8"].values[nextState] += 19;
-    postSynaptic["VA9"].values[nextState] += 8;
-    postSynaptic["VB9"].values[nextState] += 5;
+    postSynaptic[nAS1].values[nextState] += 3;
+    postSynaptic[nAS10].values[nextState] += 3;
+    postSynaptic[nAS11].values[nextState] += 4;
+    postSynaptic[nAS2].values[nextState] += 1;
+    postSynaptic[nAS3].values[nextState] += 3;
+    postSynaptic[nAS4].values[nextState] += 1;
+    postSynaptic[nAS5].values[nextState] += 4;
+    postSynaptic[nAS6].values[nextState] += 1;
+    postSynaptic[nAS7].values[nextState] += 14;
+    postSynaptic[nAS8].values[nextState] += 9;
+    postSynaptic[nAS9].values[nextState] += 12;
+    postSynaptic[nAVAR].values[nextState] += 7;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVHL].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 2;
+    postSynaptic[nDA1].values[nextState] += 4;
+    postSynaptic[nDA2].values[nextState] += 4;
+    postSynaptic[nDA3].values[nextState] += 6;
+    postSynaptic[nDA4].values[nextState] += 10;
+    postSynaptic[nDA5].values[nextState] += 8;
+    postSynaptic[nDA6].values[nextState] += 21;
+    postSynaptic[nDA7].values[nextState] += 4;
+    postSynaptic[nDA8].values[nextState] += 4;
+    postSynaptic[nDA9].values[nextState] += 3;
+    postSynaptic[nDB5].values[nextState] += 2;
+    postSynaptic[nDB6].values[nextState] += 4;
+    postSynaptic[nFLPL].values[nextState] += 1;
+    postSynaptic[nLUAL].values[nextState] += 2;
+    postSynaptic[nPVCL].values[nextState] += 12;
+    postSynaptic[nPVCR].values[nextState] += 11;
+    postSynaptic[nPVPL].values[nextState] += 1;
+    postSynaptic[nRIMR].values[nextState] += 3;
+    postSynaptic[nSABD].values[nextState] += 4;
+    postSynaptic[nSABVR].values[nextState] += 1;
+    postSynaptic[nSDQR].values[nextState] += 1;
+    postSynaptic[nURYDL].values[nextState] += 1;
+    postSynaptic[nURYVR].values[nextState] += 1;
+    postSynaptic[nVA1].values[nextState] += 3;
+    postSynaptic[nVA10].values[nextState] += 6;
+    postSynaptic[nVA11].values[nextState] += 7;
+    postSynaptic[nVA12].values[nextState] += 2;
+    postSynaptic[nVA2].values[nextState] += 5;
+    postSynaptic[nVA3].values[nextState] += 3;
+    postSynaptic[nVA4].values[nextState] += 3;
+    postSynaptic[nVA5].values[nextState] += 8;
+    postSynaptic[nVA6].values[nextState] += 10;
+    postSynaptic[nVA7].values[nextState] += 2;
+    postSynaptic[nVA8].values[nextState] += 19;
+    postSynaptic[nVA9].values[nextState] += 8;
+    postSynaptic[nVB9].values[nextState] += 5;
 }
 
 void AVAR() {
-    postSynaptic["ADER"].values[nextState] += 1;
-    postSynaptic["AS1"].values[nextState] += 3;
-    postSynaptic["AS10"].values[nextState] += 2;
-    postSynaptic["AS11"].values[nextState] += 6;
-    postSynaptic["AS2"].values[nextState] += 2;
-    postSynaptic["AS3"].values[nextState] += 2;
-    postSynaptic["AS4"].values[nextState] += 1;
-    postSynaptic["AS5"].values[nextState] += 2;
-    postSynaptic["AS6"].values[nextState] += 3;
-    postSynaptic["AS7"].values[nextState] += 8;
-    postSynaptic["AS8"].values[nextState] += 9;
-    postSynaptic["AS9"].values[nextState] += 6;
-    postSynaptic["AVAL"].values[nextState] += 6;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["AVEL"].values[nextState] += 2;
-    postSynaptic["AVER"].values[nextState] += 2;
-    postSynaptic["DA1"].values[nextState] += 8;
-    postSynaptic["DA2"].values[nextState] += 4;
-    postSynaptic["DA3"].values[nextState] += 5;
-    postSynaptic["DA4"].values[nextState] += 8;
-    postSynaptic["DA5"].values[nextState] += 7;
-    postSynaptic["DA6"].values[nextState] += 13;
-    postSynaptic["DA7"].values[nextState] += 3;
-    postSynaptic["DA8"].values[nextState] += 9;
-    postSynaptic["DA9"].values[nextState] += 2;
-    postSynaptic["DB3"].values[nextState] += 1;
-    postSynaptic["DB5"].values[nextState] += 3;
-    postSynaptic["DB6"].values[nextState] += 5;
-    postSynaptic["LUAL"].values[nextState] += 1;
-    postSynaptic["LUAR"].values[nextState] += 3;
-    postSynaptic["PDEL"].values[nextState] += 1;
-    postSynaptic["PDER"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 7;
-    postSynaptic["PVCR"].values[nextState] += 8;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RIML"].values[nextState] += 2;
-    postSynaptic["RIMR"].values[nextState] += 1;
-    postSynaptic["SABD"].values[nextState] += 1;
-    postSynaptic["SABVL"].values[nextState] += 6;
-    postSynaptic["SABVR"].values[nextState] += 1;
-    postSynaptic["URYDR"].values[nextState] += 1;
-    postSynaptic["URYVL"].values[nextState] += 1;
-    postSynaptic["VA10"].values[nextState] += 5;
-    postSynaptic["VA11"].values[nextState] += 15;
-    postSynaptic["VA12"].values[nextState] += 1;
-    postSynaptic["VA2"].values[nextState] += 2;
-    postSynaptic["VA3"].values[nextState] += 7;
-    postSynaptic["VA4"].values[nextState] += 5;
-    postSynaptic["VA5"].values[nextState] += 4;
-    postSynaptic["VA6"].values[nextState] += 5;
-    postSynaptic["VA7"].values[nextState] += 4;
-    postSynaptic["VA8"].values[nextState] += 16;
-    postSynaptic["VB9"].values[nextState] += 10;
-    postSynaptic["VD13"].values[nextState] += 2;
+    postSynaptic[nADER].values[nextState] += 1;
+    postSynaptic[nAS1].values[nextState] += 3;
+    postSynaptic[nAS10].values[nextState] += 2;
+    postSynaptic[nAS11].values[nextState] += 6;
+    postSynaptic[nAS2].values[nextState] += 2;
+    postSynaptic[nAS3].values[nextState] += 2;
+    postSynaptic[nAS4].values[nextState] += 1;
+    postSynaptic[nAS5].values[nextState] += 2;
+    postSynaptic[nAS6].values[nextState] += 3;
+    postSynaptic[nAS7].values[nextState] += 8;
+    postSynaptic[nAS8].values[nextState] += 9;
+    postSynaptic[nAS9].values[nextState] += 6;
+    postSynaptic[nAVAL].values[nextState] += 6;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 2;
+    postSynaptic[nAVER].values[nextState] += 2;
+    postSynaptic[nDA1].values[nextState] += 8;
+    postSynaptic[nDA2].values[nextState] += 4;
+    postSynaptic[nDA3].values[nextState] += 5;
+    postSynaptic[nDA4].values[nextState] += 8;
+    postSynaptic[nDA5].values[nextState] += 7;
+    postSynaptic[nDA6].values[nextState] += 13;
+    postSynaptic[nDA7].values[nextState] += 3;
+    postSynaptic[nDA8].values[nextState] += 9;
+    postSynaptic[nDA9].values[nextState] += 2;
+    postSynaptic[nDB3].values[nextState] += 1;
+    postSynaptic[nDB5].values[nextState] += 3;
+    postSynaptic[nDB6].values[nextState] += 5;
+    postSynaptic[nLUAL].values[nextState] += 1;
+    postSynaptic[nLUAR].values[nextState] += 3;
+    postSynaptic[nPDEL].values[nextState] += 1;
+    postSynaptic[nPDER].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 7;
+    postSynaptic[nPVCR].values[nextState] += 8;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRIML].values[nextState] += 2;
+    postSynaptic[nRIMR].values[nextState] += 1;
+    postSynaptic[nSABD].values[nextState] += 1;
+    postSynaptic[nSABVL].values[nextState] += 6;
+    postSynaptic[nSABVR].values[nextState] += 1;
+    postSynaptic[nURYDR].values[nextState] += 1;
+    postSynaptic[nURYVL].values[nextState] += 1;
+    postSynaptic[nVA10].values[nextState] += 5;
+    postSynaptic[nVA11].values[nextState] += 15;
+    postSynaptic[nVA12].values[nextState] += 1;
+    postSynaptic[nVA2].values[nextState] += 2;
+    postSynaptic[nVA3].values[nextState] += 7;
+    postSynaptic[nVA4].values[nextState] += 5;
+    postSynaptic[nVA5].values[nextState] += 4;
+    postSynaptic[nVA6].values[nextState] += 5;
+    postSynaptic[nVA7].values[nextState] += 4;
+    postSynaptic[nVA8].values[nextState] += 16;
+    postSynaptic[nVB9].values[nextState] += 10;
+    postSynaptic[nVD13].values[nextState] += 2;
 }
 
 void AVBL() {
-    postSynaptic["AQR"].values[nextState] += 1;
-    postSynaptic["AS10"].values[nextState] += 1;
-    postSynaptic["AS3"].values[nextState] += 1;
-    postSynaptic["AS4"].values[nextState] += 1;
-    postSynaptic["AS5"].values[nextState] += 1;
-    postSynaptic["AS6"].values[nextState] += 1;
-    postSynaptic["AS7"].values[nextState] += 2;
-    postSynaptic["AS9"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 7;
-    postSynaptic["AVAR"].values[nextState] += 7;
-    postSynaptic["AVBR"].values[nextState] += 4;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 2;
-    postSynaptic["AVL"].values[nextState] += 1;
-    postSynaptic["DB3"].values[nextState] += 1;
-    postSynaptic["DB4"].values[nextState] += 1;
-    postSynaptic["DB5"].values[nextState] += 1;
-    postSynaptic["DB6"].values[nextState] += 2;
-    postSynaptic["DB7"].values[nextState] += 2;
-    postSynaptic["DVA"].values[nextState] += 1;
-    postSynaptic["PVNR"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RID"].values[nextState] += 1;
-    postSynaptic["SDQR"].values[nextState] += 1;
-    postSynaptic["SIBVL"].values[nextState] += 1;
-    postSynaptic["VA10"].values[nextState] += 1;
-    postSynaptic["VA2"].values[nextState] += 1;
-    postSynaptic["VA7"].values[nextState] += 1;
-    postSynaptic["VB1"].values[nextState] += 1;
-    postSynaptic["VB10"].values[nextState] += 2;
-    postSynaptic["VB11"].values[nextState] += 2;
-    postSynaptic["VB2"].values[nextState] += 4;
-    postSynaptic["VB4"].values[nextState] += 1;
-    postSynaptic["VB5"].values[nextState] += 1;
-    postSynaptic["VB6"].values[nextState] += 1;
-    postSynaptic["VB7"].values[nextState] += 2;
-    postSynaptic["VB8"].values[nextState] += 7;
-    postSynaptic["VB9"].values[nextState] += 1;
-    postSynaptic["VC3"].values[nextState] += 1;
+    postSynaptic[nAQR].values[nextState] += 1;
+    postSynaptic[nAS10].values[nextState] += 1;
+    postSynaptic[nAS3].values[nextState] += 1;
+    postSynaptic[nAS4].values[nextState] += 1;
+    postSynaptic[nAS5].values[nextState] += 1;
+    postSynaptic[nAS6].values[nextState] += 1;
+    postSynaptic[nAS7].values[nextState] += 2;
+    postSynaptic[nAS9].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 7;
+    postSynaptic[nAVAR].values[nextState] += 7;
+    postSynaptic[nAVBR].values[nextState] += 4;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 2;
+    postSynaptic[nAVL].values[nextState] += 1;
+    postSynaptic[nDB3].values[nextState] += 1;
+    postSynaptic[nDB4].values[nextState] += 1;
+    postSynaptic[nDB5].values[nextState] += 1;
+    postSynaptic[nDB6].values[nextState] += 2;
+    postSynaptic[nDB7].values[nextState] += 2;
+    postSynaptic[nDVA].values[nextState] += 1;
+    postSynaptic[nPVNR].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRID].values[nextState] += 1;
+    postSynaptic[nSDQR].values[nextState] += 1;
+    postSynaptic[nSIBVL].values[nextState] += 1;
+    postSynaptic[nVA10].values[nextState] += 1;
+    postSynaptic[nVA2].values[nextState] += 1;
+    postSynaptic[nVA7].values[nextState] += 1;
+    postSynaptic[nVB1].values[nextState] += 1;
+    postSynaptic[nVB10].values[nextState] += 2;
+    postSynaptic[nVB11].values[nextState] += 2;
+    postSynaptic[nVB2].values[nextState] += 4;
+    postSynaptic[nVB4].values[nextState] += 1;
+    postSynaptic[nVB5].values[nextState] += 1;
+    postSynaptic[nVB6].values[nextState] += 1;
+    postSynaptic[nVB7].values[nextState] += 2;
+    postSynaptic[nVB8].values[nextState] += 7;
+    postSynaptic[nVB9].values[nextState] += 1;
+    postSynaptic[nVC3].values[nextState] += 1;
 }
 
 void AVBR() {
-    postSynaptic["AS1"].values[nextState] += 1;
-    postSynaptic["AS10"].values[nextState] += 1;
-    postSynaptic["AS3"].values[nextState] += 1;
-    postSynaptic["AS4"].values[nextState] += 1;
-    postSynaptic["AS5"].values[nextState] += 1;
-    postSynaptic["AS6"].values[nextState] += 2;
-    postSynaptic["AS7"].values[nextState] += 3;
-    postSynaptic["AVAL"].values[nextState] += 6;
-    postSynaptic["AVAR"].values[nextState] += 7;
-    postSynaptic["AVBL"].values[nextState] += 4;
-    postSynaptic["DA5"].values[nextState] += 1;
-    postSynaptic["DB1"].values[nextState] += 3;
-    postSynaptic["DB2"].values[nextState] += 1;
-    postSynaptic["DB3"].values[nextState] += 1;
-    postSynaptic["DB4"].values[nextState] += 1;
-    postSynaptic["DB5"].values[nextState] += 1;
-    postSynaptic["DB6"].values[nextState] += 1;
-    postSynaptic["DB7"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 1;
-    postSynaptic["DVA"].values[nextState] += 1;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["PVNL"].values[nextState] += 2;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RID"].values[nextState] += 2;
-    postSynaptic["SIBVL"].values[nextState] += 1;
-    postSynaptic["VA4"].values[nextState] += 1;
-    postSynaptic["VA8"].values[nextState] += 1;
-    postSynaptic["VA9"].values[nextState] += 2;
-    postSynaptic["VB10"].values[nextState] += 1;
-    postSynaptic["VB11"].values[nextState] += 1;
-    postSynaptic["VB2"].values[nextState] += 1;
-    postSynaptic["VB3"].values[nextState] += 1;
-    postSynaptic["VB4"].values[nextState] += 1;
-    postSynaptic["VB6"].values[nextState] += 2;
-    postSynaptic["VB7"].values[nextState] += 2;
-    postSynaptic["VB8"].values[nextState] += 3;
-    postSynaptic["VB9"].values[nextState] += 6;
-    postSynaptic["VD10"].values[nextState] += 1;
-    postSynaptic["VD3"].values[nextState] += 1;
+    postSynaptic[nAS1].values[nextState] += 1;
+    postSynaptic[nAS10].values[nextState] += 1;
+    postSynaptic[nAS3].values[nextState] += 1;
+    postSynaptic[nAS4].values[nextState] += 1;
+    postSynaptic[nAS5].values[nextState] += 1;
+    postSynaptic[nAS6].values[nextState] += 2;
+    postSynaptic[nAS7].values[nextState] += 3;
+    postSynaptic[nAVAL].values[nextState] += 6;
+    postSynaptic[nAVAR].values[nextState] += 7;
+    postSynaptic[nAVBL].values[nextState] += 4;
+    postSynaptic[nDA5].values[nextState] += 1;
+    postSynaptic[nDB1].values[nextState] += 3;
+    postSynaptic[nDB2].values[nextState] += 1;
+    postSynaptic[nDB3].values[nextState] += 1;
+    postSynaptic[nDB4].values[nextState] += 1;
+    postSynaptic[nDB5].values[nextState] += 1;
+    postSynaptic[nDB6].values[nextState] += 1;
+    postSynaptic[nDB7].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 1;
+    postSynaptic[nDVA].values[nextState] += 1;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nPVNL].values[nextState] += 2;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRID].values[nextState] += 2;
+    postSynaptic[nSIBVL].values[nextState] += 1;
+    postSynaptic[nVA4].values[nextState] += 1;
+    postSynaptic[nVA8].values[nextState] += 1;
+    postSynaptic[nVA9].values[nextState] += 2;
+    postSynaptic[nVB10].values[nextState] += 1;
+    postSynaptic[nVB11].values[nextState] += 1;
+    postSynaptic[nVB2].values[nextState] += 1;
+    postSynaptic[nVB3].values[nextState] += 1;
+    postSynaptic[nVB4].values[nextState] += 1;
+    postSynaptic[nVB6].values[nextState] += 2;
+    postSynaptic[nVB7].values[nextState] += 2;
+    postSynaptic[nVB8].values[nextState] += 3;
+    postSynaptic[nVB9].values[nextState] += 6;
+    postSynaptic[nVD10].values[nextState] += 1;
+    postSynaptic[nVD3].values[nextState] += 1;
 }
 
 void AVDL() {
-    postSynaptic["ADAR"].values[nextState] += 2;
-    postSynaptic["AS1"].values[nextState] += 1;
-    postSynaptic["AS10"].values[nextState] += 1;
-    postSynaptic["AS11"].values[nextState] += 2;
-    postSynaptic["AS4"].values[nextState] += 1;
-    postSynaptic["AS5"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 13;
-    postSynaptic["AVAR"].values[nextState] += 19;
-    postSynaptic["AVM"].values[nextState] += 2;
-    postSynaptic["DA1"].values[nextState] += 1;
-    postSynaptic["DA2"].values[nextState] += 1;
-    postSynaptic["DA3"].values[nextState] += 4;
-    postSynaptic["DA4"].values[nextState] += 1;
-    postSynaptic["DA5"].values[nextState] += 1;
-    postSynaptic["DA8"].values[nextState] += 1;
-    postSynaptic["FLPL"].values[nextState] += 1;
-    postSynaptic["FLPR"].values[nextState] += 1;
-    postSynaptic["LUAL"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["SABD"].values[nextState] += 1;
-    postSynaptic["SABVL"].values[nextState] += 1;
-    postSynaptic["SABVR"].values[nextState] += 1;
-    postSynaptic["VA5"].values[nextState] += 1;
+    postSynaptic[nADAR].values[nextState] += 2;
+    postSynaptic[nAS1].values[nextState] += 1;
+    postSynaptic[nAS10].values[nextState] += 1;
+    postSynaptic[nAS11].values[nextState] += 2;
+    postSynaptic[nAS4].values[nextState] += 1;
+    postSynaptic[nAS5].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 13;
+    postSynaptic[nAVAR].values[nextState] += 19;
+    postSynaptic[nAVM].values[nextState] += 2;
+    postSynaptic[nDA1].values[nextState] += 1;
+    postSynaptic[nDA2].values[nextState] += 1;
+    postSynaptic[nDA3].values[nextState] += 4;
+    postSynaptic[nDA4].values[nextState] += 1;
+    postSynaptic[nDA5].values[nextState] += 1;
+    postSynaptic[nDA8].values[nextState] += 1;
+    postSynaptic[nFLPL].values[nextState] += 1;
+    postSynaptic[nFLPR].values[nextState] += 1;
+    postSynaptic[nLUAL].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nSABD].values[nextState] += 1;
+    postSynaptic[nSABVL].values[nextState] += 1;
+    postSynaptic[nSABVR].values[nextState] += 1;
+    postSynaptic[nVA5].values[nextState] += 1;
 }
 
 void AVDR() {
-    postSynaptic["ADAL"].values[nextState] += 2;
-    postSynaptic["ADLL"].values[nextState] += 1;
-    postSynaptic["AS10"].values[nextState] += 1;
-    postSynaptic["AS5"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 16;
-    postSynaptic["AVAR"].values[nextState] += 15;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVDL"].values[nextState] += 2;
-    postSynaptic["AVJL"].values[nextState] += 2;
-    postSynaptic["DA1"].values[nextState] += 2;
-    postSynaptic["DA2"].values[nextState] += 1;
-    postSynaptic["DA3"].values[nextState] += 1;
-    postSynaptic["DA4"].values[nextState] += 1;
-    postSynaptic["DA5"].values[nextState] += 2;
-    postSynaptic["DA8"].values[nextState] += 1;
-    postSynaptic["DA9"].values[nextState] += 1;
-    postSynaptic["DB4"].values[nextState] += 1;
-    postSynaptic["DVC"].values[nextState] += 1;
-    postSynaptic["FLPR"].values[nextState] += 1;
-    postSynaptic["LUAL"].values[nextState] += 2;
-    postSynaptic["PQR"].values[nextState] += 1;
-    postSynaptic["SABD"].values[nextState] += 1;
-    postSynaptic["SABVL"].values[nextState] += 3;
-    postSynaptic["SABVR"].values[nextState] += 1;
-    postSynaptic["VA11"].values[nextState] += 1;
-    postSynaptic["VA2"].values[nextState] += 1;
-    postSynaptic["VA3"].values[nextState] += 2;
-    postSynaptic["VA6"].values[nextState] += 1;
+    postSynaptic[nADAL].values[nextState] += 2;
+    postSynaptic[nADLL].values[nextState] += 1;
+    postSynaptic[nAS10].values[nextState] += 1;
+    postSynaptic[nAS5].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 16;
+    postSynaptic[nAVAR].values[nextState] += 15;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVDL].values[nextState] += 2;
+    postSynaptic[nAVJL].values[nextState] += 2;
+    postSynaptic[nDA1].values[nextState] += 2;
+    postSynaptic[nDA2].values[nextState] += 1;
+    postSynaptic[nDA3].values[nextState] += 1;
+    postSynaptic[nDA4].values[nextState] += 1;
+    postSynaptic[nDA5].values[nextState] += 2;
+    postSynaptic[nDA8].values[nextState] += 1;
+    postSynaptic[nDA9].values[nextState] += 1;
+    postSynaptic[nDB4].values[nextState] += 1;
+    postSynaptic[nDVC].values[nextState] += 1;
+    postSynaptic[nFLPR].values[nextState] += 1;
+    postSynaptic[nLUAL].values[nextState] += 2;
+    postSynaptic[nPQR].values[nextState] += 1;
+    postSynaptic[nSABD].values[nextState] += 1;
+    postSynaptic[nSABVL].values[nextState] += 3;
+    postSynaptic[nSABVR].values[nextState] += 1;
+    postSynaptic[nVA11].values[nextState] += 1;
+    postSynaptic[nVA2].values[nextState] += 1;
+    postSynaptic[nVA3].values[nextState] += 2;
+    postSynaptic[nVA6].values[nextState] += 1;
 }
 
 void AVEL() {
-    postSynaptic["AS1"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 12;
-    postSynaptic["AVAR"].values[nextState] += 7;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["DA1"].values[nextState] += 5;
-    postSynaptic["DA2"].values[nextState] += 1;
-    postSynaptic["DA3"].values[nextState] += 3;
-    postSynaptic["DA4"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["RIML"].values[nextState] += 2;
-    postSynaptic["RIMR"].values[nextState] += 3;
-    postSynaptic["RMDVR"].values[nextState] += 1;
-    postSynaptic["RMEV"].values[nextState] += 1;
-    postSynaptic["SABD"].values[nextState] += 6;
-    postSynaptic["SABVL"].values[nextState] += 7;
-    postSynaptic["SABVR"].values[nextState] += 3;
-    postSynaptic["VA1"].values[nextState] += 5;
-    postSynaptic["VA3"].values[nextState] += 3;
-    postSynaptic["VD2"].values[nextState] += 1;
-    postSynaptic["VD3"].values[nextState] += 1;
+    postSynaptic[nAS1].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 12;
+    postSynaptic[nAVAR].values[nextState] += 7;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nDA1].values[nextState] += 5;
+    postSynaptic[nDA2].values[nextState] += 1;
+    postSynaptic[nDA3].values[nextState] += 3;
+    postSynaptic[nDA4].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nRIML].values[nextState] += 2;
+    postSynaptic[nRIMR].values[nextState] += 3;
+    postSynaptic[nRMDVR].values[nextState] += 1;
+    postSynaptic[nRMEV].values[nextState] += 1;
+    postSynaptic[nSABD].values[nextState] += 6;
+    postSynaptic[nSABVL].values[nextState] += 7;
+    postSynaptic[nSABVR].values[nextState] += 3;
+    postSynaptic[nVA1].values[nextState] += 5;
+    postSynaptic[nVA3].values[nextState] += 3;
+    postSynaptic[nVD2].values[nextState] += 1;
+    postSynaptic[nVD3].values[nextState] += 1;
 }
 
 void AVER() {
-    postSynaptic["AS1"].values[nextState] += 3;
-    postSynaptic["AS2"].values[nextState] += 2;
-    postSynaptic["AS3"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 7;
-    postSynaptic["AVAR"].values[nextState] += 16;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["DA1"].values[nextState] += 5;
-    postSynaptic["DA2"].values[nextState] += 3;
-    postSynaptic["DA3"].values[nextState] += 1;
-    postSynaptic["DB3"].values[nextState] += 1;
-    postSynaptic["RIML"].values[nextState] += 3;
-    postSynaptic["RIMR"].values[nextState] += 2;
-    postSynaptic["RMDVL"].values[nextState] += 1;
-    postSynaptic["RMDVR"].values[nextState] += 1;
-    postSynaptic["RMEV"].values[nextState] += 1;
-    postSynaptic["SABD"].values[nextState] += 2;
-    postSynaptic["SABVL"].values[nextState] += 3;
-    postSynaptic["SABVR"].values[nextState] += 3;
-    postSynaptic["VA1"].values[nextState] += 1;
-    postSynaptic["VA2"].values[nextState] += 1;
-    postSynaptic["VA3"].values[nextState] += 2;
-    postSynaptic["VA4"].values[nextState] += 1;
-    postSynaptic["VA5"].values[nextState] += 1;
+    postSynaptic[nAS1].values[nextState] += 3;
+    postSynaptic[nAS2].values[nextState] += 2;
+    postSynaptic[nAS3].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 7;
+    postSynaptic[nAVAR].values[nextState] += 16;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nDA1].values[nextState] += 5;
+    postSynaptic[nDA2].values[nextState] += 3;
+    postSynaptic[nDA3].values[nextState] += 1;
+    postSynaptic[nDB3].values[nextState] += 1;
+    postSynaptic[nRIML].values[nextState] += 3;
+    postSynaptic[nRIMR].values[nextState] += 2;
+    postSynaptic[nRMDVL].values[nextState] += 1;
+    postSynaptic[nRMDVR].values[nextState] += 1;
+    postSynaptic[nRMEV].values[nextState] += 1;
+    postSynaptic[nSABD].values[nextState] += 2;
+    postSynaptic[nSABVL].values[nextState] += 3;
+    postSynaptic[nSABVR].values[nextState] += 3;
+    postSynaptic[nVA1].values[nextState] += 1;
+    postSynaptic[nVA2].values[nextState] += 1;
+    postSynaptic[nVA3].values[nextState] += 2;
+    postSynaptic[nVA4].values[nextState] += 1;
+    postSynaptic[nVA5].values[nextState] += 1;
 }
 
 void AVFL() {
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["AVFR"].values[nextState] += 30;
-    postSynaptic["AVG"].values[nextState] += 1;
-    postSynaptic["AVHL"].values[nextState] += 4;
-    postSynaptic["AVHR"].values[nextState] += 7;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AVJR"].values[nextState] += 1;
-    postSynaptic["AVL"].values[nextState] += 1;
-    postSynaptic["HSNL"].values[nextState] += 1;
-    postSynaptic["MVL11"].values[nextState] += 1;
-    postSynaptic["MVL12"].values[nextState] += 1;
-    postSynaptic["PDER"].values[nextState] += 1;
-    postSynaptic["PVNL"].values[nextState] += 2;
-    postSynaptic["PVQL"].values[nextState] += 1;
-    postSynaptic["PVQR"].values[nextState] += 2;
-    postSynaptic["VB1"].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nAVFR].values[nextState] += 30;
+    postSynaptic[nAVG].values[nextState] += 1;
+    postSynaptic[nAVHL].values[nextState] += 4;
+    postSynaptic[nAVHR].values[nextState] += 7;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAVJR].values[nextState] += 1;
+    postSynaptic[nAVL].values[nextState] += 1;
+    postSynaptic[nHSNL].values[nextState] += 1;
+    postSynaptic[nMVL11].values[nextState] += 1;
+    postSynaptic[nMVL12].values[nextState] += 1;
+    postSynaptic[nPDER].values[nextState] += 1;
+    postSynaptic[nPVNL].values[nextState] += 2;
+    postSynaptic[nPVQL].values[nextState] += 1;
+    postSynaptic[nPVQR].values[nextState] += 2;
+    postSynaptic[nVB1].values[nextState] += 1;
 }
 
 void AVFR() {
-    postSynaptic["ASJL"].values[nextState] += 1;
-    postSynaptic["ASKL"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 5;
-    postSynaptic["AVFL"].values[nextState] += 24;
-    postSynaptic["AVHL"].values[nextState] += 4;
-    postSynaptic["AVHR"].values[nextState] += 2;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AVJR"].values[nextState] += 1;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["MVL14"].values[nextState] += 2;
-    postSynaptic["MVR14"].values[nextState] += 2;
-    postSynaptic["PVQL"].values[nextState] += 1;
-    postSynaptic["VC4"].values[nextState] += 1;
-    postSynaptic["VD11"].values[nextState] += 1;
+    postSynaptic[nASJL].values[nextState] += 1;
+    postSynaptic[nASKL].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 5;
+    postSynaptic[nAVFL].values[nextState] += 24;
+    postSynaptic[nAVHL].values[nextState] += 4;
+    postSynaptic[nAVHR].values[nextState] += 2;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAVJR].values[nextState] += 1;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nMVL14].values[nextState] += 2;
+    postSynaptic[nMVR14].values[nextState] += 2;
+    postSynaptic[nPVQL].values[nextState] += 1;
+    postSynaptic[nVC4].values[nextState] += 1;
+    postSynaptic[nVD11].values[nextState] += 1;
 }
 
 void AVG() {
-    postSynaptic["AVAR"].values[nextState] += 3;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["AVFL"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AVL"].values[nextState] += 1;
-    postSynaptic["DA8"].values[nextState] += 1;
-    postSynaptic["PHAL"].values[nextState] += 2;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["PVNR"].values[nextState] += 1;
-    postSynaptic["PVPR"].values[nextState] += 1;
-    postSynaptic["PVQR"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["RIFL"].values[nextState] += 1;
-    postSynaptic["RIFR"].values[nextState] += 1;
-    postSynaptic["VA11"].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 3;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nAVFL].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAVL].values[nextState] += 1;
+    postSynaptic[nDA8].values[nextState] += 1;
+    postSynaptic[nPHAL].values[nextState] += 2;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nPVNR].values[nextState] += 1;
+    postSynaptic[nPVPR].values[nextState] += 1;
+    postSynaptic[nPVQR].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nRIFL].values[nextState] += 1;
+    postSynaptic[nRIFR].values[nextState] += 1;
+    postSynaptic[nVA11].values[nextState] += 1;
 }
 
 void AVHL() {
-    postSynaptic["ADFR"].values[nextState] += 3;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVFL"].values[nextState] += 2;
-    postSynaptic["AVFR"].values[nextState] += 5;
-    postSynaptic["AVHR"].values[nextState] += 2;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AWBR"].values[nextState] += 1;
-    postSynaptic["PHBR"].values[nextState] += 1;
-    postSynaptic["PVPR"].values[nextState] += 2;
-    postSynaptic["PVQL"].values[nextState] += 1;
-    postSynaptic["PVQR"].values[nextState] += 2;
-    postSynaptic["RIMR"].values[nextState] += 1;
-    postSynaptic["RIR"].values[nextState] += 3;
-    postSynaptic["SMBDR"].values[nextState] += 1;
-    postSynaptic["SMBVR"].values[nextState] += 1;
-    postSynaptic["VD1"].values[nextState] += 1;
+    postSynaptic[nADFR].values[nextState] += 3;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVFL].values[nextState] += 2;
+    postSynaptic[nAVFR].values[nextState] += 5;
+    postSynaptic[nAVHR].values[nextState] += 2;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAWBR].values[nextState] += 1;
+    postSynaptic[nPHBR].values[nextState] += 1;
+    postSynaptic[nPVPR].values[nextState] += 2;
+    postSynaptic[nPVQL].values[nextState] += 1;
+    postSynaptic[nPVQR].values[nextState] += 2;
+    postSynaptic[nRIMR].values[nextState] += 1;
+    postSynaptic[nRIR].values[nextState] += 3;
+    postSynaptic[nSMBDR].values[nextState] += 1;
+    postSynaptic[nSMBVR].values[nextState] += 1;
+    postSynaptic[nVD1].values[nextState] += 1;
 }
 
 void AVHR() {
-    postSynaptic["ADLL"].values[nextState] += 1;
-    postSynaptic["ADLR"].values[nextState] += 2;
-    postSynaptic["AQR"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVFL"].values[nextState] += 1;
-    postSynaptic["AVFR"].values[nextState] += 2;
-    postSynaptic["AVHL"].values[nextState] += 2;
-    postSynaptic["AVJR"].values[nextState] += 4;
-    postSynaptic["PVNL"].values[nextState] += 1;
-    postSynaptic["PVPL"].values[nextState] += 3;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RIR"].values[nextState] += 4;
-    postSynaptic["SMBDL"].values[nextState] += 1;
-    postSynaptic["SMBVL"].values[nextState] += 1;
+    postSynaptic[nADLL].values[nextState] += 1;
+    postSynaptic[nADLR].values[nextState] += 2;
+    postSynaptic[nAQR].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVFL].values[nextState] += 1;
+    postSynaptic[nAVFR].values[nextState] += 2;
+    postSynaptic[nAVHL].values[nextState] += 2;
+    postSynaptic[nAVJR].values[nextState] += 4;
+    postSynaptic[nPVNL].values[nextState] += 1;
+    postSynaptic[nPVPL].values[nextState] += 3;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRIR].values[nextState] += 4;
+    postSynaptic[nSMBDL].values[nextState] += 1;
+    postSynaptic[nSMBVL].values[nextState] += 1;
 }
 
 void AVJL() {
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 4;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVFR"].values[nextState] += 1;
-    postSynaptic["AVHL"].values[nextState] += 2;
-    postSynaptic["AVJR"].values[nextState] += 4;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["PLMR"].values[nextState] += 2;
-    postSynaptic["PVCL"].values[nextState] += 2;
-    postSynaptic["PVCR"].values[nextState] += 5;
-    postSynaptic["PVNR"].values[nextState] += 1;
-    postSynaptic["RIFR"].values[nextState] += 1;
-    postSynaptic["RIS"].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 4;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVFR].values[nextState] += 1;
+    postSynaptic[nAVHL].values[nextState] += 2;
+    postSynaptic[nAVJR].values[nextState] += 4;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nPLMR].values[nextState] += 2;
+    postSynaptic[nPVCL].values[nextState] += 2;
+    postSynaptic[nPVCR].values[nextState] += 5;
+    postSynaptic[nPVNR].values[nextState] += 1;
+    postSynaptic[nRIFR].values[nextState] += 1;
+    postSynaptic[nRIS].values[nextState] += 2;
 }
 
 void AVJR() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 3;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 3;
-    postSynaptic["AVER"].values[nextState] += 3;
-    postSynaptic["AVJL"].values[nextState] += 5;
-    postSynaptic["PVCL"].values[nextState] += 3;
-    postSynaptic["PVCR"].values[nextState] += 4;
-    postSynaptic["PVQR"].values[nextState] += 1;
-    postSynaptic["SABVL"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 3;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 3;
+    postSynaptic[nAVER].values[nextState] += 3;
+    postSynaptic[nAVJL].values[nextState] += 5;
+    postSynaptic[nPVCL].values[nextState] += 3;
+    postSynaptic[nPVCR].values[nextState] += 4;
+    postSynaptic[nPVQR].values[nextState] += 1;
+    postSynaptic[nSABVL].values[nextState] += 1;
 }
 
 void AVKL() {
-    postSynaptic["ADER"].values[nextState] += 1;
-    postSynaptic["AQR"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 2;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["AVKR"].values[nextState] += 2;
-    postSynaptic["AVM"].values[nextState] += 1;
-    postSynaptic["DVA"].values[nextState] += 1;
-    postSynaptic["PDEL"].values[nextState] += 3;
-    postSynaptic["PDER"].values[nextState] += 1;
-    postSynaptic["PVM"].values[nextState] += 1;
-    postSynaptic["PVPL"].values[nextState] += 1;
-    postSynaptic["PVPR"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 2;
-    postSynaptic["RICL"].values[nextState] += 1;
-    postSynaptic["RICR"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RIML"].values[nextState] += 2;
-    postSynaptic["RIMR"].values[nextState] += 1;
-    postSynaptic["RMFR"].values[nextState] += 1;
-    postSynaptic["SAADR"].values[nextState] += 1;
-    postSynaptic["SIAVR"].values[nextState] += 1;
-    postSynaptic["SMBDL"].values[nextState] += 1;
-    postSynaptic["SMBDR"].values[nextState] += 1;
-    postSynaptic["SMBVR"].values[nextState] += 1;
-    postSynaptic["SMDDR"].values[nextState] += 1;
-    postSynaptic["VB1"].values[nextState] += 4;
-    postSynaptic["VB10"].values[nextState] += 1;
+    postSynaptic[nADER].values[nextState] += 1;
+    postSynaptic[nAQR].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 2;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nAVKR].values[nextState] += 2;
+    postSynaptic[nAVM].values[nextState] += 1;
+    postSynaptic[nDVA].values[nextState] += 1;
+    postSynaptic[nPDEL].values[nextState] += 3;
+    postSynaptic[nPDER].values[nextState] += 1;
+    postSynaptic[nPVM].values[nextState] += 1;
+    postSynaptic[nPVPL].values[nextState] += 1;
+    postSynaptic[nPVPR].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 2;
+    postSynaptic[nRICL].values[nextState] += 1;
+    postSynaptic[nRICR].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRIML].values[nextState] += 2;
+    postSynaptic[nRIMR].values[nextState] += 1;
+    postSynaptic[nRMFR].values[nextState] += 1;
+    postSynaptic[nSAADR].values[nextState] += 1;
+    postSynaptic[nSIAVR].values[nextState] += 1;
+    postSynaptic[nSMBDL].values[nextState] += 1;
+    postSynaptic[nSMBDR].values[nextState] += 1;
+    postSynaptic[nSMBVR].values[nextState] += 1;
+    postSynaptic[nSMDDR].values[nextState] += 1;
+    postSynaptic[nVB1].values[nextState] += 4;
+    postSynaptic[nVB10].values[nextState] += 1;
 }
 
 void AVKR() {
-    postSynaptic["ADEL"].values[nextState] += 1;
-    postSynaptic["AQR"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 2;
-    postSynaptic["BDUL"].values[nextState] += 1;
-    postSynaptic["MVL10"].values[nextState] += 1;
-    postSynaptic["PVPL"].values[nextState] += 6;
-    postSynaptic["PVQL"].values[nextState] += 1;
-    postSynaptic["RICL"].values[nextState] += 1;
-    postSynaptic["RIGR"].values[nextState] += 1;
-    postSynaptic["RIML"].values[nextState] += 2;
-    postSynaptic["RIMR"].values[nextState] += 2;
-    postSynaptic["RMDR"].values[nextState] += 1;
-    postSynaptic["RMFL"].values[nextState] += 1;
-    postSynaptic["SAADL"].values[nextState] += 1;
-    postSynaptic["SMBDL"].values[nextState] += 2;
-    postSynaptic["SMBDR"].values[nextState] += 2;
-    postSynaptic["SMBVR"].values[nextState] += 1;
-    postSynaptic["SMDDL"].values[nextState] += 1;
-    postSynaptic["SMDDR"].values[nextState] += 2;
+    postSynaptic[nADEL].values[nextState] += 1;
+    postSynaptic[nAQR].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 2;
+    postSynaptic[nBDUL].values[nextState] += 1;
+    postSynaptic[nMVL10].values[nextState] += 1;
+    postSynaptic[nPVPL].values[nextState] += 6;
+    postSynaptic[nPVQL].values[nextState] += 1;
+    postSynaptic[nRICL].values[nextState] += 1;
+    postSynaptic[nRIGR].values[nextState] += 1;
+    postSynaptic[nRIML].values[nextState] += 2;
+    postSynaptic[nRIMR].values[nextState] += 2;
+    postSynaptic[nRMDR].values[nextState] += 1;
+    postSynaptic[nRMFL].values[nextState] += 1;
+    postSynaptic[nSAADL].values[nextState] += 1;
+    postSynaptic[nSMBDL].values[nextState] += 2;
+    postSynaptic[nSMBDR].values[nextState] += 2;
+    postSynaptic[nSMBVR].values[nextState] += 1;
+    postSynaptic[nSMDDL].values[nextState] += 1;
+    postSynaptic[nSMDDR].values[nextState] += 2;
 }
 
 void AVL() {
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVFR"].values[nextState] += 1;
-    postSynaptic["DA2"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 1;
-    postSynaptic["DD6"].values[nextState] += 2;
-    postSynaptic["DVB"].values[nextState] += 1;
-    postSynaptic["DVC"].values[nextState] += 9;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["MVL10"].values[nextState] += -5;
-    postSynaptic["MVR10"].values[nextState] += -5;
-    postSynaptic["PVM"].values[nextState] += 1;
-    postSynaptic["PVPR"].values[nextState] += 1;
-    postSynaptic["PVWL"].values[nextState] += 1;
-    postSynaptic["SABD"].values[nextState] += 5;
-    postSynaptic["SABVL"].values[nextState] += 4;
-    postSynaptic["SABVR"].values[nextState] += 3;
-    postSynaptic["VD12"].values[nextState] += 4;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVFR].values[nextState] += 1;
+    postSynaptic[nDA2].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 1;
+    postSynaptic[nDD6].values[nextState] += 2;
+    postSynaptic[nDVB].values[nextState] += 1;
+    postSynaptic[nDVC].values[nextState] += 9;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nMVL10].values[nextState] += -5;
+    postSynaptic[nMVR10].values[nextState] += -5;
+    postSynaptic[nPVM].values[nextState] += 1;
+    postSynaptic[nPVPR].values[nextState] += 1;
+    postSynaptic[nPVWL].values[nextState] += 1;
+    postSynaptic[nSABD].values[nextState] += 5;
+    postSynaptic[nSABVL].values[nextState] += 4;
+    postSynaptic[nSABVR].values[nextState] += 3;
+    postSynaptic[nVD12].values[nextState] += 4;
 }
 
 void AVM() {
-    postSynaptic["ADER"].values[nextState] += 1;
-    postSynaptic["ALML"].values[nextState] += 1;
-    postSynaptic["ALMR"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 6;
-    postSynaptic["AVBR"].values[nextState] += 6;
-    postSynaptic["AVDL"].values[nextState] += 2;
-    postSynaptic["AVJR"].values[nextState] += 1;
-    postSynaptic["BDUL"].values[nextState] += 3;
-    postSynaptic["BDUR"].values[nextState] += 2;
-    postSynaptic["DA1"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 4;
-    postSynaptic["PVCR"].values[nextState] += 5;
-    postSynaptic["PVNL"].values[nextState] += 1;
-    postSynaptic["PVR"].values[nextState] += 3;
-    postSynaptic["RID"].values[nextState] += 1;
-    postSynaptic["SIBVL"].values[nextState] += 1;
-    postSynaptic["VA1"].values[nextState] += 2;
+    postSynaptic[nADER].values[nextState] += 1;
+    postSynaptic[nALML].values[nextState] += 1;
+    postSynaptic[nALMR].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 6;
+    postSynaptic[nAVBR].values[nextState] += 6;
+    postSynaptic[nAVDL].values[nextState] += 2;
+    postSynaptic[nAVJR].values[nextState] += 1;
+    postSynaptic[nBDUL].values[nextState] += 3;
+    postSynaptic[nBDUR].values[nextState] += 2;
+    postSynaptic[nDA1].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 4;
+    postSynaptic[nPVCR].values[nextState] += 5;
+    postSynaptic[nPVNL].values[nextState] += 1;
+    postSynaptic[nPVR].values[nextState] += 3;
+    postSynaptic[nRID].values[nextState] += 1;
+    postSynaptic[nSIBVL].values[nextState] += 1;
+    postSynaptic[nVA1].values[nextState] += 2;
 }
 
 void AWAL() {
-    postSynaptic["ADAL"].values[nextState] += 1;
-    postSynaptic["AFDL"].values[nextState] += 5;
-    postSynaptic["AIAL"].values[nextState] += 1;
-    postSynaptic["AIYL"].values[nextState] += 1;
-    postSynaptic["AIZL"].values[nextState] += 10;
-    postSynaptic["ASEL"].values[nextState] += 4;
-    postSynaptic["ASGL"].values[nextState] += 1;
-    postSynaptic["AWAR"].values[nextState] += 1;
-    postSynaptic["AWBL"].values[nextState] += 1;
+    postSynaptic[nADAL].values[nextState] += 1;
+    postSynaptic[nAFDL].values[nextState] += 5;
+    postSynaptic[nAIAL].values[nextState] += 1;
+    postSynaptic[nAIYL].values[nextState] += 1;
+    postSynaptic[nAIZL].values[nextState] += 10;
+    postSynaptic[nASEL].values[nextState] += 4;
+    postSynaptic[nASGL].values[nextState] += 1;
+    postSynaptic[nAWAR].values[nextState] += 1;
+    postSynaptic[nAWBL].values[nextState] += 1;
 }
 
 void AWAR() {
-    postSynaptic["ADFR"].values[nextState] += 3;
-    postSynaptic["AFDR"].values[nextState] += 7;
-    postSynaptic["AIAR"].values[nextState] += 1;
-    postSynaptic["AIYR"].values[nextState] += 2;
-    postSynaptic["AIZR"].values[nextState] += 1;
-    postSynaptic["ASEL"].values[nextState] += 1;
-    postSynaptic["ASER"].values[nextState] += 2;
-    postSynaptic["AUAR"].values[nextState] += 1;
-    postSynaptic["AWAL"].values[nextState] += 1;
-    postSynaptic["AWBR"].values[nextState] += 1;
-    postSynaptic["RIFR"].values[nextState] += 2;
-    postSynaptic["RIGR"].values[nextState] += 1;
-    postSynaptic["RIR"].values[nextState] += 2;
+    postSynaptic[nADFR].values[nextState] += 3;
+    postSynaptic[nAFDR].values[nextState] += 7;
+    postSynaptic[nAIAR].values[nextState] += 1;
+    postSynaptic[nAIYR].values[nextState] += 2;
+    postSynaptic[nAIZR].values[nextState] += 1;
+    postSynaptic[nASEL].values[nextState] += 1;
+    postSynaptic[nASER].values[nextState] += 2;
+    postSynaptic[nAUAR].values[nextState] += 1;
+    postSynaptic[nAWAL].values[nextState] += 1;
+    postSynaptic[nAWBR].values[nextState] += 1;
+    postSynaptic[nRIFR].values[nextState] += 2;
+    postSynaptic[nRIGR].values[nextState] += 1;
+    postSynaptic[nRIR].values[nextState] += 2;
 }
 
 void AWBL() {
-    postSynaptic["ADFL"].values[nextState] += 9;
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["AIZL"].values[nextState] += 9;
-    postSynaptic["AUAL"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AWBR"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 3;
-    postSynaptic["RMGL"].values[nextState] += 1;
-    postSynaptic["SMBDL"].values[nextState] += 1;
+    postSynaptic[nADFL].values[nextState] += 9;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nAIZL].values[nextState] += 9;
+    postSynaptic[nAUAL].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAWBR].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 3;
+    postSynaptic[nRMGL].values[nextState] += 1;
+    postSynaptic[nSMBDL].values[nextState] += 1;
 }
 
 void AWBR() {
-    postSynaptic["ADFR"].values[nextState] += 4;
-    postSynaptic["AIZR"].values[nextState] += 4;
-    postSynaptic["ASGR"].values[nextState] += 1;
-    postSynaptic["ASHR"].values[nextState] += 2;
-    postSynaptic["AUAR"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["AWBL"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 1;
-    postSynaptic["RICL"].values[nextState] += 1;
-    postSynaptic["RIR"].values[nextState] += 2;
-    postSynaptic["RMGR"].values[nextState] += 1;
-    postSynaptic["SMBVR"].values[nextState] += 1;
+    postSynaptic[nADFR].values[nextState] += 4;
+    postSynaptic[nAIZR].values[nextState] += 4;
+    postSynaptic[nASGR].values[nextState] += 1;
+    postSynaptic[nASHR].values[nextState] += 2;
+    postSynaptic[nAUAR].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nAWBL].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 1;
+    postSynaptic[nRICL].values[nextState] += 1;
+    postSynaptic[nRIR].values[nextState] += 2;
+    postSynaptic[nRMGR].values[nextState] += 1;
+    postSynaptic[nSMBVR].values[nextState] += 1;
 }
 
 void AWCL() {
-    postSynaptic["AIAL"].values[nextState] += 2;
-    postSynaptic["AIAR"].values[nextState] += 4;
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["AIYL"].values[nextState] += 10;
-    postSynaptic["ASEL"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AWCR"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 3;
+    postSynaptic[nAIAL].values[nextState] += 2;
+    postSynaptic[nAIAR].values[nextState] += 4;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nAIYL].values[nextState] += 10;
+    postSynaptic[nASEL].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAWCR].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 3;
 }
 
 void AWCR() {
-    postSynaptic["AIAR"].values[nextState] += 1;
-    postSynaptic["AIBR"].values[nextState] += 4;
-    postSynaptic["AIYL"].values[nextState] += 4;
-    postSynaptic["AIYR"].values[nextState] += 9;
-    postSynaptic["ASEL"].values[nextState] += 1;
-    postSynaptic["ASGR"].values[nextState] += 1;
-    postSynaptic["AWCL"].values[nextState] += 5;
+    postSynaptic[nAIAR].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 4;
+    postSynaptic[nAIYL].values[nextState] += 4;
+    postSynaptic[nAIYR].values[nextState] += 9;
+    postSynaptic[nASEL].values[nextState] += 1;
+    postSynaptic[nASGR].values[nextState] += 1;
+    postSynaptic[nAWCL].values[nextState] += 5;
 }
 
 void BAGL() {
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 4;
-    postSynaptic["BAGR"].values[nextState] += 2;
-    postSynaptic["RIAR"].values[nextState] += 5;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 7;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RIGR"].values[nextState] += 1;
-    postSynaptic["RIR"].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 4;
+    postSynaptic[nBAGR].values[nextState] += 2;
+    postSynaptic[nRIAR].values[nextState] += 5;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 7;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRIGR].values[nextState] += 1;
+    postSynaptic[nRIR].values[nextState] += 1;
 }
 
 void BAGR() {
-    postSynaptic["AIYL"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 2;
-    postSynaptic["BAGL"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 5;
-    postSynaptic["RIBL"].values[nextState] += 4;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RIR"].values[nextState] += 1;
+    postSynaptic[nAIYL].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 2;
+    postSynaptic[nBAGL].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 5;
+    postSynaptic[nRIBL].values[nextState] += 4;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRIR].values[nextState] += 1;
 }
 
 void BDUL() {
-    postSynaptic["ADEL"].values[nextState] += 3;
-    postSynaptic["AVHL"].values[nextState] += 1;
-    postSynaptic["AVJR"].values[nextState] += 1;
-    postSynaptic["HSNL"].values[nextState] += 1;
-    postSynaptic["PVNL"].values[nextState] += 2;
-    postSynaptic["PVNR"].values[nextState] += 2;
-    postSynaptic["SAADL"].values[nextState] += 1;
-    postSynaptic["URADL"].values[nextState] += 1;
+    postSynaptic[nADEL].values[nextState] += 3;
+    postSynaptic[nAVHL].values[nextState] += 1;
+    postSynaptic[nAVJR].values[nextState] += 1;
+    postSynaptic[nHSNL].values[nextState] += 1;
+    postSynaptic[nPVNL].values[nextState] += 2;
+    postSynaptic[nPVNR].values[nextState] += 2;
+    postSynaptic[nSAADL].values[nextState] += 1;
+    postSynaptic[nURADL].values[nextState] += 1;
 }
 
 void BDUR() {
-    postSynaptic["ADER"].values[nextState] += 1;
-    postSynaptic["ALMR"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 3;
-    postSynaptic["AVHL"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 2;
-    postSynaptic["HSNR"].values[nextState] += 4;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["PVNL"].values[nextState] += 2;
-    postSynaptic["PVNR"].values[nextState] += 1;
-    postSynaptic["SDQL"].values[nextState] += 1;
-    postSynaptic["URADR"].values[nextState] += 1;
+    postSynaptic[nADER].values[nextState] += 1;
+    postSynaptic[nALMR].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 3;
+    postSynaptic[nAVHL].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 2;
+    postSynaptic[nHSNR].values[nextState] += 4;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nPVNL].values[nextState] += 2;
+    postSynaptic[nPVNR].values[nextState] += 1;
+    postSynaptic[nSDQL].values[nextState] += 1;
+    postSynaptic[nURADR].values[nextState] += 1;
 }
 
 void CEPDL() {
-    postSynaptic["AVER"].values[nextState] += 5;
-    postSynaptic["IL1DL"].values[nextState] += 4;
-    postSynaptic["OLLL"].values[nextState] += 2;
-    postSynaptic["OLQDL"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 2;
-    postSynaptic["RICL"].values[nextState] += 1;
-    postSynaptic["RICR"].values[nextState] += 2;
-    postSynaptic["RIH"].values[nextState] += 1;
-    postSynaptic["RIPL"].values[nextState] += 2;
-    postSynaptic["RIS"].values[nextState] += 1;
-    postSynaptic["RMDVL"].values[nextState] += 3;
-    postSynaptic["RMGL"].values[nextState] += 4;
-    postSynaptic["RMHR"].values[nextState] += 4;
-    postSynaptic["SIADR"].values[nextState] += 1;
-    postSynaptic["SMBDR"].values[nextState] += 1;
-    postSynaptic["URADL"].values[nextState] += 2;
-    postSynaptic["URBL"].values[nextState] += 4;
-    postSynaptic["URYDL"].values[nextState] += 2;
+    postSynaptic[nAVER].values[nextState] += 5;
+    postSynaptic[nIL1DL].values[nextState] += 4;
+    postSynaptic[nOLLL].values[nextState] += 2;
+    postSynaptic[nOLQDL].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 2;
+    postSynaptic[nRICL].values[nextState] += 1;
+    postSynaptic[nRICR].values[nextState] += 2;
+    postSynaptic[nRIH].values[nextState] += 1;
+    postSynaptic[nRIPL].values[nextState] += 2;
+    postSynaptic[nRIS].values[nextState] += 1;
+    postSynaptic[nRMDVL].values[nextState] += 3;
+    postSynaptic[nRMGL].values[nextState] += 4;
+    postSynaptic[nRMHR].values[nextState] += 4;
+    postSynaptic[nSIADR].values[nextState] += 1;
+    postSynaptic[nSMBDR].values[nextState] += 1;
+    postSynaptic[nURADL].values[nextState] += 2;
+    postSynaptic[nURBL].values[nextState] += 4;
+    postSynaptic[nURYDL].values[nextState] += 2;
 }
 
 void CEPDR() {
-    postSynaptic["AVEL"].values[nextState] += 6;
-    postSynaptic["BDUR"].values[nextState] += 1;
-    postSynaptic["IL1DR"].values[nextState] += 5;
-    postSynaptic["IL1R"].values[nextState] += 1;
-    postSynaptic["OLLR"].values[nextState] += 8;
-    postSynaptic["OLQDR"].values[nextState] += 2;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RICL"].values[nextState] += 4;
-    postSynaptic["RICR"].values[nextState] += 3;
-    postSynaptic["RIH"].values[nextState] += 1;
-    postSynaptic["RIS"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 1;
-    postSynaptic["RMDVR"].values[nextState] += 2;
-    postSynaptic["RMGR"].values[nextState] += 1;
-    postSynaptic["RMHL"].values[nextState] += 4;
-    postSynaptic["RMHR"].values[nextState] += 1;
-    postSynaptic["SIADL"].values[nextState] += 1;
-    postSynaptic["SMBDR"].values[nextState] += 1;
-    postSynaptic["URADR"].values[nextState] += 1;
-    postSynaptic["URBR"].values[nextState] += 2;
-    postSynaptic["URYDR"].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 6;
+    postSynaptic[nBDUR].values[nextState] += 1;
+    postSynaptic[nIL1DR].values[nextState] += 5;
+    postSynaptic[nIL1R].values[nextState] += 1;
+    postSynaptic[nOLLR].values[nextState] += 8;
+    postSynaptic[nOLQDR].values[nextState] += 2;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRICL].values[nextState] += 4;
+    postSynaptic[nRICR].values[nextState] += 3;
+    postSynaptic[nRIH].values[nextState] += 1;
+    postSynaptic[nRIS].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 1;
+    postSynaptic[nRMDVR].values[nextState] += 2;
+    postSynaptic[nRMGR].values[nextState] += 1;
+    postSynaptic[nRMHL].values[nextState] += 4;
+    postSynaptic[nRMHR].values[nextState] += 1;
+    postSynaptic[nSIADL].values[nextState] += 1;
+    postSynaptic[nSMBDR].values[nextState] += 1;
+    postSynaptic[nURADR].values[nextState] += 1;
+    postSynaptic[nURBR].values[nextState] += 2;
+    postSynaptic[nURYDR].values[nextState] += 1;
 }
 
 void CEPVL() {
-    postSynaptic["ADLL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 3;
-    postSynaptic["IL1VL"].values[nextState] += 2;
-    postSynaptic["MVL03"].values[nextState] += 1;
-    postSynaptic["OLLL"].values[nextState] += 4;
-    postSynaptic["OLQVL"].values[nextState] += 1;
-    postSynaptic["RICL"].values[nextState] += 7;
-    postSynaptic["RICR"].values[nextState] += 4;
-    postSynaptic["RIH"].values[nextState] += 1;
-    postSynaptic["RIPL"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 4;
-    postSynaptic["RMHL"].values[nextState] += 1;
-    postSynaptic["SIAVL"].values[nextState] += 1;
-    postSynaptic["URAVL"].values[nextState] += 2;
+    postSynaptic[nADLL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 3;
+    postSynaptic[nIL1VL].values[nextState] += 2;
+    postSynaptic[nMVL03].values[nextState] += 1;
+    postSynaptic[nOLLL].values[nextState] += 4;
+    postSynaptic[nOLQVL].values[nextState] += 1;
+    postSynaptic[nRICL].values[nextState] += 7;
+    postSynaptic[nRICR].values[nextState] += 4;
+    postSynaptic[nRIH].values[nextState] += 1;
+    postSynaptic[nRIPL].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 4;
+    postSynaptic[nRMHL].values[nextState] += 1;
+    postSynaptic[nSIAVL].values[nextState] += 1;
+    postSynaptic[nURAVL].values[nextState] += 2;
 }
 
 void CEPVR() {
-    postSynaptic["ASGR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 5;
-    postSynaptic["IL1VR"].values[nextState] += 1;
-    postSynaptic["IL2VR"].values[nextState] += 2;
-    postSynaptic["MVR04"].values[nextState] += 1;
-    postSynaptic["OLLR"].values[nextState] += 7;
-    postSynaptic["OLQVR"].values[nextState] += 1;
-    postSynaptic["RICL"].values[nextState] += 2;
-    postSynaptic["RICR"].values[nextState] += 2;
-    postSynaptic["RIH"].values[nextState] += 1;
-    postSynaptic["RIPR"].values[nextState] += 1;
-    postSynaptic["RIVL"].values[nextState] += 1;
-    postSynaptic["RMDDR"].values[nextState] += 2;
-    postSynaptic["RMHR"].values[nextState] += 2;
-    postSynaptic["SIAVR"].values[nextState] += 2;
-    postSynaptic["URAVR"].values[nextState] += 1;
+    postSynaptic[nASGR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 5;
+    postSynaptic[nIL1VR].values[nextState] += 1;
+    postSynaptic[nIL2VR].values[nextState] += 2;
+    postSynaptic[nMVR04].values[nextState] += 1;
+    postSynaptic[nOLLR].values[nextState] += 7;
+    postSynaptic[nOLQVR].values[nextState] += 1;
+    postSynaptic[nRICL].values[nextState] += 2;
+    postSynaptic[nRICR].values[nextState] += 2;
+    postSynaptic[nRIH].values[nextState] += 1;
+    postSynaptic[nRIPR].values[nextState] += 1;
+    postSynaptic[nRIVL].values[nextState] += 1;
+    postSynaptic[nRMDDR].values[nextState] += 2;
+    postSynaptic[nRMHR].values[nextState] += 2;
+    postSynaptic[nSIAVR].values[nextState] += 2;
+    postSynaptic[nURAVR].values[nextState] += 1;
 }
 
 void DA1() {
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVAR"].values[nextState] += 6;
-    postSynaptic["DA4"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 4;
-    postSynaptic["MDL08"].values[nextState] += 8;
-    postSynaptic["MDR08"].values[nextState] += 8;
-    postSynaptic["SABVL"].values[nextState] += 2;
-    postSynaptic["SABVR"].values[nextState] += 3;
-    postSynaptic["VD1"].values[nextState] += 17;
-    postSynaptic["VD2"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 6;
+    postSynaptic[nDA4].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 4;
+    postSynaptic[nMDL08].values[nextState] += 8;
+    postSynaptic[nMDR08].values[nextState] += 8;
+    postSynaptic[nSABVL].values[nextState] += 2;
+    postSynaptic[nSABVR].values[nextState] += 3;
+    postSynaptic[nVD1].values[nextState] += 17;
+    postSynaptic[nVD2].values[nextState] += 1;
 }
 
 void DA2() {
-    postSynaptic["AS2"].values[nextState] += 2;
-    postSynaptic["AS3"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["DD1"].values[nextState] += 1;
-    postSynaptic["MDL07"].values[nextState] += 2;
-    postSynaptic["MDL08"].values[nextState] += 1;
-    postSynaptic["MDL09"].values[nextState] += 2;
-    postSynaptic["MDL10"].values[nextState] += 2;
-    postSynaptic["MDR07"].values[nextState] += 2;
-    postSynaptic["MDR08"].values[nextState] += 2;
-    postSynaptic["MDR09"].values[nextState] += 2;
-    postSynaptic["MDR10"].values[nextState] += 2;
-    postSynaptic["SABVL"].values[nextState] += 1;
-    postSynaptic["VA1"].values[nextState] += 2;
-    postSynaptic["VD1"].values[nextState] += 2;
-    postSynaptic["VD2"].values[nextState] += 11;
-    postSynaptic["VD3"].values[nextState] += 5;
+    postSynaptic[nAS2].values[nextState] += 2;
+    postSynaptic[nAS3].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nDD1].values[nextState] += 1;
+    postSynaptic[nMDL07].values[nextState] += 2;
+    postSynaptic[nMDL08].values[nextState] += 1;
+    postSynaptic[nMDL09].values[nextState] += 2;
+    postSynaptic[nMDL10].values[nextState] += 2;
+    postSynaptic[nMDR07].values[nextState] += 2;
+    postSynaptic[nMDR08].values[nextState] += 2;
+    postSynaptic[nMDR09].values[nextState] += 2;
+    postSynaptic[nMDR10].values[nextState] += 2;
+    postSynaptic[nSABVL].values[nextState] += 1;
+    postSynaptic[nVA1].values[nextState] += 2;
+    postSynaptic[nVD1].values[nextState] += 2;
+    postSynaptic[nVD2].values[nextState] += 11;
+    postSynaptic[nVD3].values[nextState] += 5;
 }
 
 void DA3() {
-    postSynaptic["AS4"].values[nextState] += 2;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["DA4"].values[nextState] += 2;
-    postSynaptic["DB3"].values[nextState] += 1;
-    postSynaptic["DD2"].values[nextState] += 1;
-    postSynaptic["MDL09"].values[nextState] += 5;
-    postSynaptic["MDL10"].values[nextState] += 5;
-    postSynaptic["MDL12"].values[nextState] += 5;
-    postSynaptic["MDR09"].values[nextState] += 5;
-    postSynaptic["MDR10"].values[nextState] += 5;
-    postSynaptic["MDR12"].values[nextState] += 5;
-    postSynaptic["VD3"].values[nextState] += 25;
-    postSynaptic["VD4"].values[nextState] += 6;
+    postSynaptic[nAS4].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nDA4].values[nextState] += 2;
+    postSynaptic[nDB3].values[nextState] += 1;
+    postSynaptic[nDD2].values[nextState] += 1;
+    postSynaptic[nMDL09].values[nextState] += 5;
+    postSynaptic[nMDL10].values[nextState] += 5;
+    postSynaptic[nMDL12].values[nextState] += 5;
+    postSynaptic[nMDR09].values[nextState] += 5;
+    postSynaptic[nMDR10].values[nextState] += 5;
+    postSynaptic[nMDR12].values[nextState] += 5;
+    postSynaptic[nVD3].values[nextState] += 25;
+    postSynaptic[nVD4].values[nextState] += 6;
 }
 
 void DA4() {
-    postSynaptic["AVAL"].values[nextState] += 3;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["DA1"].values[nextState] += 1;
-    postSynaptic["DA3"].values[nextState] += 1;
-    postSynaptic["DB3"].values[nextState] += 2;
-    postSynaptic["DD2"].values[nextState] += 1;
-    postSynaptic["MDL11"].values[nextState] += 4;
-    postSynaptic["MDL12"].values[nextState] += 4;
-    postSynaptic["MDL14"].values[nextState] += 5;
-    postSynaptic["MDR11"].values[nextState] += 4;
-    postSynaptic["MDR12"].values[nextState] += 4;
-    postSynaptic["MDR14"].values[nextState] += 5;
-    postSynaptic["VB6"].values[nextState] += 1;
-    postSynaptic["VD4"].values[nextState] += 12;
-    postSynaptic["VD5"].values[nextState] += 15;
+    postSynaptic[nAVAL].values[nextState] += 3;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nDA1].values[nextState] += 1;
+    postSynaptic[nDA3].values[nextState] += 1;
+    postSynaptic[nDB3].values[nextState] += 2;
+    postSynaptic[nDD2].values[nextState] += 1;
+    postSynaptic[nMDL11].values[nextState] += 4;
+    postSynaptic[nMDL12].values[nextState] += 4;
+    postSynaptic[nMDL14].values[nextState] += 5;
+    postSynaptic[nMDR11].values[nextState] += 4;
+    postSynaptic[nMDR12].values[nextState] += 4;
+    postSynaptic[nMDR14].values[nextState] += 5;
+    postSynaptic[nVB6].values[nextState] += 1;
+    postSynaptic[nVD4].values[nextState] += 12;
+    postSynaptic[nVD5].values[nextState] += 15;
 }
 
 void DA5() {
-    postSynaptic["AS6"].values[nextState] += 2;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 5;
-    postSynaptic["DB4"].values[nextState] += 1;
-    postSynaptic["MDL13"].values[nextState] += 5;
-    postSynaptic["MDL14"].values[nextState] += 4;
-    postSynaptic["MDR13"].values[nextState] += 5;
-    postSynaptic["MDR14"].values[nextState] += 4;
-    postSynaptic["VA4"].values[nextState] += 1;
-    postSynaptic["VA5"].values[nextState] += 2;
-    postSynaptic["VD5"].values[nextState] += 1;
-    postSynaptic["VD6"].values[nextState] += 16;
+    postSynaptic[nAS6].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 5;
+    postSynaptic[nDB4].values[nextState] += 1;
+    postSynaptic[nMDL13].values[nextState] += 5;
+    postSynaptic[nMDL14].values[nextState] += 4;
+    postSynaptic[nMDR13].values[nextState] += 5;
+    postSynaptic[nMDR14].values[nextState] += 4;
+    postSynaptic[nVA4].values[nextState] += 1;
+    postSynaptic[nVA5].values[nextState] += 2;
+    postSynaptic[nVD5].values[nextState] += 1;
+    postSynaptic[nVD6].values[nextState] += 16;
 }
 
 void DA6() {
-    postSynaptic["AVAL"].values[nextState] += 10;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["MDL11"].values[nextState] += 6;
-    postSynaptic["MDL12"].values[nextState] += 4;
-    postSynaptic["MDL13"].values[nextState] += 4;
-    postSynaptic["MDL14"].values[nextState] += 4;
-    postSynaptic["MDL16"].values[nextState] += 4;
-    postSynaptic["MDR11"].values[nextState] += 4;
-    postSynaptic["MDR12"].values[nextState] += 4;
-    postSynaptic["MDR13"].values[nextState] += 4;
-    postSynaptic["MDR14"].values[nextState] += 4;
-    postSynaptic["MDR16"].values[nextState] += 4;
-    postSynaptic["VD4"].values[nextState] += 4;
-    postSynaptic["VD5"].values[nextState] += 3;
-    postSynaptic["VD6"].values[nextState] += 3;
+    postSynaptic[nAVAL].values[nextState] += 10;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nMDL11].values[nextState] += 6;
+    postSynaptic[nMDL12].values[nextState] += 4;
+    postSynaptic[nMDL13].values[nextState] += 4;
+    postSynaptic[nMDL14].values[nextState] += 4;
+    postSynaptic[nMDL16].values[nextState] += 4;
+    postSynaptic[nMDR11].values[nextState] += 4;
+    postSynaptic[nMDR12].values[nextState] += 4;
+    postSynaptic[nMDR13].values[nextState] += 4;
+    postSynaptic[nMDR14].values[nextState] += 4;
+    postSynaptic[nMDR16].values[nextState] += 4;
+    postSynaptic[nVD4].values[nextState] += 4;
+    postSynaptic[nVD5].values[nextState] += 3;
+    postSynaptic[nVD6].values[nextState] += 3;
 }
 
 void DA7() {
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["MDL15"].values[nextState] += 4;
-    postSynaptic["MDL17"].values[nextState] += 4;
-    postSynaptic["MDL18"].values[nextState] += 4;
-    postSynaptic["MDR15"].values[nextState] += 4;
-    postSynaptic["MDR17"].values[nextState] += 4;
-    postSynaptic["MDR18"].values[nextState] += 4;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nMDL15].values[nextState] += 4;
+    postSynaptic[nMDL17].values[nextState] += 4;
+    postSynaptic[nMDL18].values[nextState] += 4;
+    postSynaptic[nMDR15].values[nextState] += 4;
+    postSynaptic[nMDR17].values[nextState] += 4;
+    postSynaptic[nMDR18].values[nextState] += 4;
 }
 
 void DA8() {
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["DA9"].values[nextState] += 1;
-    postSynaptic["MDL17"].values[nextState] += 4;
-    postSynaptic["MDL19"].values[nextState] += 4;
-    postSynaptic["MDL20"].values[nextState] += 4;
-    postSynaptic["MDR17"].values[nextState] += 4;
-    postSynaptic["MDR19"].values[nextState] += 4;
-    postSynaptic["MDR20"].values[nextState] += 4;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nDA9].values[nextState] += 1;
+    postSynaptic[nMDL17].values[nextState] += 4;
+    postSynaptic[nMDL19].values[nextState] += 4;
+    postSynaptic[nMDL20].values[nextState] += 4;
+    postSynaptic[nMDR17].values[nextState] += 4;
+    postSynaptic[nMDR19].values[nextState] += 4;
+    postSynaptic[nMDR20].values[nextState] += 4;
 }
 
 void DA9() {
-    postSynaptic["DA8"].values[nextState] += 1;
-    postSynaptic["DD6"].values[nextState] += 1;
-    postSynaptic["MDL19"].values[nextState] += 4;
-    postSynaptic["MDL21"].values[nextState] += 4;
-    postSynaptic["MDL22"].values[nextState] += 4;
-    postSynaptic["MDL23"].values[nextState] += 4;
-    postSynaptic["MDL24"].values[nextState] += 4;
-    postSynaptic["MDR19"].values[nextState] += 4;
-    postSynaptic["MDR21"].values[nextState] += 4;
-    postSynaptic["MDR22"].values[nextState] += 4;
-    postSynaptic["MDR23"].values[nextState] += 4;
-    postSynaptic["MDR24"].values[nextState] += 4;
-    postSynaptic["PDA"].values[nextState] += 1;
-    postSynaptic["PHCL"].values[nextState] += 1;
-    postSynaptic["RID"].values[nextState] += 1;
-    postSynaptic["VD13"].values[nextState] += 1;
+    postSynaptic[nDA8].values[nextState] += 1;
+    postSynaptic[nDD6].values[nextState] += 1;
+    postSynaptic[nMDL19].values[nextState] += 4;
+    postSynaptic[nMDL21].values[nextState] += 4;
+    postSynaptic[nMDL22].values[nextState] += 4;
+    postSynaptic[nMDL23].values[nextState] += 4;
+    postSynaptic[nMDL24].values[nextState] += 4;
+    postSynaptic[nMDR19].values[nextState] += 4;
+    postSynaptic[nMDR21].values[nextState] += 4;
+    postSynaptic[nMDR22].values[nextState] += 4;
+    postSynaptic[nMDR23].values[nextState] += 4;
+    postSynaptic[nMDR24].values[nextState] += 4;
+    postSynaptic[nPDA].values[nextState] += 1;
+    postSynaptic[nPHCL].values[nextState] += 1;
+    postSynaptic[nRID].values[nextState] += 1;
+    postSynaptic[nVD13].values[nextState] += 1;
 }
 
 void DB1() {
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["AS1"].values[nextState] += 1;
-    postSynaptic["AS2"].values[nextState] += 1;
-    postSynaptic["AS3"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 3;
-    postSynaptic["DB2"].values[nextState] += 1;
-    postSynaptic["DB4"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 10;
-    postSynaptic["DVA"].values[nextState] += 1;
-    postSynaptic["MDL07"].values[nextState] += 1;
-    postSynaptic["MDL08"].values[nextState] += 1;
-    postSynaptic["MDR07"].values[nextState] += 1;
-    postSynaptic["MDR08"].values[nextState] += 1;
-    postSynaptic["RID"].values[nextState] += 1;
-    postSynaptic["RIS"].values[nextState] += 1;
-    postSynaptic["VB3"].values[nextState] += 1;
-    postSynaptic["VB4"].values[nextState] += 1;
-    postSynaptic["VD1"].values[nextState] += 21;
-    postSynaptic["VD2"].values[nextState] += 15;
-    postSynaptic["VD3"].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nAS1].values[nextState] += 1;
+    postSynaptic[nAS2].values[nextState] += 1;
+    postSynaptic[nAS3].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 3;
+    postSynaptic[nDB2].values[nextState] += 1;
+    postSynaptic[nDB4].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 10;
+    postSynaptic[nDVA].values[nextState] += 1;
+    postSynaptic[nMDL07].values[nextState] += 1;
+    postSynaptic[nMDL08].values[nextState] += 1;
+    postSynaptic[nMDR07].values[nextState] += 1;
+    postSynaptic[nMDR08].values[nextState] += 1;
+    postSynaptic[nRID].values[nextState] += 1;
+    postSynaptic[nRIS].values[nextState] += 1;
+    postSynaptic[nVB3].values[nextState] += 1;
+    postSynaptic[nVB4].values[nextState] += 1;
+    postSynaptic[nVD1].values[nextState] += 21;
+    postSynaptic[nVD2].values[nextState] += 15;
+    postSynaptic[nVD3].values[nextState] += 1;
 }
 
 void DB2() {
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DA3"].values[nextState] += 5;
-    postSynaptic["DB1"].values[nextState] += 1;
-    postSynaptic["DB3"].values[nextState] += 6;
-    postSynaptic["DD2"].values[nextState] += 3;
-    postSynaptic["MDL09"].values[nextState] += 3;
-    postSynaptic["MDL10"].values[nextState] += 3;
-    postSynaptic["MDL11"].values[nextState] += 3;
-    postSynaptic["MDL12"].values[nextState] += 3;
-    postSynaptic["MDR09"].values[nextState] += 3;
-    postSynaptic["MDR10"].values[nextState] += 3;
-    postSynaptic["MDR11"].values[nextState] += 3;
-    postSynaptic["MDR12"].values[nextState] += 3;
-    postSynaptic["VB1"].values[nextState] += 2;
-    postSynaptic["VD3"].values[nextState] += 23;
-    postSynaptic["VD4"].values[nextState] += 14;
-    postSynaptic["VD5"].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDA3].values[nextState] += 5;
+    postSynaptic[nDB1].values[nextState] += 1;
+    postSynaptic[nDB3].values[nextState] += 6;
+    postSynaptic[nDD2].values[nextState] += 3;
+    postSynaptic[nMDL09].values[nextState] += 3;
+    postSynaptic[nMDL10].values[nextState] += 3;
+    postSynaptic[nMDL11].values[nextState] += 3;
+    postSynaptic[nMDL12].values[nextState] += 3;
+    postSynaptic[nMDR09].values[nextState] += 3;
+    postSynaptic[nMDR10].values[nextState] += 3;
+    postSynaptic[nMDR11].values[nextState] += 3;
+    postSynaptic[nMDR12].values[nextState] += 3;
+    postSynaptic[nVB1].values[nextState] += 2;
+    postSynaptic[nVD3].values[nextState] += 23;
+    postSynaptic[nVD4].values[nextState] += 14;
+    postSynaptic[nVD5].values[nextState] += 1;
 }
 
 void DB3() {
-    postSynaptic["AS4"].values[nextState] += 1;
-    postSynaptic["AS5"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DA4"].values[nextState] += 1;
-    postSynaptic["DB2"].values[nextState] += 6;
-    postSynaptic["DB4"].values[nextState] += 1;
-    postSynaptic["DD2"].values[nextState] += 4;
-    postSynaptic["DD3"].values[nextState] += 10;
-    postSynaptic["MDL11"].values[nextState] += 3;
-    postSynaptic["MDL12"].values[nextState] += 3;
-    postSynaptic["MDL13"].values[nextState] += 4;
-    postSynaptic["MDL14"].values[nextState] += 3;
-    postSynaptic["MDR11"].values[nextState] += 3;
-    postSynaptic["MDR12"].values[nextState] += 3;
-    postSynaptic["MDR13"].values[nextState] += 4;
-    postSynaptic["MDR14"].values[nextState] += 3;
-    postSynaptic["VD4"].values[nextState] += 9;
-    postSynaptic["VD5"].values[nextState] += 26;
-    postSynaptic["VD6"].values[nextState] += 7;
+    postSynaptic[nAS4].values[nextState] += 1;
+    postSynaptic[nAS5].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDA4].values[nextState] += 1;
+    postSynaptic[nDB2].values[nextState] += 6;
+    postSynaptic[nDB4].values[nextState] += 1;
+    postSynaptic[nDD2].values[nextState] += 4;
+    postSynaptic[nDD3].values[nextState] += 10;
+    postSynaptic[nMDL11].values[nextState] += 3;
+    postSynaptic[nMDL12].values[nextState] += 3;
+    postSynaptic[nMDL13].values[nextState] += 4;
+    postSynaptic[nMDL14].values[nextState] += 3;
+    postSynaptic[nMDR11].values[nextState] += 3;
+    postSynaptic[nMDR12].values[nextState] += 3;
+    postSynaptic[nMDR13].values[nextState] += 4;
+    postSynaptic[nMDR14].values[nextState] += 3;
+    postSynaptic[nVD4].values[nextState] += 9;
+    postSynaptic[nVD5].values[nextState] += 26;
+    postSynaptic[nVD6].values[nextState] += 7;
 }
 
 void DB4() {
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DB1"].values[nextState] += 1;
-    postSynaptic["DB3"].values[nextState] += 1;
-    postSynaptic["DD3"].values[nextState] += 3;
-    postSynaptic["MDL13"].values[nextState] += 2;
-    postSynaptic["MDL14"].values[nextState] += 2;
-    postSynaptic["MDL16"].values[nextState] += 2;
-    postSynaptic["MDR13"].values[nextState] += 2;
-    postSynaptic["MDR14"].values[nextState] += 2;
-    postSynaptic["MDR16"].values[nextState] += 2;
-    postSynaptic["VB2"].values[nextState] += 1;
-    postSynaptic["VB4"].values[nextState] += 1;
-    postSynaptic["VD6"].values[nextState] += 13;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDB1].values[nextState] += 1;
+    postSynaptic[nDB3].values[nextState] += 1;
+    postSynaptic[nDD3].values[nextState] += 3;
+    postSynaptic[nMDL13].values[nextState] += 2;
+    postSynaptic[nMDL14].values[nextState] += 2;
+    postSynaptic[nMDL16].values[nextState] += 2;
+    postSynaptic[nMDR13].values[nextState] += 2;
+    postSynaptic[nMDR14].values[nextState] += 2;
+    postSynaptic[nMDR16].values[nextState] += 2;
+    postSynaptic[nVB2].values[nextState] += 1;
+    postSynaptic[nVB4].values[nextState] += 1;
+    postSynaptic[nVD6].values[nextState] += 13;
 }
 
 void DB5() {
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["MDL15"].values[nextState] += 2;
-    postSynaptic["MDL17"].values[nextState] += 2;
-    postSynaptic["MDL18"].values[nextState] += 2;
-    postSynaptic["MDR15"].values[nextState] += 2;
-    postSynaptic["MDR17"].values[nextState] += 2;
-    postSynaptic["MDR18"].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nMDL15].values[nextState] += 2;
+    postSynaptic[nMDL17].values[nextState] += 2;
+    postSynaptic[nMDL18].values[nextState] += 2;
+    postSynaptic[nMDR15].values[nextState] += 2;
+    postSynaptic[nMDR17].values[nextState] += 2;
+    postSynaptic[nMDR18].values[nextState] += 2;
 }
 
 void DB6() {
-    postSynaptic["AVAL"].values[nextState] += 3;
-    postSynaptic["AVBL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["MDL17"].values[nextState] += 2;
-    postSynaptic["MDL19"].values[nextState] += 2;
-    postSynaptic["MDL20"].values[nextState] += 2;
-    postSynaptic["MDR17"].values[nextState] += 2;
-    postSynaptic["MDR19"].values[nextState] += 2;
-    postSynaptic["MDR20"].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 3;
+    postSynaptic[nAVBL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nMDL17].values[nextState] += 2;
+    postSynaptic[nMDL19].values[nextState] += 2;
+    postSynaptic[nMDL20].values[nextState] += 2;
+    postSynaptic[nMDR17].values[nextState] += 2;
+    postSynaptic[nMDR19].values[nextState] += 2;
+    postSynaptic[nMDR20].values[nextState] += 2;
 }
 
 void DB7() {
-    postSynaptic["AVBL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["MDL19"].values[nextState] += 2;
-    postSynaptic["MDL21"].values[nextState] += 2;
-    postSynaptic["MDL22"].values[nextState] += 2;
-    postSynaptic["MDL23"].values[nextState] += 2;
-    postSynaptic["MDL24"].values[nextState] += 2;
-    postSynaptic["MDR19"].values[nextState] += 2;
-    postSynaptic["MDR21"].values[nextState] += 2;
-    postSynaptic["MDR22"].values[nextState] += 2;
-    postSynaptic["MDR23"].values[nextState] += 2;
-    postSynaptic["MDR24"].values[nextState] += 2;
-    postSynaptic["VD13"].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nMDL19].values[nextState] += 2;
+    postSynaptic[nMDL21].values[nextState] += 2;
+    postSynaptic[nMDL22].values[nextState] += 2;
+    postSynaptic[nMDL23].values[nextState] += 2;
+    postSynaptic[nMDL24].values[nextState] += 2;
+    postSynaptic[nMDR19].values[nextState] += 2;
+    postSynaptic[nMDR21].values[nextState] += 2;
+    postSynaptic[nMDR22].values[nextState] += 2;
+    postSynaptic[nMDR23].values[nextState] += 2;
+    postSynaptic[nMDR24].values[nextState] += 2;
+    postSynaptic[nVD13].values[nextState] += 2;
 }
 
 void DD1() {
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DD2"].values[nextState] += 3;
-    postSynaptic["MDL07"].values[nextState] += -6;
-    postSynaptic["MDL08"].values[nextState] += -6;
-    postSynaptic["MDL09"].values[nextState] += -7;
-    postSynaptic["MDL10"].values[nextState] += -6;
-    postSynaptic["MDR07"].values[nextState] += -6;
-    postSynaptic["MDR08"].values[nextState] += -6;
-    postSynaptic["MDR09"].values[nextState] += -7;
-    postSynaptic["MDR10"].values[nextState] += -6;
-    postSynaptic["VD1"].values[nextState] += 4;
-    postSynaptic["VD2"].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDD2].values[nextState] += 3;
+    postSynaptic[nMDL07].values[nextState] += -6;
+    postSynaptic[nMDL08].values[nextState] += -6;
+    postSynaptic[nMDL09].values[nextState] += -7;
+    postSynaptic[nMDL10].values[nextState] += -6;
+    postSynaptic[nMDR07].values[nextState] += -6;
+    postSynaptic[nMDR08].values[nextState] += -6;
+    postSynaptic[nMDR09].values[nextState] += -7;
+    postSynaptic[nMDR10].values[nextState] += -6;
+    postSynaptic[nVD1].values[nextState] += 4;
+    postSynaptic[nVD2].values[nextState] += 2;
 }
 
 void DD2() {
-    postSynaptic["DA3"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 1;
-    postSynaptic["DD3"].values[nextState] += 2;
-    postSynaptic["MDL09"].values[nextState] += -6;
-    postSynaptic["MDL11"].values[nextState] += -7;
-    postSynaptic["MDL12"].values[nextState] += -6;
-    postSynaptic["MDR09"].values[nextState] += -6;
-    postSynaptic["MDR11"].values[nextState] += -7;
-    postSynaptic["MDR12"].values[nextState] += -6;
-    postSynaptic["VD3"].values[nextState] += 1;
-    postSynaptic["VD4"].values[nextState] += 3;
+    postSynaptic[nDA3].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 1;
+    postSynaptic[nDD3].values[nextState] += 2;
+    postSynaptic[nMDL09].values[nextState] += -6;
+    postSynaptic[nMDL11].values[nextState] += -7;
+    postSynaptic[nMDL12].values[nextState] += -6;
+    postSynaptic[nMDR09].values[nextState] += -6;
+    postSynaptic[nMDR11].values[nextState] += -7;
+    postSynaptic[nMDR12].values[nextState] += -6;
+    postSynaptic[nVD3].values[nextState] += 1;
+    postSynaptic[nVD4].values[nextState] += 3;
 }
 
 void DD3() {
-    postSynaptic["DD2"].values[nextState] += 2;
-    postSynaptic["DD4"].values[nextState] += 1;
-    postSynaptic["MDL11"].values[nextState] += -7;
-    postSynaptic["MDL13"].values[nextState] += -9;
-    postSynaptic["MDL14"].values[nextState] += -7;
-    postSynaptic["MDR11"].values[nextState] += -7;
-    postSynaptic["MDR13"].values[nextState] += -9;
-    postSynaptic["MDR14"].values[nextState] += -7;
+    postSynaptic[nDD2].values[nextState] += 2;
+    postSynaptic[nDD4].values[nextState] += 1;
+    postSynaptic[nMDL11].values[nextState] += -7;
+    postSynaptic[nMDL13].values[nextState] += -9;
+    postSynaptic[nMDL14].values[nextState] += -7;
+    postSynaptic[nMDR11].values[nextState] += -7;
+    postSynaptic[nMDR13].values[nextState] += -9;
+    postSynaptic[nMDR14].values[nextState] += -7;
 }
 
 void DD4() {
-    postSynaptic["DD3"].values[nextState] += 1;
-    postSynaptic["MDL13"].values[nextState] += -7;
-    postSynaptic["MDL15"].values[nextState] += -7;
-    postSynaptic["MDL16"].values[nextState] += -7;
-    postSynaptic["MDR13"].values[nextState] += -7;
-    postSynaptic["MDR15"].values[nextState] += -7;
-    postSynaptic["MDR16"].values[nextState] += -7;
-    postSynaptic["VC3"].values[nextState] += 1;
-    postSynaptic["VD8"].values[nextState] += 1;
+    postSynaptic[nDD3].values[nextState] += 1;
+    postSynaptic[nMDL13].values[nextState] += -7;
+    postSynaptic[nMDL15].values[nextState] += -7;
+    postSynaptic[nMDL16].values[nextState] += -7;
+    postSynaptic[nMDR13].values[nextState] += -7;
+    postSynaptic[nMDR15].values[nextState] += -7;
+    postSynaptic[nMDR16].values[nextState] += -7;
+    postSynaptic[nVC3].values[nextState] += 1;
+    postSynaptic[nVD8].values[nextState] += 1;
 }
 
 void DD5() {
-    postSynaptic["MDL17"].values[nextState] += -7;
-    postSynaptic["MDL18"].values[nextState] += -7;
-    postSynaptic["MDL20"].values[nextState] += -7;
-    postSynaptic["MDR17"].values[nextState] += -7;
-    postSynaptic["MDR18"].values[nextState] += -7;
-    postSynaptic["MDR20"].values[nextState] += -7;
-    postSynaptic["VB8"].values[nextState] += 1;
-    postSynaptic["VD10"].values[nextState] += 1;
-    postSynaptic["VD9"].values[nextState] += 1;
+    postSynaptic[nMDL17].values[nextState] += -7;
+    postSynaptic[nMDL18].values[nextState] += -7;
+    postSynaptic[nMDL20].values[nextState] += -7;
+    postSynaptic[nMDR17].values[nextState] += -7;
+    postSynaptic[nMDR18].values[nextState] += -7;
+    postSynaptic[nMDR20].values[nextState] += -7;
+    postSynaptic[nVB8].values[nextState] += 1;
+    postSynaptic[nVD10].values[nextState] += 1;
+    postSynaptic[nVD9].values[nextState] += 1;
 }
 
 void DD6() {
-    postSynaptic["MDL19"].values[nextState] += -7;
-    postSynaptic["MDL21"].values[nextState] += -7;
-    postSynaptic["MDL22"].values[nextState] += -7;
-    postSynaptic["MDL23"].values[nextState] += -7;
-    postSynaptic["MDL24"].values[nextState] += -7;
-    postSynaptic["MDR19"].values[nextState] += -7;
-    postSynaptic["MDR21"].values[nextState] += -7;
-    postSynaptic["MDR22"].values[nextState] += -7;
-    postSynaptic["MDR23"].values[nextState] += -7;
-    postSynaptic["MDR24"].values[nextState] += -7;
+    postSynaptic[nMDL19].values[nextState] += -7;
+    postSynaptic[nMDL21].values[nextState] += -7;
+    postSynaptic[nMDL22].values[nextState] += -7;
+    postSynaptic[nMDL23].values[nextState] += -7;
+    postSynaptic[nMDL24].values[nextState] += -7;
+    postSynaptic[nMDR19].values[nextState] += -7;
+    postSynaptic[nMDR21].values[nextState] += -7;
+    postSynaptic[nMDR22].values[nextState] += -7;
+    postSynaptic[nMDR23].values[nextState] += -7;
+    postSynaptic[nMDR24].values[nextState] += -7;
 }
 
 void DVA() {
-    postSynaptic["AIZL"].values[nextState] += 3;
-    postSynaptic["AQR"].values[nextState] += 4;
-    postSynaptic["AUAL"].values[nextState] += 1;
-    postSynaptic["AUAR"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 3;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 9;
-    postSynaptic["AVER"].values[nextState] += 5;
-    postSynaptic["DB1"].values[nextState] += 1;
-    postSynaptic["DB2"].values[nextState] += 1;
-    postSynaptic["DB3"].values[nextState] += 2;
-    postSynaptic["DB4"].values[nextState] += 1;
-    postSynaptic["DB5"].values[nextState] += 1;
-    postSynaptic["DB6"].values[nextState] += 2;
-    postSynaptic["DB7"].values[nextState] += 1;
-    postSynaptic["PDEL"].values[nextState] += 3;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["PVR"].values[nextState] += 2;
-    postSynaptic["RIAL"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 1;
-    postSynaptic["RIMR"].values[nextState] += 1;
-    postSynaptic["RIR"].values[nextState] += 3;
-    postSynaptic["SAADR"].values[nextState] += 1;
-    postSynaptic["SAAVL"].values[nextState] += 1;
-    postSynaptic["SAAVR"].values[nextState] += 1;
-    postSynaptic["SABD"].values[nextState] += 1;
-    postSynaptic["SMBDL"].values[nextState] += 3;
-    postSynaptic["SMBDR"].values[nextState] += 2;
-    postSynaptic["SMBVL"].values[nextState] += 3;
-    postSynaptic["SMBVR"].values[nextState] += 2;
-    postSynaptic["VA12"].values[nextState] += 1;
-    postSynaptic["VA2"].values[nextState] += 1;
-    postSynaptic["VB1"].values[nextState] += 1;
-    postSynaptic["VB11"].values[nextState] += 2;
+    postSynaptic[nAIZL].values[nextState] += 3;
+    postSynaptic[nAQR].values[nextState] += 4;
+    postSynaptic[nAUAL].values[nextState] += 1;
+    postSynaptic[nAUAR].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 3;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 9;
+    postSynaptic[nAVER].values[nextState] += 5;
+    postSynaptic[nDB1].values[nextState] += 1;
+    postSynaptic[nDB2].values[nextState] += 1;
+    postSynaptic[nDB3].values[nextState] += 2;
+    postSynaptic[nDB4].values[nextState] += 1;
+    postSynaptic[nDB5].values[nextState] += 1;
+    postSynaptic[nDB6].values[nextState] += 2;
+    postSynaptic[nDB7].values[nextState] += 1;
+    postSynaptic[nPDEL].values[nextState] += 3;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nPVR].values[nextState] += 2;
+    postSynaptic[nRIAL].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 1;
+    postSynaptic[nRIMR].values[nextState] += 1;
+    postSynaptic[nRIR].values[nextState] += 3;
+    postSynaptic[nSAADR].values[nextState] += 1;
+    postSynaptic[nSAAVL].values[nextState] += 1;
+    postSynaptic[nSAAVR].values[nextState] += 1;
+    postSynaptic[nSABD].values[nextState] += 1;
+    postSynaptic[nSMBDL].values[nextState] += 3;
+    postSynaptic[nSMBDR].values[nextState] += 2;
+    postSynaptic[nSMBVL].values[nextState] += 3;
+    postSynaptic[nSMBVR].values[nextState] += 2;
+    postSynaptic[nVA12].values[nextState] += 1;
+    postSynaptic[nVA2].values[nextState] += 1;
+    postSynaptic[nVB1].values[nextState] += 1;
+    postSynaptic[nVB11].values[nextState] += 2;
 }
 
 void DVB() {
-    postSynaptic["AS9"].values[nextState] += 7;
-    postSynaptic["AVL"].values[nextState] += 1;
-    postSynaptic["DA8"].values[nextState] += 2;
-    postSynaptic["DD6"].values[nextState] += 3;
-    postSynaptic["DVC"].values[nextState] += 3;
-    postSynaptic["PDA"].values[nextState] += 1;
-    postSynaptic["PHCL"].values[nextState] += 1;
-    postSynaptic["PVPL"].values[nextState] += 1;
-    postSynaptic["VA9"].values[nextState] += 1;
-    postSynaptic["VB9"].values[nextState] += 1;
+    postSynaptic[nAS9].values[nextState] += 7;
+    postSynaptic[nAVL].values[nextState] += 1;
+    postSynaptic[nDA8].values[nextState] += 2;
+    postSynaptic[nDD6].values[nextState] += 3;
+    postSynaptic[nDVC].values[nextState] += 3;
+    postSynaptic[nPDA].values[nextState] += 1;
+    postSynaptic[nPHCL].values[nextState] += 1;
+    postSynaptic[nPVPL].values[nextState] += 1;
+    postSynaptic[nVA9].values[nextState] += 1;
+    postSynaptic[nVB9].values[nextState] += 1;
 }
 
 void DVC() {
-    postSynaptic["AIBL"].values[nextState] += 2;
-    postSynaptic["AIBR"].values[nextState] += 5;
-    postSynaptic["AVAL"].values[nextState] += 5;
-    postSynaptic["AVAR"].values[nextState] += 7;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 2;
-    postSynaptic["AVKR"].values[nextState] += 1;
-    postSynaptic["AVL"].values[nextState] += 9;
-    postSynaptic["PVPL"].values[nextState] += 2;
-    postSynaptic["PVPR"].values[nextState] += 13;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 5;
-    postSynaptic["RIGR"].values[nextState] += 5;
-    postSynaptic["RMFL"].values[nextState] += 2;
-    postSynaptic["RMFR"].values[nextState] += 4;
-    postSynaptic["VA9"].values[nextState] += 1;
-    postSynaptic["VD1"].values[nextState] += 5;
-    postSynaptic["VD10"].values[nextState] += 4;
+    postSynaptic[nAIBL].values[nextState] += 2;
+    postSynaptic[nAIBR].values[nextState] += 5;
+    postSynaptic[nAVAL].values[nextState] += 5;
+    postSynaptic[nAVAR].values[nextState] += 7;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 2;
+    postSynaptic[nAVKR].values[nextState] += 1;
+    postSynaptic[nAVL].values[nextState] += 9;
+    postSynaptic[nPVPL].values[nextState] += 2;
+    postSynaptic[nPVPR].values[nextState] += 13;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 5;
+    postSynaptic[nRIGR].values[nextState] += 5;
+    postSynaptic[nRMFL].values[nextState] += 2;
+    postSynaptic[nRMFR].values[nextState] += 4;
+    postSynaptic[nVA9].values[nextState] += 1;
+    postSynaptic[nVD1].values[nextState] += 5;
+    postSynaptic[nVD10].values[nextState] += 4;
 }
 
 void FLPL() {
-    postSynaptic["ADEL"].values[nextState] += 2;
-    postSynaptic["ADER"].values[nextState] += 2;
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["AIBR"].values[nextState] += 2;
-    postSynaptic["AVAL"].values[nextState] += 15;
-    postSynaptic["AVAR"].values[nextState] += 17;
-    postSynaptic["AVBL"].values[nextState] += 4;
-    postSynaptic["AVBR"].values[nextState] += 5;
-    postSynaptic["AVDL"].values[nextState] += 7;
-    postSynaptic["AVDR"].values[nextState] += 13;
-    postSynaptic["DVA"].values[nextState] += 1;
-    postSynaptic["FLPR"].values[nextState] += 3;
-    postSynaptic["RIH"].values[nextState] += 1;
+    postSynaptic[nADEL].values[nextState] += 2;
+    postSynaptic[nADER].values[nextState] += 2;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 15;
+    postSynaptic[nAVAR].values[nextState] += 17;
+    postSynaptic[nAVBL].values[nextState] += 4;
+    postSynaptic[nAVBR].values[nextState] += 5;
+    postSynaptic[nAVDL].values[nextState] += 7;
+    postSynaptic[nAVDR].values[nextState] += 13;
+    postSynaptic[nDVA].values[nextState] += 1;
+    postSynaptic[nFLPR].values[nextState] += 3;
+    postSynaptic[nRIH].values[nextState] += 1;
 }
 
 void FLPR() {
-    postSynaptic["ADER"].values[nextState] += 1;
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 12;
-    postSynaptic["AVAR"].values[nextState] += 5;
-    postSynaptic["AVBL"].values[nextState] += 5;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["AVEL"].values[nextState] += 4;
-    postSynaptic["AVER"].values[nextState] += 2;
-    postSynaptic["AVJR"].values[nextState] += 1;
-    postSynaptic["DVA"].values[nextState] += 1;
-    postSynaptic["FLPL"].values[nextState] += 4;
-    postSynaptic["PVCL"].values[nextState] += 2;
-    postSynaptic["VB1"].values[nextState] += 1;
+    postSynaptic[nADER].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 12;
+    postSynaptic[nAVAR].values[nextState] += 5;
+    postSynaptic[nAVBL].values[nextState] += 5;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 4;
+    postSynaptic[nAVER].values[nextState] += 2;
+    postSynaptic[nAVJR].values[nextState] += 1;
+    postSynaptic[nDVA].values[nextState] += 1;
+    postSynaptic[nFLPL].values[nextState] += 4;
+    postSynaptic[nPVCL].values[nextState] += 2;
+    postSynaptic[nVB1].values[nextState] += 1;
 }
 
 void HSNL() {
-    postSynaptic["AIAL"].values[nextState] += 1;
-    postSynaptic["AIZL"].values[nextState] += 2;
-    postSynaptic["AIZR"].values[nextState] += 1;
-    postSynaptic["ASHL"].values[nextState] += 1;
-    postSynaptic["ASHR"].values[nextState] += 2;
-    postSynaptic["ASJR"].values[nextState] += 1;
-    postSynaptic["ASKL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["AVFL"].values[nextState] += 6;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AWBL"].values[nextState] += 1;
-    postSynaptic["AWBR"].values[nextState] += 2;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["MVULVA"].values[nextState] += 7;
-    postSynaptic["RIFL"].values[nextState] += 3;
-    postSynaptic["RIML"].values[nextState] += 2;
-    postSynaptic["SABVL"].values[nextState] += 2;
-    postSynaptic["VC5"].values[nextState] += 3;
+    postSynaptic[nAIAL].values[nextState] += 1;
+    postSynaptic[nAIZL].values[nextState] += 2;
+    postSynaptic[nAIZR].values[nextState] += 1;
+    postSynaptic[nASHL].values[nextState] += 1;
+    postSynaptic[nASHR].values[nextState] += 2;
+    postSynaptic[nASJR].values[nextState] += 1;
+    postSynaptic[nASKL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nAVFL].values[nextState] += 6;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAWBL].values[nextState] += 1;
+    postSynaptic[nAWBR].values[nextState] += 2;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nMVULVA].values[nextState] += 7;
+    postSynaptic[nRIFL].values[nextState] += 3;
+    postSynaptic[nRIML].values[nextState] += 2;
+    postSynaptic[nSABVL].values[nextState] += 2;
+    postSynaptic[nVC5].values[nextState] += 3;
 }
 
 void HSNR() {
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["AIZL"].values[nextState] += 1;
-    postSynaptic["AIZR"].values[nextState] += 1;
-    postSynaptic["AS5"].values[nextState] += 1;
-    postSynaptic["ASHL"].values[nextState] += 2;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVFL"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AVL"].values[nextState] += 1;
-    postSynaptic["AWBL"].values[nextState] += 1;
-    postSynaptic["BDUR"].values[nextState] += 1;
-    postSynaptic["DA5"].values[nextState] += 1;
-    postSynaptic["DA6"].values[nextState] += 1;
-    postSynaptic["HSNL"].values[nextState] += 2;
-    postSynaptic["MVULVA"].values[nextState] += 6;
-    postSynaptic["PVNR"].values[nextState] += 2;
-    postSynaptic["PVQR"].values[nextState] += 1;
-    postSynaptic["RIFR"].values[nextState] += 4;
-    postSynaptic["RMGR"].values[nextState] += 1;
-    postSynaptic["SABD"].values[nextState] += 1;
-    postSynaptic["SABVR"].values[nextState] += 1;
-    postSynaptic["VA6"].values[nextState] += 1;
-    postSynaptic["VC2"].values[nextState] += 3;
-    postSynaptic["VC3"].values[nextState] += 1;
-    postSynaptic["VD4"].values[nextState] += 2;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nAIZL].values[nextState] += 1;
+    postSynaptic[nAIZR].values[nextState] += 1;
+    postSynaptic[nAS5].values[nextState] += 1;
+    postSynaptic[nASHL].values[nextState] += 2;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVFL].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAVL].values[nextState] += 1;
+    postSynaptic[nAWBL].values[nextState] += 1;
+    postSynaptic[nBDUR].values[nextState] += 1;
+    postSynaptic[nDA5].values[nextState] += 1;
+    postSynaptic[nDA6].values[nextState] += 1;
+    postSynaptic[nHSNL].values[nextState] += 2;
+    postSynaptic[nMVULVA].values[nextState] += 6;
+    postSynaptic[nPVNR].values[nextState] += 2;
+    postSynaptic[nPVQR].values[nextState] += 1;
+    postSynaptic[nRIFR].values[nextState] += 4;
+    postSynaptic[nRMGR].values[nextState] += 1;
+    postSynaptic[nSABD].values[nextState] += 1;
+    postSynaptic[nSABVR].values[nextState] += 1;
+    postSynaptic[nVA6].values[nextState] += 1;
+    postSynaptic[nVC2].values[nextState] += 3;
+    postSynaptic[nVC3].values[nextState] += 1;
+    postSynaptic[nVD4].values[nextState] += 2;
 }
 
 void I1L() {
-    postSynaptic["I1R"].values[nextState] += 1;
-    postSynaptic["I3"].values[nextState] += 1;
-    postSynaptic["I5"].values[nextState] += 1;
-    postSynaptic["RIPL"].values[nextState] += 1;
-    postSynaptic["RIPR"].values[nextState] += 1;
+    postSynaptic[nI1R].values[nextState] += 1;
+    postSynaptic[nI3].values[nextState] += 1;
+    postSynaptic[nI5].values[nextState] += 1;
+    postSynaptic[nRIPL].values[nextState] += 1;
+    postSynaptic[nRIPR].values[nextState] += 1;
 }
 
 void I1R() {
-    postSynaptic["I1L"].values[nextState] += 1;
-    postSynaptic["I3"].values[nextState] += 1;
-    postSynaptic["I5"].values[nextState] += 1;
-    postSynaptic["RIPL"].values[nextState] += 1;
-    postSynaptic["RIPR"].values[nextState] += 1;
+    postSynaptic[nI1L].values[nextState] += 1;
+    postSynaptic[nI3].values[nextState] += 1;
+    postSynaptic[nI5].values[nextState] += 1;
+    postSynaptic[nRIPL].values[nextState] += 1;
+    postSynaptic[nRIPR].values[nextState] += 1;
 }
 
 void I2L() {
-    postSynaptic["I1L"].values[nextState] += 1;
-    postSynaptic["I1R"].values[nextState] += 1;
-    postSynaptic["M1"].values[nextState] += 4;
+    postSynaptic[nI1L].values[nextState] += 1;
+    postSynaptic[nI1R].values[nextState] += 1;
+    postSynaptic[nM1].values[nextState] += 4;
 }
 
 void I2R() {
-    postSynaptic["I1L"].values[nextState] += 1;
-    postSynaptic["I1R"].values[nextState] += 1;
-    postSynaptic["M1"].values[nextState] += 4;
+    postSynaptic[nI1L].values[nextState] += 1;
+    postSynaptic[nI1R].values[nextState] += 1;
+    postSynaptic[nM1].values[nextState] += 4;
 }
 
 void I3() {
-    postSynaptic["M1"].values[nextState] += 4;
-    postSynaptic["M2L"].values[nextState] += 2;
-    postSynaptic["M2R"].values[nextState] += 2;
+    postSynaptic[nM1].values[nextState] += 4;
+    postSynaptic[nM2L].values[nextState] += 2;
+    postSynaptic[nM2R].values[nextState] += 2;
 }
 
 void I4() {
-    postSynaptic["I2L"].values[nextState] += 5;
-    postSynaptic["I2R"].values[nextState] += 5;
-    postSynaptic["I5"].values[nextState] += 2;
-    postSynaptic["M1"].values[nextState] += 4;
+    postSynaptic[nI2L].values[nextState] += 5;
+    postSynaptic[nI2R].values[nextState] += 5;
+    postSynaptic[nI5].values[nextState] += 2;
+    postSynaptic[nM1].values[nextState] += 4;
 }
 
 void I5() {
-    postSynaptic["I1L"].values[nextState] += 4;
-    postSynaptic["I1R"].values[nextState] += 3;
-    postSynaptic["M1"].values[nextState] += 2;
-    postSynaptic["M5"].values[nextState] += 2;
-    postSynaptic["MI"].values[nextState] += 4;
+    postSynaptic[nI1L].values[nextState] += 4;
+    postSynaptic[nI1R].values[nextState] += 3;
+    postSynaptic[nM1].values[nextState] += 2;
+    postSynaptic[nM5].values[nextState] += 2;
+    postSynaptic[nMI].values[nextState] += 4;
 }
 
 void I6() {
-    postSynaptic["I2L"].values[nextState] += 2;
-    postSynaptic["I2R"].values[nextState] += 2;
-    postSynaptic["I3"].values[nextState] += 1;
-    postSynaptic["M4"].values[nextState] += 1;
-    postSynaptic["M5"].values[nextState] += 2;
-    postSynaptic["NSML"].values[nextState] += 2;
-    postSynaptic["NSMR"].values[nextState] += 2;
+    postSynaptic[nI2L].values[nextState] += 2;
+    postSynaptic[nI2R].values[nextState] += 2;
+    postSynaptic[nI3].values[nextState] += 1;
+    postSynaptic[nM4].values[nextState] += 1;
+    postSynaptic[nM5].values[nextState] += 2;
+    postSynaptic[nNSML].values[nextState] += 2;
+    postSynaptic[nNSMR].values[nextState] += 2;
 }
 
 void IL1DL() {
-    postSynaptic["IL1DR"].values[nextState] += 1;
-    postSynaptic["IL1L"].values[nextState] += 1;
-    postSynaptic["MDL01"].values[nextState] += 1;
-    postSynaptic["MDL02"].values[nextState] += 1;
-    postSynaptic["MDL04"].values[nextState] += 2;
-    postSynaptic["OLLL"].values[nextState] += 1;
-    postSynaptic["PVR"].values[nextState] += 1;
-    postSynaptic["RIH"].values[nextState] += 1;
-    postSynaptic["RIPL"].values[nextState] += 2;
-    postSynaptic["RMDDR"].values[nextState] += 1;
-    postSynaptic["RMDVL"].values[nextState] += 4;
-    postSynaptic["RMEV"].values[nextState] += 1;
-    postSynaptic["URYDL"].values[nextState] += 1;
+    postSynaptic[nIL1DR].values[nextState] += 1;
+    postSynaptic[nIL1L].values[nextState] += 1;
+    postSynaptic[nMDL01].values[nextState] += 1;
+    postSynaptic[nMDL02].values[nextState] += 1;
+    postSynaptic[nMDL04].values[nextState] += 2;
+    postSynaptic[nOLLL].values[nextState] += 1;
+    postSynaptic[nPVR].values[nextState] += 1;
+    postSynaptic[nRIH].values[nextState] += 1;
+    postSynaptic[nRIPL].values[nextState] += 2;
+    postSynaptic[nRMDDR].values[nextState] += 1;
+    postSynaptic[nRMDVL].values[nextState] += 4;
+    postSynaptic[nRMEV].values[nextState] += 1;
+    postSynaptic[nURYDL].values[nextState] += 1;
 }
 
 void IL1DR() {
-    postSynaptic["IL1DL"].values[nextState] += 1;
-    postSynaptic["IL1R"].values[nextState] += 1;
-    postSynaptic["MDR01"].values[nextState] += 4;
-    postSynaptic["MDR02"].values[nextState] += 3;
-    postSynaptic["OLLR"].values[nextState] += 1;
-    postSynaptic["RIPR"].values[nextState] += 5;
-    postSynaptic["RMDVR"].values[nextState] += 5;
-    postSynaptic["RMEV"].values[nextState] += 1;
+    postSynaptic[nIL1DL].values[nextState] += 1;
+    postSynaptic[nIL1R].values[nextState] += 1;
+    postSynaptic[nMDR01].values[nextState] += 4;
+    postSynaptic[nMDR02].values[nextState] += 3;
+    postSynaptic[nOLLR].values[nextState] += 1;
+    postSynaptic[nRIPR].values[nextState] += 5;
+    postSynaptic[nRMDVR].values[nextState] += 5;
+    postSynaptic[nRMEV].values[nextState] += 1;
 }
 
 void IL1L() {
-    postSynaptic["AVER"].values[nextState] += 2;
-    postSynaptic["IL1DL"].values[nextState] += 2;
-    postSynaptic["IL1VL"].values[nextState] += 1;
-    postSynaptic["MDL01"].values[nextState] += 3;
-    postSynaptic["MDL03"].values[nextState] += 3;
-    postSynaptic["MDL05"].values[nextState] += 4;
-    postSynaptic["MVL01"].values[nextState] += 3;
-    postSynaptic["MVL03"].values[nextState] += 3;
-    postSynaptic["RMDDL"].values[nextState] += 5;
-    postSynaptic["RMDL"].values[nextState] += 1;
-    postSynaptic["RMDR"].values[nextState] += 3;
-    postSynaptic["RMDVL"].values[nextState] += 4;
-    postSynaptic["RMDVR"].values[nextState] += 2;
-    postSynaptic["RMER"].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 2;
+    postSynaptic[nIL1DL].values[nextState] += 2;
+    postSynaptic[nIL1VL].values[nextState] += 1;
+    postSynaptic[nMDL01].values[nextState] += 3;
+    postSynaptic[nMDL03].values[nextState] += 3;
+    postSynaptic[nMDL05].values[nextState] += 4;
+    postSynaptic[nMVL01].values[nextState] += 3;
+    postSynaptic[nMVL03].values[nextState] += 3;
+    postSynaptic[nRMDDL].values[nextState] += 5;
+    postSynaptic[nRMDL].values[nextState] += 1;
+    postSynaptic[nRMDR].values[nextState] += 3;
+    postSynaptic[nRMDVL].values[nextState] += 4;
+    postSynaptic[nRMDVR].values[nextState] += 2;
+    postSynaptic[nRMER].values[nextState] += 1;
 }
 
 void IL1R() {
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["IL1DR"].values[nextState] += 2;
-    postSynaptic["IL1VR"].values[nextState] += 1;
-    postSynaptic["MDR01"].values[nextState] += 3;
-    postSynaptic["MDR03"].values[nextState] += 3;
-    postSynaptic["MVR01"].values[nextState] += 3;
-    postSynaptic["MVR03"].values[nextState] += 3;
-    postSynaptic["RMDDL"].values[nextState] += 3;
-    postSynaptic["RMDDR"].values[nextState] += 2;
-    postSynaptic["RMDL"].values[nextState] += 4;
-    postSynaptic["RMDR"].values[nextState] += 2;
-    postSynaptic["RMDVL"].values[nextState] += 1;
-    postSynaptic["RMDVR"].values[nextState] += 4;
-    postSynaptic["RMEL"].values[nextState] += 2;
-    postSynaptic["RMHL"].values[nextState] += 1;
-    postSynaptic["URXR"].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nIL1DR].values[nextState] += 2;
+    postSynaptic[nIL1VR].values[nextState] += 1;
+    postSynaptic[nMDR01].values[nextState] += 3;
+    postSynaptic[nMDR03].values[nextState] += 3;
+    postSynaptic[nMVR01].values[nextState] += 3;
+    postSynaptic[nMVR03].values[nextState] += 3;
+    postSynaptic[nRMDDL].values[nextState] += 3;
+    postSynaptic[nRMDDR].values[nextState] += 2;
+    postSynaptic[nRMDL].values[nextState] += 4;
+    postSynaptic[nRMDR].values[nextState] += 2;
+    postSynaptic[nRMDVL].values[nextState] += 1;
+    postSynaptic[nRMDVR].values[nextState] += 4;
+    postSynaptic[nRMEL].values[nextState] += 2;
+    postSynaptic[nRMHL].values[nextState] += 1;
+    postSynaptic[nURXR].values[nextState] += 2;
 }
 
 void IL1VL() {
-    postSynaptic["IL1L"].values[nextState] += 2;
-    postSynaptic["IL1VR"].values[nextState] += 1;
-    postSynaptic["MVL01"].values[nextState] += 5;
-    postSynaptic["MVL02"].values[nextState] += 4;
-    postSynaptic["RIPL"].values[nextState] += 4;
-    postSynaptic["RMDDL"].values[nextState] += 5;
-    postSynaptic["RMED"].values[nextState] += 1;
-    postSynaptic["URYVL"].values[nextState] += 1;
+    postSynaptic[nIL1L].values[nextState] += 2;
+    postSynaptic[nIL1VR].values[nextState] += 1;
+    postSynaptic[nMVL01].values[nextState] += 5;
+    postSynaptic[nMVL02].values[nextState] += 4;
+    postSynaptic[nRIPL].values[nextState] += 4;
+    postSynaptic[nRMDDL].values[nextState] += 5;
+    postSynaptic[nRMED].values[nextState] += 1;
+    postSynaptic[nURYVL].values[nextState] += 1;
 }
 
 void IL1VR() {
-    postSynaptic["IL1R"].values[nextState] += 2;
-    postSynaptic["IL1VL"].values[nextState] += 1;
-    postSynaptic["IL2R"].values[nextState] += 1;
-    postSynaptic["IL2VR"].values[nextState] += 1;
-    postSynaptic["MVR01"].values[nextState] += 5;
-    postSynaptic["MVR02"].values[nextState] += 5;
-    postSynaptic["RIPR"].values[nextState] += 6;
-    postSynaptic["RMDDR"].values[nextState] += 10;
-    postSynaptic["RMER"].values[nextState] += 1;
+    postSynaptic[nIL1R].values[nextState] += 2;
+    postSynaptic[nIL1VL].values[nextState] += 1;
+    postSynaptic[nIL2R].values[nextState] += 1;
+    postSynaptic[nIL2VR].values[nextState] += 1;
+    postSynaptic[nMVR01].values[nextState] += 5;
+    postSynaptic[nMVR02].values[nextState] += 5;
+    postSynaptic[nRIPR].values[nextState] += 6;
+    postSynaptic[nRMDDR].values[nextState] += 10;
+    postSynaptic[nRMER].values[nextState] += 1;
 }
 
 void IL2DL() {
-    postSynaptic["AUAL"].values[nextState] += 1;
-    postSynaptic["IL1DL"].values[nextState] += 7;
-    postSynaptic["OLQDL"].values[nextState] += 2;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIPL"].values[nextState] += 10;
-    postSynaptic["RMEL"].values[nextState] += 4;
-    postSynaptic["RMER"].values[nextState] += 3;
-    postSynaptic["URADL"].values[nextState] += 3;
+    postSynaptic[nAUAL].values[nextState] += 1;
+    postSynaptic[nIL1DL].values[nextState] += 7;
+    postSynaptic[nOLQDL].values[nextState] += 2;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIPL].values[nextState] += 10;
+    postSynaptic[nRMEL].values[nextState] += 4;
+    postSynaptic[nRMER].values[nextState] += 3;
+    postSynaptic[nURADL].values[nextState] += 3;
 }
 
 void IL2DR() {
-    postSynaptic["CEPDR"].values[nextState] += 1;
-    postSynaptic["IL1DR"].values[nextState] += 7;
-    postSynaptic["RICR"].values[nextState] += 1;
-    postSynaptic["RIPR"].values[nextState] += 11;
-    postSynaptic["RMED"].values[nextState] += 1;
-    postSynaptic["RMEL"].values[nextState] += 2;
-    postSynaptic["RMER"].values[nextState] += 2;
-    postSynaptic["RMEV"].values[nextState] += 1;
-    postSynaptic["URADR"].values[nextState] += 3;
+    postSynaptic[nCEPDR].values[nextState] += 1;
+    postSynaptic[nIL1DR].values[nextState] += 7;
+    postSynaptic[nRICR].values[nextState] += 1;
+    postSynaptic[nRIPR].values[nextState] += 11;
+    postSynaptic[nRMED].values[nextState] += 1;
+    postSynaptic[nRMEL].values[nextState] += 2;
+    postSynaptic[nRMER].values[nextState] += 2;
+    postSynaptic[nRMEV].values[nextState] += 1;
+    postSynaptic[nURADR].values[nextState] += 3;
 }
 
 void IL2L() {
-    postSynaptic["ADEL"].values[nextState] += 2;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["IL1L"].values[nextState] += 1;
-    postSynaptic["OLQDL"].values[nextState] += 5;
-    postSynaptic["OLQVL"].values[nextState] += 8;
-    postSynaptic["RICL"].values[nextState] += 1;
-    postSynaptic["RIH"].values[nextState] += 7;
-    postSynaptic["RMDL"].values[nextState] += 3;
-    postSynaptic["RMDR"].values[nextState] += 1;
-    postSynaptic["RMER"].values[nextState] += 2;
-    postSynaptic["RMEV"].values[nextState] += 2;
-    postSynaptic["RMGL"].values[nextState] += 1;
-    postSynaptic["URXL"].values[nextState] += 2;
+    postSynaptic[nADEL].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nIL1L].values[nextState] += 1;
+    postSynaptic[nOLQDL].values[nextState] += 5;
+    postSynaptic[nOLQVL].values[nextState] += 8;
+    postSynaptic[nRICL].values[nextState] += 1;
+    postSynaptic[nRIH].values[nextState] += 7;
+    postSynaptic[nRMDL].values[nextState] += 3;
+    postSynaptic[nRMDR].values[nextState] += 1;
+    postSynaptic[nRMER].values[nextState] += 2;
+    postSynaptic[nRMEV].values[nextState] += 2;
+    postSynaptic[nRMGL].values[nextState] += 1;
+    postSynaptic[nURXL].values[nextState] += 2;
 }
 
 void IL2R() {
-    postSynaptic["ADER"].values[nextState] += 1;
-    postSynaptic["IL1R"].values[nextState] += 1;
-    postSynaptic["IL1VR"].values[nextState] += 1;
-    postSynaptic["OLLR"].values[nextState] += 1;
-    postSynaptic["OLQDR"].values[nextState] += 2;
-    postSynaptic["OLQVR"].values[nextState] += 7;
-    postSynaptic["RIH"].values[nextState] += 6;
-    postSynaptic["RMDL"].values[nextState] += 1;
-    postSynaptic["RMEL"].values[nextState] += 2;
-    postSynaptic["RMEV"].values[nextState] += 1;
-    postSynaptic["RMGR"].values[nextState] += 1;
-    postSynaptic["URBR"].values[nextState] += 1;
-    postSynaptic["URXR"].values[nextState] += 1;
+    postSynaptic[nADER].values[nextState] += 1;
+    postSynaptic[nIL1R].values[nextState] += 1;
+    postSynaptic[nIL1VR].values[nextState] += 1;
+    postSynaptic[nOLLR].values[nextState] += 1;
+    postSynaptic[nOLQDR].values[nextState] += 2;
+    postSynaptic[nOLQVR].values[nextState] += 7;
+    postSynaptic[nRIH].values[nextState] += 6;
+    postSynaptic[nRMDL].values[nextState] += 1;
+    postSynaptic[nRMEL].values[nextState] += 2;
+    postSynaptic[nRMEV].values[nextState] += 1;
+    postSynaptic[nRMGR].values[nextState] += 1;
+    postSynaptic[nURBR].values[nextState] += 1;
+    postSynaptic[nURXR].values[nextState] += 1;
 }
 
 void IL2VL() {
-    postSynaptic["BAGR"].values[nextState] += 1;
-    postSynaptic["IL1VL"].values[nextState] += 7;
-    postSynaptic["IL2L"].values[nextState] += 1;
-    postSynaptic["OLQVL"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 1;
-    postSynaptic["RIH"].values[nextState] += 2;
-    postSynaptic["RIPL"].values[nextState] += 1;
-    postSynaptic["RMEL"].values[nextState] += 1;
-    postSynaptic["RMER"].values[nextState] += 4;
-    postSynaptic["RMEV"].values[nextState] += 1;
-    postSynaptic["URAVL"].values[nextState] += 3;
+    postSynaptic[nBAGR].values[nextState] += 1;
+    postSynaptic[nIL1VL].values[nextState] += 7;
+    postSynaptic[nIL2L].values[nextState] += 1;
+    postSynaptic[nOLQVL].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 1;
+    postSynaptic[nRIH].values[nextState] += 2;
+    postSynaptic[nRIPL].values[nextState] += 1;
+    postSynaptic[nRMEL].values[nextState] += 1;
+    postSynaptic[nRMER].values[nextState] += 4;
+    postSynaptic[nRMEV].values[nextState] += 1;
+    postSynaptic[nURAVL].values[nextState] += 3;
 }
 
 void IL2VR() {
-    postSynaptic["IL1VR"].values[nextState] += 6;
-    postSynaptic["OLQVR"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 2;
-    postSynaptic["RIH"].values[nextState] += 3;
-    postSynaptic["RIPR"].values[nextState] += 15;
-    postSynaptic["RMEL"].values[nextState] += 3;
-    postSynaptic["RMER"].values[nextState] += 2;
-    postSynaptic["RMEV"].values[nextState] += 3;
-    postSynaptic["URAVR"].values[nextState] += 4;
-    postSynaptic["URXR"].values[nextState] += 1;
+    postSynaptic[nIL1VR].values[nextState] += 6;
+    postSynaptic[nOLQVR].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 2;
+    postSynaptic[nRIH].values[nextState] += 3;
+    postSynaptic[nRIPR].values[nextState] += 15;
+    postSynaptic[nRMEL].values[nextState] += 3;
+    postSynaptic[nRMER].values[nextState] += 2;
+    postSynaptic[nRMEV].values[nextState] += 3;
+    postSynaptic[nURAVR].values[nextState] += 4;
+    postSynaptic[nURXR].values[nextState] += 1;
 }
 
 void LUAL() {
-    postSynaptic["AVAL"].values[nextState] += 6;
-    postSynaptic["AVAR"].values[nextState] += 6;
-    postSynaptic["AVDL"].values[nextState] += 4;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["PHBL"].values[nextState] += 1;
-    postSynaptic["PLML"].values[nextState] += 1;
-    postSynaptic["PVNL"].values[nextState] += 1;
-    postSynaptic["PVR"].values[nextState] += 1;
-    postSynaptic["PVWL"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 6;
+    postSynaptic[nAVAR].values[nextState] += 6;
+    postSynaptic[nAVDL].values[nextState] += 4;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nPHBL].values[nextState] += 1;
+    postSynaptic[nPLML].values[nextState] += 1;
+    postSynaptic[nPVNL].values[nextState] += 1;
+    postSynaptic[nPVR].values[nextState] += 1;
+    postSynaptic[nPVWL].values[nextState] += 1;
 }
 
 void LUAR() {
-    postSynaptic["AVAL"].values[nextState] += 3;
-    postSynaptic["AVAR"].values[nextState] += 7;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 3;
-    postSynaptic["AVJR"].values[nextState] += 1;
-    postSynaptic["PLMR"].values[nextState] += 1;
-    postSynaptic["PQR"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 3;
-    postSynaptic["PVR"].values[nextState] += 2;
-    postSynaptic["PVWL"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 3;
+    postSynaptic[nAVAR].values[nextState] += 7;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 3;
+    postSynaptic[nAVJR].values[nextState] += 1;
+    postSynaptic[nPLMR].values[nextState] += 1;
+    postSynaptic[nPQR].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 3;
+    postSynaptic[nPVR].values[nextState] += 2;
+    postSynaptic[nPVWL].values[nextState] += 1;
 }
 
 void M1() {
-    postSynaptic["I2L"].values[nextState] += 2;
-    postSynaptic["I2R"].values[nextState] += 2;
-    postSynaptic["I3"].values[nextState] += 1;
-    postSynaptic["I4"].values[nextState] += 1;
+    postSynaptic[nI2L].values[nextState] += 2;
+    postSynaptic[nI2R].values[nextState] += 2;
+    postSynaptic[nI3].values[nextState] += 1;
+    postSynaptic[nI4].values[nextState] += 1;
 }
 
 void M2L() {
-    postSynaptic["I1L"].values[nextState] += 3;
-    postSynaptic["I1R"].values[nextState] += 3;
-    postSynaptic["I3"].values[nextState] += 3;
-    postSynaptic["M2R"].values[nextState] += 1;
-    postSynaptic["M5"].values[nextState] += 1;
-    postSynaptic["MI"].values[nextState] += 4;
+    postSynaptic[nI1L].values[nextState] += 3;
+    postSynaptic[nI1R].values[nextState] += 3;
+    postSynaptic[nI3].values[nextState] += 3;
+    postSynaptic[nM2R].values[nextState] += 1;
+    postSynaptic[nM5].values[nextState] += 1;
+    postSynaptic[nMI].values[nextState] += 4;
 }
 
 void M2R() {
-    postSynaptic["I1L"].values[nextState] += 3;
-    postSynaptic["I1R"].values[nextState] += 3;
-    postSynaptic["I3"].values[nextState] += 3;
-    postSynaptic["M3L"].values[nextState] += 1;
-    postSynaptic["M3R"].values[nextState] += 1;
-    postSynaptic["M5"].values[nextState] += 1;
-    postSynaptic["MI"].values[nextState] += 4;
+    postSynaptic[nI1L].values[nextState] += 3;
+    postSynaptic[nI1R].values[nextState] += 3;
+    postSynaptic[nI3].values[nextState] += 3;
+    postSynaptic[nM3L].values[nextState] += 1;
+    postSynaptic[nM3R].values[nextState] += 1;
+    postSynaptic[nM5].values[nextState] += 1;
+    postSynaptic[nMI].values[nextState] += 4;
 }
 
 void M3L() {
-    postSynaptic["I1L"].values[nextState] += 4;
-    postSynaptic["I1R"].values[nextState] += 4;
-    postSynaptic["I4"].values[nextState] += 2;
-    postSynaptic["I5"].values[nextState] += 3;
-    postSynaptic["I6"].values[nextState] += 1;
-    postSynaptic["M1"].values[nextState] += 2;
-    postSynaptic["M3R"].values[nextState] += 1;
-    postSynaptic["MCL"].values[nextState] += 1;
-    postSynaptic["MCR"].values[nextState] += 1;
-    postSynaptic["MI"].values[nextState] += 2;
-    postSynaptic["NSML"].values[nextState] += 2;
-    postSynaptic["NSMR"].values[nextState] += 3;
+    postSynaptic[nI1L].values[nextState] += 4;
+    postSynaptic[nI1R].values[nextState] += 4;
+    postSynaptic[nI4].values[nextState] += 2;
+    postSynaptic[nI5].values[nextState] += 3;
+    postSynaptic[nI6].values[nextState] += 1;
+    postSynaptic[nM1].values[nextState] += 2;
+    postSynaptic[nM3R].values[nextState] += 1;
+    postSynaptic[nMCL].values[nextState] += 1;
+    postSynaptic[nMCR].values[nextState] += 1;
+    postSynaptic[nMI].values[nextState] += 2;
+    postSynaptic[nNSML].values[nextState] += 2;
+    postSynaptic[nNSMR].values[nextState] += 3;
 }
 
 void M3R() {
-    postSynaptic["I1L"].values[nextState] += 4;
-    postSynaptic["I1R"].values[nextState] += 4;
-    postSynaptic["I3"].values[nextState] += 2;
-    postSynaptic["I4"].values[nextState] += 6;
-    postSynaptic["I5"].values[nextState] += 3;
-    postSynaptic["I6"].values[nextState] += 1;
-    postSynaptic["M1"].values[nextState] += 2;
-    postSynaptic["M3L"].values[nextState] += 1;
-    postSynaptic["MCL"].values[nextState] += 1;
-    postSynaptic["MCR"].values[nextState] += 1;
-    postSynaptic["MI"].values[nextState] += 2;
-    postSynaptic["NSML"].values[nextState] += 2;
-    postSynaptic["NSMR"].values[nextState] += 3;
+    postSynaptic[nI1L].values[nextState] += 4;
+    postSynaptic[nI1R].values[nextState] += 4;
+    postSynaptic[nI3].values[nextState] += 2;
+    postSynaptic[nI4].values[nextState] += 6;
+    postSynaptic[nI5].values[nextState] += 3;
+    postSynaptic[nI6].values[nextState] += 1;
+    postSynaptic[nM1].values[nextState] += 2;
+    postSynaptic[nM3L].values[nextState] += 1;
+    postSynaptic[nMCL].values[nextState] += 1;
+    postSynaptic[nMCR].values[nextState] += 1;
+    postSynaptic[nMI].values[nextState] += 2;
+    postSynaptic[nNSML].values[nextState] += 2;
+    postSynaptic[nNSMR].values[nextState] += 3;
 }
 
 void M4() {
-    postSynaptic["I3"].values[nextState] += 1;
-    postSynaptic["I5"].values[nextState] += 13;
-    postSynaptic["I6"].values[nextState] += 3;
-    postSynaptic["M2L"].values[nextState] += 1;
-    postSynaptic["M2R"].values[nextState] += 1;
-    postSynaptic["M4"].values[nextState] += 6;
-    postSynaptic["M5"].values[nextState] += 1;
-    postSynaptic["NSML"].values[nextState] += 1;
-    postSynaptic["NSMR"].values[nextState] += 1;
+    postSynaptic[nI3].values[nextState] += 1;
+    postSynaptic[nI5].values[nextState] += 13;
+    postSynaptic[nI6].values[nextState] += 3;
+    postSynaptic[nM2L].values[nextState] += 1;
+    postSynaptic[nM2R].values[nextState] += 1;
+    postSynaptic[nM4].values[nextState] += 6;
+    postSynaptic[nM5].values[nextState] += 1;
+    postSynaptic[nNSML].values[nextState] += 1;
+    postSynaptic[nNSMR].values[nextState] += 1;
 }
 
 void M5() {
-    postSynaptic["I5"].values[nextState] += 1;
-    postSynaptic["I6"].values[nextState] += 1;
-    postSynaptic["M1"].values[nextState] += 2;
-    postSynaptic["M2L"].values[nextState] += 2;
-    postSynaptic["M2R"].values[nextState] += 2;
-    postSynaptic["M5"].values[nextState] += 4;
+    postSynaptic[nI5].values[nextState] += 1;
+    postSynaptic[nI6].values[nextState] += 1;
+    postSynaptic[nM1].values[nextState] += 2;
+    postSynaptic[nM2L].values[nextState] += 2;
+    postSynaptic[nM2R].values[nextState] += 2;
+    postSynaptic[nM5].values[nextState] += 4;
 }
 
 void MCL() {
-    postSynaptic["I1L"].values[nextState] += 3;
-    postSynaptic["I1R"].values[nextState] += 3;
-    postSynaptic["I2L"].values[nextState] += 1;
-    postSynaptic["I2R"].values[nextState] += 1;
-    postSynaptic["I3"].values[nextState] += 1;
-    postSynaptic["M1"].values[nextState] += 2;
-    postSynaptic["M2L"].values[nextState] += 2;
-    postSynaptic["M2R"].values[nextState] += 2;
+    postSynaptic[nI1L].values[nextState] += 3;
+    postSynaptic[nI1R].values[nextState] += 3;
+    postSynaptic[nI2L].values[nextState] += 1;
+    postSynaptic[nI2R].values[nextState] += 1;
+    postSynaptic[nI3].values[nextState] += 1;
+    postSynaptic[nM1].values[nextState] += 2;
+    postSynaptic[nM2L].values[nextState] += 2;
+    postSynaptic[nM2R].values[nextState] += 2;
 }
 
 void MCR() {
-    postSynaptic["I1L"].values[nextState] += 3;
-    postSynaptic["I1R"].values[nextState] += 3;
-    postSynaptic["I3"].values[nextState] += 1;
-    postSynaptic["M1"].values[nextState] += 2;
-    postSynaptic["M2L"].values[nextState] += 2;
-    postSynaptic["M2R"].values[nextState] += 2;
+    postSynaptic[nI1L].values[nextState] += 3;
+    postSynaptic[nI1R].values[nextState] += 3;
+    postSynaptic[nI3].values[nextState] += 1;
+    postSynaptic[nM1].values[nextState] += 2;
+    postSynaptic[nM2L].values[nextState] += 2;
+    postSynaptic[nM2R].values[nextState] += 2;
 }
 
 void MI() {
-    postSynaptic["I1L"].values[nextState] += 1;
-    postSynaptic["I1R"].values[nextState] += 1;
-    postSynaptic["I3"].values[nextState] += 1;
-    postSynaptic["I4"].values[nextState] += 1;
-    postSynaptic["I5"].values[nextState] += 2;
-    postSynaptic["M1"].values[nextState] += 1;
-    postSynaptic["M2L"].values[nextState] += 2;
-    postSynaptic["M2R"].values[nextState] += 2;
-    postSynaptic["M3L"].values[nextState] += 1;
-    postSynaptic["M3R"].values[nextState] += 1;
-    postSynaptic["MCL"].values[nextState] += 2;
-    postSynaptic["MCR"].values[nextState] += 2;
+    postSynaptic[nI1L].values[nextState] += 1;
+    postSynaptic[nI1R].values[nextState] += 1;
+    postSynaptic[nI3].values[nextState] += 1;
+    postSynaptic[nI4].values[nextState] += 1;
+    postSynaptic[nI5].values[nextState] += 2;
+    postSynaptic[nM1].values[nextState] += 1;
+    postSynaptic[nM2L].values[nextState] += 2;
+    postSynaptic[nM2R].values[nextState] += 2;
+    postSynaptic[nM3L].values[nextState] += 1;
+    postSynaptic[nM3R].values[nextState] += 1;
+    postSynaptic[nMCL].values[nextState] += 2;
+    postSynaptic[nMCR].values[nextState] += 2;
 }
 
 void NSML() {
-    postSynaptic["I1L"].values[nextState] += 1;
-    postSynaptic["I1R"].values[nextState] += 2;
-    postSynaptic["I2L"].values[nextState] += 6;
-    postSynaptic["I2R"].values[nextState] += 6;
-    postSynaptic["I3"].values[nextState] += 2;
-    postSynaptic["I4"].values[nextState] += 3;
-    postSynaptic["I5"].values[nextState] += 2;
-    postSynaptic["I6"].values[nextState] += 2;
-    postSynaptic["M3L"].values[nextState] += 2;
-    postSynaptic["M3R"].values[nextState] += 2;
+    postSynaptic[nI1L].values[nextState] += 1;
+    postSynaptic[nI1R].values[nextState] += 2;
+    postSynaptic[nI2L].values[nextState] += 6;
+    postSynaptic[nI2R].values[nextState] += 6;
+    postSynaptic[nI3].values[nextState] += 2;
+    postSynaptic[nI4].values[nextState] += 3;
+    postSynaptic[nI5].values[nextState] += 2;
+    postSynaptic[nI6].values[nextState] += 2;
+    postSynaptic[nM3L].values[nextState] += 2;
+    postSynaptic[nM3R].values[nextState] += 2;
 }
 
 void NSMR() {
-    postSynaptic["I1L"].values[nextState] += 2;
-    postSynaptic["I1R"].values[nextState] += 2;
-    postSynaptic["I2L"].values[nextState] += 6;
-    postSynaptic["I2R"].values[nextState] += 6;
-    postSynaptic["I3"].values[nextState] += 2;
-    postSynaptic["I4"].values[nextState] += 3;
-    postSynaptic["I5"].values[nextState] += 2;
-    postSynaptic["I6"].values[nextState] += 2;
-    postSynaptic["M3L"].values[nextState] += 2;
-    postSynaptic["M3R"].values[nextState] += 2;
+    postSynaptic[nI1L].values[nextState] += 2;
+    postSynaptic[nI1R].values[nextState] += 2;
+    postSynaptic[nI2L].values[nextState] += 6;
+    postSynaptic[nI2R].values[nextState] += 6;
+    postSynaptic[nI3].values[nextState] += 2;
+    postSynaptic[nI4].values[nextState] += 3;
+    postSynaptic[nI5].values[nextState] += 2;
+    postSynaptic[nI6].values[nextState] += 2;
+    postSynaptic[nM3L].values[nextState] += 2;
+    postSynaptic[nM3R].values[nextState] += 2;
 }
 
 void OLLL() {
-    postSynaptic["AVER"].values[nextState] += 21;
-    postSynaptic["CEPDL"].values[nextState] += 3;
-    postSynaptic["CEPVL"].values[nextState] += 4;
-    postSynaptic["IL1DL"].values[nextState] += 1;
-    postSynaptic["IL1VL"].values[nextState] += 2;
-    postSynaptic["OLLR"].values[nextState] += 2;
-    postSynaptic["RIBL"].values[nextState] += 8;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 7;
-    postSynaptic["RMDL"].values[nextState] += 2;
-    postSynaptic["RMDVL"].values[nextState] += 1;
-    postSynaptic["RMEL"].values[nextState] += 2;
-    postSynaptic["SMDDL"].values[nextState] += 3;
-    postSynaptic["SMDDR"].values[nextState] += 4;
-    postSynaptic["SMDVR"].values[nextState] += 4;
-    postSynaptic["URYDL"].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 21;
+    postSynaptic[nCEPDL].values[nextState] += 3;
+    postSynaptic[nCEPVL].values[nextState] += 4;
+    postSynaptic[nIL1DL].values[nextState] += 1;
+    postSynaptic[nIL1VL].values[nextState] += 2;
+    postSynaptic[nOLLR].values[nextState] += 2;
+    postSynaptic[nRIBL].values[nextState] += 8;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 7;
+    postSynaptic[nRMDL].values[nextState] += 2;
+    postSynaptic[nRMDVL].values[nextState] += 1;
+    postSynaptic[nRMEL].values[nextState] += 2;
+    postSynaptic[nSMDDL].values[nextState] += 3;
+    postSynaptic[nSMDDR].values[nextState] += 4;
+    postSynaptic[nSMDVR].values[nextState] += 4;
+    postSynaptic[nURYDL].values[nextState] += 1;
 }
 
 void OLLR() {
-    postSynaptic["AVEL"].values[nextState] += 16;
-    postSynaptic["CEPDR"].values[nextState] += 1;
-    postSynaptic["CEPVR"].values[nextState] += 6;
-    postSynaptic["IL1DR"].values[nextState] += 3;
-    postSynaptic["IL1VR"].values[nextState] += 1;
-    postSynaptic["IL2R"].values[nextState] += 1;
-    postSynaptic["OLLL"].values[nextState] += 2;
-    postSynaptic["RIBR"].values[nextState] += 10;
-    postSynaptic["RIGR"].values[nextState] += 1;
-    postSynaptic["RMDDR"].values[nextState] += 10;
-    postSynaptic["RMDL"].values[nextState] += 3;
-    postSynaptic["RMDVR"].values[nextState] += 3;
-    postSynaptic["RMER"].values[nextState] += 2;
-    postSynaptic["SMDDR"].values[nextState] += 1;
-    postSynaptic["SMDVL"].values[nextState] += 4;
-    postSynaptic["SMDVR"].values[nextState] += 3;
+    postSynaptic[nAVEL].values[nextState] += 16;
+    postSynaptic[nCEPDR].values[nextState] += 1;
+    postSynaptic[nCEPVR].values[nextState] += 6;
+    postSynaptic[nIL1DR].values[nextState] += 3;
+    postSynaptic[nIL1VR].values[nextState] += 1;
+    postSynaptic[nIL2R].values[nextState] += 1;
+    postSynaptic[nOLLL].values[nextState] += 2;
+    postSynaptic[nRIBR].values[nextState] += 10;
+    postSynaptic[nRIGR].values[nextState] += 1;
+    postSynaptic[nRMDDR].values[nextState] += 10;
+    postSynaptic[nRMDL].values[nextState] += 3;
+    postSynaptic[nRMDVR].values[nextState] += 3;
+    postSynaptic[nRMER].values[nextState] += 2;
+    postSynaptic[nSMDDR].values[nextState] += 1;
+    postSynaptic[nSMDVL].values[nextState] += 4;
+    postSynaptic[nSMDVR].values[nextState] += 3;
 }
 
 void OLQDL() {
-    postSynaptic["CEPDL"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 2;
-    postSynaptic["RICR"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RMDDR"].values[nextState] += 4;
-    postSynaptic["RMDVL"].values[nextState] += 1;
-    postSynaptic["SIBVL"].values[nextState] += 3;
-    postSynaptic["URBL"].values[nextState] += 1;
+    postSynaptic[nCEPDL].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 2;
+    postSynaptic[nRICR].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRMDDR].values[nextState] += 4;
+    postSynaptic[nRMDVL].values[nextState] += 1;
+    postSynaptic[nSIBVL].values[nextState] += 3;
+    postSynaptic[nURBL].values[nextState] += 1;
 }
 
 void OLQDR() {
-    postSynaptic["CEPDR"].values[nextState] += 2;
-    postSynaptic["RIBR"].values[nextState] += 2;
-    postSynaptic["RICL"].values[nextState] += 1;
-    postSynaptic["RICR"].values[nextState] += 1;
-    postSynaptic["RIGR"].values[nextState] += 1;
-    postSynaptic["RIH"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 3;
-    postSynaptic["RMDVR"].values[nextState] += 1;
-    postSynaptic["RMHR"].values[nextState] += 1;
-    postSynaptic["SIBVR"].values[nextState] += 2;
-    postSynaptic["URBR"].values[nextState] += 1;
+    postSynaptic[nCEPDR].values[nextState] += 2;
+    postSynaptic[nRIBR].values[nextState] += 2;
+    postSynaptic[nRICL].values[nextState] += 1;
+    postSynaptic[nRICR].values[nextState] += 1;
+    postSynaptic[nRIGR].values[nextState] += 1;
+    postSynaptic[nRIH].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 3;
+    postSynaptic[nRMDVR].values[nextState] += 1;
+    postSynaptic[nRMHR].values[nextState] += 1;
+    postSynaptic[nSIBVR].values[nextState] += 2;
+    postSynaptic[nURBR].values[nextState] += 1;
 }
 
 void OLQVL() {
-    postSynaptic["ADLL"].values[nextState] += 1;
-    postSynaptic["CEPVL"].values[nextState] += 1;
-    postSynaptic["IL1VL"].values[nextState] += 1;
-    postSynaptic["IL2VL"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RICL"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RIH"].values[nextState] += 1;
-    postSynaptic["RIPL"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 1;
-    postSynaptic["RMDVR"].values[nextState] += 4;
-    postSynaptic["SIBDL"].values[nextState] += 3;
-    postSynaptic["URBL"].values[nextState] += 1;
+    postSynaptic[nADLL].values[nextState] += 1;
+    postSynaptic[nCEPVL].values[nextState] += 1;
+    postSynaptic[nIL1VL].values[nextState] += 1;
+    postSynaptic[nIL2VL].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRICL].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRIH].values[nextState] += 1;
+    postSynaptic[nRIPL].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 1;
+    postSynaptic[nRMDVR].values[nextState] += 4;
+    postSynaptic[nSIBDL].values[nextState] += 3;
+    postSynaptic[nURBL].values[nextState] += 1;
 }
 
 void OLQVR() {
-    postSynaptic["CEPVR"].values[nextState] += 1;
-    postSynaptic["IL1VR"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RICR"].values[nextState] += 1;
-    postSynaptic["RIGR"].values[nextState] += 1;
-    postSynaptic["RIH"].values[nextState] += 2;
-    postSynaptic["RIPR"].values[nextState] += 2;
-    postSynaptic["RMDDR"].values[nextState] += 1;
-    postSynaptic["RMDVL"].values[nextState] += 4;
-    postSynaptic["RMER"].values[nextState] += 1;
-    postSynaptic["SIBDR"].values[nextState] += 4;
-    postSynaptic["URBR"].values[nextState] += 1;
+    postSynaptic[nCEPVR].values[nextState] += 1;
+    postSynaptic[nIL1VR].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRICR].values[nextState] += 1;
+    postSynaptic[nRIGR].values[nextState] += 1;
+    postSynaptic[nRIH].values[nextState] += 2;
+    postSynaptic[nRIPR].values[nextState] += 2;
+    postSynaptic[nRMDDR].values[nextState] += 1;
+    postSynaptic[nRMDVL].values[nextState] += 4;
+    postSynaptic[nRMER].values[nextState] += 1;
+    postSynaptic[nSIBDR].values[nextState] += 4;
+    postSynaptic[nURBR].values[nextState] += 1;
 }
 
 void PDA() {
-    postSynaptic["AS11"].values[nextState] += 1;
-    postSynaptic["DA9"].values[nextState] += 1;
-    postSynaptic["DD6"].values[nextState] += 1;
-    postSynaptic["MDL21"].values[nextState] += 2;
-    postSynaptic["PVNR"].values[nextState] += 1;
-    postSynaptic["VD13"].values[nextState] += 3;
+    postSynaptic[nAS11].values[nextState] += 1;
+    postSynaptic[nDA9].values[nextState] += 1;
+    postSynaptic[nDD6].values[nextState] += 1;
+    postSynaptic[nMDL21].values[nextState] += 2;
+    postSynaptic[nPVNR].values[nextState] += 1;
+    postSynaptic[nVD13].values[nextState] += 3;
 }
 
 void PDB() {
-    postSynaptic["AS11"].values[nextState] += 2;
-    postSynaptic["MVL22"].values[nextState] += 1;
-    postSynaptic["MVR21"].values[nextState] += 1;
-    postSynaptic["RID"].values[nextState] += 2;
-    postSynaptic["VD13"].values[nextState] += 2;
+    postSynaptic[nAS11].values[nextState] += 2;
+    postSynaptic[nMVL22].values[nextState] += 1;
+    postSynaptic[nMVR21].values[nextState] += 1;
+    postSynaptic[nRID].values[nextState] += 2;
+    postSynaptic[nVD13].values[nextState] += 2;
 }
 
 void PDEL() {
-    postSynaptic["AVKL"].values[nextState] += 6;
-    postSynaptic["DVA"].values[nextState] += 24;
-    postSynaptic["PDER"].values[nextState] += 3;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["PVM"].values[nextState] += 1;
-    postSynaptic["PVR"].values[nextState] += 2;
-    postSynaptic["VA9"].values[nextState] += 1;
-    postSynaptic["VD11"].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 6;
+    postSynaptic[nDVA].values[nextState] += 24;
+    postSynaptic[nPDER].values[nextState] += 3;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nPVM].values[nextState] += 1;
+    postSynaptic[nPVR].values[nextState] += 2;
+    postSynaptic[nVA9].values[nextState] += 1;
+    postSynaptic[nVD11].values[nextState] += 1;
 }
 
 void PDER() {
-    postSynaptic["AVKL"].values[nextState] += 16;
-    postSynaptic["DVA"].values[nextState] += 35;
-    postSynaptic["PDEL"].values[nextState] += 3;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["PVM"].values[nextState] += 1;
-    postSynaptic["VA8"].values[nextState] += 1;
-    postSynaptic["VD9"].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 16;
+    postSynaptic[nDVA].values[nextState] += 35;
+    postSynaptic[nPDEL].values[nextState] += 3;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nPVM].values[nextState] += 1;
+    postSynaptic[nVA8].values[nextState] += 1;
+    postSynaptic[nVD9].values[nextState] += 1;
 }
 
 void PHAL() {
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVFL"].values[nextState] += 3;
-    postSynaptic["AVG"].values[nextState] += 5;
-    postSynaptic["AVHL"].values[nextState] += 1;
-    postSynaptic["AVHR"].values[nextState] += 1;
-    postSynaptic["DVA"].values[nextState] += 2;
-    postSynaptic["PHAR"].values[nextState] += 2;
-    postSynaptic["PHBL"].values[nextState] += 5;
-    postSynaptic["PHBR"].values[nextState] += 5;
-    postSynaptic["PVQL"].values[nextState] += 2;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVFL].values[nextState] += 3;
+    postSynaptic[nAVG].values[nextState] += 5;
+    postSynaptic[nAVHL].values[nextState] += 1;
+    postSynaptic[nAVHR].values[nextState] += 1;
+    postSynaptic[nDVA].values[nextState] += 2;
+    postSynaptic[nPHAR].values[nextState] += 2;
+    postSynaptic[nPHBL].values[nextState] += 5;
+    postSynaptic[nPHBR].values[nextState] += 5;
+    postSynaptic[nPVQL].values[nextState] += 2;
 }
 
 void PHAR() {
-    postSynaptic["AVG"].values[nextState] += 3;
-    postSynaptic["AVHR"].values[nextState] += 1;
-    postSynaptic["DA8"].values[nextState] += 1;
-    postSynaptic["DVA"].values[nextState] += 1;
-    postSynaptic["PHAL"].values[nextState] += 2;
-    postSynaptic["PHBL"].values[nextState] += 1;
-    postSynaptic["PHBR"].values[nextState] += 5;
-    postSynaptic["PVPL"].values[nextState] += 3;
-    postSynaptic["PVQL"].values[nextState] += 2;
+    postSynaptic[nAVG].values[nextState] += 3;
+    postSynaptic[nAVHR].values[nextState] += 1;
+    postSynaptic[nDA8].values[nextState] += 1;
+    postSynaptic[nDVA].values[nextState] += 1;
+    postSynaptic[nPHAL].values[nextState] += 2;
+    postSynaptic[nPHBL].values[nextState] += 1;
+    postSynaptic[nPHBR].values[nextState] += 5;
+    postSynaptic[nPVPL].values[nextState] += 3;
+    postSynaptic[nPVQL].values[nextState] += 2;
 }
 
 void PHBL() {
-    postSynaptic["AVAL"].values[nextState] += 9;
-    postSynaptic["AVAR"].values[nextState] += 6;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["PHBR"].values[nextState] += 3;
-    postSynaptic["PVCL"].values[nextState] += 13;
-    postSynaptic["VA12"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 9;
+    postSynaptic[nAVAR].values[nextState] += 6;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nPHBR].values[nextState] += 3;
+    postSynaptic[nPVCL].values[nextState] += 13;
+    postSynaptic[nVA12].values[nextState] += 1;
 }
 
 void PHBR() {
-    postSynaptic["AVAL"].values[nextState] += 7;
-    postSynaptic["AVAR"].values[nextState] += 7;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVFL"].values[nextState] += 1;
-    postSynaptic["AVHL"].values[nextState] += 1;
-    postSynaptic["DA8"].values[nextState] += 1;
-    postSynaptic["PHBL"].values[nextState] += 3;
-    postSynaptic["PVCL"].values[nextState] += 6;
-    postSynaptic["PVCR"].values[nextState] += 3;
-    postSynaptic["VA12"].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 7;
+    postSynaptic[nAVAR].values[nextState] += 7;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVFL].values[nextState] += 1;
+    postSynaptic[nAVHL].values[nextState] += 1;
+    postSynaptic[nDA8].values[nextState] += 1;
+    postSynaptic[nPHBL].values[nextState] += 3;
+    postSynaptic[nPVCL].values[nextState] += 6;
+    postSynaptic[nPVCR].values[nextState] += 3;
+    postSynaptic[nVA12].values[nextState] += 2;
 }
 
 void PHCL() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["DA9"].values[nextState] += 1;
-    postSynaptic["DVA"].values[nextState] += 6;
-    postSynaptic["LUAL"].values[nextState] += 1;
-    postSynaptic["PHCR"].values[nextState] += 1;
-    postSynaptic["PLML"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 2;
-    postSynaptic["VA12"].values[nextState] += 3;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nDA9].values[nextState] += 1;
+    postSynaptic[nDVA].values[nextState] += 6;
+    postSynaptic[nLUAL].values[nextState] += 1;
+    postSynaptic[nPHCR].values[nextState] += 1;
+    postSynaptic[nPLML].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 2;
+    postSynaptic[nVA12].values[nextState] += 3;
 }
 
 void PHCR() {
-    postSynaptic["AVHR"].values[nextState] += 1;
-    postSynaptic["DA9"].values[nextState] += 2;
-    postSynaptic["DVA"].values[nextState] += 8;
-    postSynaptic["LUAR"].values[nextState] += 1;
-    postSynaptic["PHCL"].values[nextState] += 2;
-    postSynaptic["PVCR"].values[nextState] += 9;
-    postSynaptic["VA12"].values[nextState] += 2;
+    postSynaptic[nAVHR].values[nextState] += 1;
+    postSynaptic[nDA9].values[nextState] += 2;
+    postSynaptic[nDVA].values[nextState] += 8;
+    postSynaptic[nLUAR].values[nextState] += 1;
+    postSynaptic[nPHCL].values[nextState] += 2;
+    postSynaptic[nPVCR].values[nextState] += 9;
+    postSynaptic[nVA12].values[nextState] += 2;
 }
 
 void PLML() {
-    postSynaptic["HSNL"].values[nextState] += 1;
-    postSynaptic["LUAL"].values[nextState] += 1;
-    postSynaptic["PHCL"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 1;
+    postSynaptic[nHSNL].values[nextState] += 1;
+    postSynaptic[nLUAL].values[nextState] += 1;
+    postSynaptic[nPHCL].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 1;
 }
 
 void PLMR() {
-    postSynaptic["AS6"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 4;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 4;
-    postSynaptic["DVA"].values[nextState] += 5;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["LUAR"].values[nextState] += 1;
-    postSynaptic["PDEL"].values[nextState] += 2;
-    postSynaptic["PDER"].values[nextState] += 3;
-    postSynaptic["PVCL"].values[nextState] += 2;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["PVR"].values[nextState] += 2;
+    postSynaptic[nAS6].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 4;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 4;
+    postSynaptic[nDVA].values[nextState] += 5;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nLUAR].values[nextState] += 1;
+    postSynaptic[nPDEL].values[nextState] += 2;
+    postSynaptic[nPDER].values[nextState] += 3;
+    postSynaptic[nPVCL].values[nextState] += 2;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nPVR].values[nextState] += 2;
 }
 
 void PLNL() {
-    postSynaptic["SAADL"].values[nextState] += 5;
-    postSynaptic["SMBVL"].values[nextState] += 6;
+    postSynaptic[nSAADL].values[nextState] += 5;
+    postSynaptic[nSMBVL].values[nextState] += 6;
 }
 
 void PLNR() {
-    postSynaptic["SAADR"].values[nextState] += 4;
-    postSynaptic["SMBVR"].values[nextState] += 6;
+    postSynaptic[nSAADR].values[nextState] += 4;
+    postSynaptic[nSMBVR].values[nextState] += 6;
 }
 
 void PQR() {
-    postSynaptic["AVAL"].values[nextState] += 8;
-    postSynaptic["AVAR"].values[nextState] += 11;
-    postSynaptic["AVDL"].values[nextState] += 7;
-    postSynaptic["AVDR"].values[nextState] += 6;
-    postSynaptic["AVG"].values[nextState] += 1;
-    postSynaptic["LUAR"].values[nextState] += 1;
-    postSynaptic["PVNL"].values[nextState] += 1;
-    postSynaptic["PVPL"].values[nextState] += 4;
+    postSynaptic[nAVAL].values[nextState] += 8;
+    postSynaptic[nAVAR].values[nextState] += 11;
+    postSynaptic[nAVDL].values[nextState] += 7;
+    postSynaptic[nAVDR].values[nextState] += 6;
+    postSynaptic[nAVG].values[nextState] += 1;
+    postSynaptic[nLUAR].values[nextState] += 1;
+    postSynaptic[nPVNL].values[nextState] += 1;
+    postSynaptic[nPVPL].values[nextState] += 4;
 }
 
 void PVCL() {
-    postSynaptic["AS1"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 3;
-    postSynaptic["AVAR"].values[nextState] += 4;
-    postSynaptic["AVBL"].values[nextState] += 5;
-    postSynaptic["AVBR"].values[nextState] += 12;
-    postSynaptic["AVDL"].values[nextState] += 5;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["AVEL"].values[nextState] += 3;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 4;
-    postSynaptic["AVJR"].values[nextState] += 2;
-    postSynaptic["DA2"].values[nextState] += 1;
-    postSynaptic["DA5"].values[nextState] += 1;
-    postSynaptic["DA6"].values[nextState] += 1;
-    postSynaptic["DB2"].values[nextState] += 3;
-    postSynaptic["DB3"].values[nextState] += 4;
-    postSynaptic["DB4"].values[nextState] += 3;
-    postSynaptic["DB5"].values[nextState] += 2;
-    postSynaptic["DB6"].values[nextState] += 2;
-    postSynaptic["DB7"].values[nextState] += 3;
-    postSynaptic["DVA"].values[nextState] += 5;
-    postSynaptic["PLML"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 7;
-    postSynaptic["RID"].values[nextState] += 5;
-    postSynaptic["RIS"].values[nextState] += 2;
-    postSynaptic["SIBVL"].values[nextState] += 2;
-    postSynaptic["VB10"].values[nextState] += 3;
-    postSynaptic["VB11"].values[nextState] += 1;
-    postSynaptic["VB3"].values[nextState] += 1;
-    postSynaptic["VB4"].values[nextState] += 1;
-    postSynaptic["VB5"].values[nextState] += 1;
-    postSynaptic["VB6"].values[nextState] += 2;
-    postSynaptic["VB8"].values[nextState] += 1;
-    postSynaptic["VB9"].values[nextState] += 2;
+    postSynaptic[nAS1].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 3;
+    postSynaptic[nAVAR].values[nextState] += 4;
+    postSynaptic[nAVBL].values[nextState] += 5;
+    postSynaptic[nAVBR].values[nextState] += 12;
+    postSynaptic[nAVDL].values[nextState] += 5;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 3;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 4;
+    postSynaptic[nAVJR].values[nextState] += 2;
+    postSynaptic[nDA2].values[nextState] += 1;
+    postSynaptic[nDA5].values[nextState] += 1;
+    postSynaptic[nDA6].values[nextState] += 1;
+    postSynaptic[nDB2].values[nextState] += 3;
+    postSynaptic[nDB3].values[nextState] += 4;
+    postSynaptic[nDB4].values[nextState] += 3;
+    postSynaptic[nDB5].values[nextState] += 2;
+    postSynaptic[nDB6].values[nextState] += 2;
+    postSynaptic[nDB7].values[nextState] += 3;
+    postSynaptic[nDVA].values[nextState] += 5;
+    postSynaptic[nPLML].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 7;
+    postSynaptic[nRID].values[nextState] += 5;
+    postSynaptic[nRIS].values[nextState] += 2;
+    postSynaptic[nSIBVL].values[nextState] += 2;
+    postSynaptic[nVB10].values[nextState] += 3;
+    postSynaptic[nVB11].values[nextState] += 1;
+    postSynaptic[nVB3].values[nextState] += 1;
+    postSynaptic[nVB4].values[nextState] += 1;
+    postSynaptic[nVB5].values[nextState] += 1;
+    postSynaptic[nVB6].values[nextState] += 2;
+    postSynaptic[nVB8].values[nextState] += 1;
+    postSynaptic[nVB9].values[nextState] += 2;
 }
 
 void PVCR() {
-    postSynaptic["AQR"].values[nextState] += 1;
-    postSynaptic["AS2"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 12;
-    postSynaptic["AVAR"].values[nextState] += 10;
-    postSynaptic["AVBL"].values[nextState] += 8;
-    postSynaptic["AVBR"].values[nextState] += 6;
-    postSynaptic["AVDL"].values[nextState] += 5;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 3;
-    postSynaptic["AVL"].values[nextState] += 1;
-    postSynaptic["DA9"].values[nextState] += 1;
-    postSynaptic["DB2"].values[nextState] += 1;
-    postSynaptic["DB3"].values[nextState] += 3;
-    postSynaptic["DB4"].values[nextState] += 4;
-    postSynaptic["DB5"].values[nextState] += 1;
-    postSynaptic["DB6"].values[nextState] += 2;
-    postSynaptic["DB7"].values[nextState] += 1;
-    postSynaptic["FLPL"].values[nextState] += 1;
-    postSynaptic["LUAR"].values[nextState] += 1;
-    postSynaptic["PDEL"].values[nextState] += 2;
-    postSynaptic["PHCR"].values[nextState] += 1;
-    postSynaptic["PLMR"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 8;
-    postSynaptic["PVDL"].values[nextState] += 1;
-    postSynaptic["PVR"].values[nextState] += 1;
-    postSynaptic["PVWL"].values[nextState] += 2;
-    postSynaptic["PVWR"].values[nextState] += 2;
-    postSynaptic["RID"].values[nextState] += 5;
-    postSynaptic["SIBVR"].values[nextState] += 2;
-    postSynaptic["VA8"].values[nextState] += 2;
-    postSynaptic["VA9"].values[nextState] += 1;
-    postSynaptic["VB10"].values[nextState] += 1;
-    postSynaptic["VB4"].values[nextState] += 3;
-    postSynaptic["VB6"].values[nextState] += 2;
-    postSynaptic["VB7"].values[nextState] += 3;
-    postSynaptic["VB8"].values[nextState] += 1;
+    postSynaptic[nAQR].values[nextState] += 1;
+    postSynaptic[nAS2].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 12;
+    postSynaptic[nAVAR].values[nextState] += 10;
+    postSynaptic[nAVBL].values[nextState] += 8;
+    postSynaptic[nAVBR].values[nextState] += 6;
+    postSynaptic[nAVDL].values[nextState] += 5;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 3;
+    postSynaptic[nAVL].values[nextState] += 1;
+    postSynaptic[nDA9].values[nextState] += 1;
+    postSynaptic[nDB2].values[nextState] += 1;
+    postSynaptic[nDB3].values[nextState] += 3;
+    postSynaptic[nDB4].values[nextState] += 4;
+    postSynaptic[nDB5].values[nextState] += 1;
+    postSynaptic[nDB6].values[nextState] += 2;
+    postSynaptic[nDB7].values[nextState] += 1;
+    postSynaptic[nFLPL].values[nextState] += 1;
+    postSynaptic[nLUAR].values[nextState] += 1;
+    postSynaptic[nPDEL].values[nextState] += 2;
+    postSynaptic[nPHCR].values[nextState] += 1;
+    postSynaptic[nPLMR].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 8;
+    postSynaptic[nPVDL].values[nextState] += 1;
+    postSynaptic[nPVR].values[nextState] += 1;
+    postSynaptic[nPVWL].values[nextState] += 2;
+    postSynaptic[nPVWR].values[nextState] += 2;
+    postSynaptic[nRID].values[nextState] += 5;
+    postSynaptic[nSIBVR].values[nextState] += 2;
+    postSynaptic[nVA8].values[nextState] += 2;
+    postSynaptic[nVA9].values[nextState] += 1;
+    postSynaptic[nVB10].values[nextState] += 1;
+    postSynaptic[nVB4].values[nextState] += 3;
+    postSynaptic[nVB6].values[nextState] += 2;
+    postSynaptic[nVB7].values[nextState] += 3;
+    postSynaptic[nVB8].values[nextState] += 1;
 }
 
 void PVDL() {
-    postSynaptic["AVAL"].values[nextState] += 6;
-    postSynaptic["AVAR"].values[nextState] += 6;
-    postSynaptic["DD5"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 6;
-    postSynaptic["VD10"].values[nextState] += 6;
+    postSynaptic[nAVAL].values[nextState] += 6;
+    postSynaptic[nAVAR].values[nextState] += 6;
+    postSynaptic[nDD5].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 6;
+    postSynaptic[nVD10].values[nextState] += 6;
 }
 
 void PVDR() {
-    postSynaptic["AVAL"].values[nextState] += 6;
-    postSynaptic["AVAR"].values[nextState] += 9;
-    postSynaptic["DVA"].values[nextState] += 3;
-    postSynaptic["PVCL"].values[nextState] += 13;
-    postSynaptic["PVCR"].values[nextState] += 10;
-    postSynaptic["PVDL"].values[nextState] += 1;
-    postSynaptic["VA9"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 6;
+    postSynaptic[nAVAR].values[nextState] += 9;
+    postSynaptic[nDVA].values[nextState] += 3;
+    postSynaptic[nPVCL].values[nextState] += 13;
+    postSynaptic[nPVCR].values[nextState] += 10;
+    postSynaptic[nPVDL].values[nextState] += 1;
+    postSynaptic[nVA9].values[nextState] += 1;
 }
 
 void PVM() {
-    postSynaptic["AVKL"].values[nextState] += 11;
-    postSynaptic["AVL"].values[nextState] += 1;
-    postSynaptic["AVM"].values[nextState] += 1;
-    postSynaptic["DVA"].values[nextState] += 3;
-    postSynaptic["PDEL"].values[nextState] += 1;
-    postSynaptic["PDER"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 2;
-    postSynaptic["PVR"].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 11;
+    postSynaptic[nAVL].values[nextState] += 1;
+    postSynaptic[nAVM].values[nextState] += 1;
+    postSynaptic[nDVA].values[nextState] += 3;
+    postSynaptic[nPDEL].values[nextState] += 1;
+    postSynaptic[nPDER].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 2;
+    postSynaptic[nPVR].values[nextState] += 1;
 }
 
 void PVNL() {
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 3;
-    postSynaptic["AVDL"].values[nextState] += 3;
-    postSynaptic["AVDR"].values[nextState] += 3;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVFR"].values[nextState] += 1;
-    postSynaptic["AVG"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 5;
-    postSynaptic["AVJR"].values[nextState] += 5;
-    postSynaptic["AVL"].values[nextState] += 2;
-    postSynaptic["BDUL"].values[nextState] += 1;
-    postSynaptic["BDUR"].values[nextState] += 2;
-    postSynaptic["DD1"].values[nextState] += 2;
-    postSynaptic["MVL09"].values[nextState] += 3;
-    postSynaptic["PQR"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["PVNR"].values[nextState] += 5;
-    postSynaptic["PVQR"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["PVWL"].values[nextState] += 1;
-    postSynaptic["RIFL"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 3;
+    postSynaptic[nAVDL].values[nextState] += 3;
+    postSynaptic[nAVDR].values[nextState] += 3;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVFR].values[nextState] += 1;
+    postSynaptic[nAVG].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 5;
+    postSynaptic[nAVJR].values[nextState] += 5;
+    postSynaptic[nAVL].values[nextState] += 2;
+    postSynaptic[nBDUL].values[nextState] += 1;
+    postSynaptic[nBDUR].values[nextState] += 2;
+    postSynaptic[nDD1].values[nextState] += 2;
+    postSynaptic[nMVL09].values[nextState] += 3;
+    postSynaptic[nPQR].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nPVNR].values[nextState] += 5;
+    postSynaptic[nPVQR].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nPVWL].values[nextState] += 1;
+    postSynaptic[nRIFL].values[nextState] += 1;
 }
 
 void PVNR() {
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 3;
-    postSynaptic["AVJL"].values[nextState] += 4;
-    postSynaptic["AVJR"].values[nextState] += 1;
-    postSynaptic["AVL"].values[nextState] += 2;
-    postSynaptic["BDUL"].values[nextState] += 1;
-    postSynaptic["BDUR"].values[nextState] += 2;
-    postSynaptic["DD3"].values[nextState] += 1;
-    postSynaptic["HSNR"].values[nextState] += 2;
-    postSynaptic["MVL12"].values[nextState] += 1;
-    postSynaptic["MVL13"].values[nextState] += 2;
-    postSynaptic["PQR"].values[nextState] += 2;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["PVNL"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 2;
-    postSynaptic["PVWL"].values[nextState] += 2;
-    postSynaptic["VC2"].values[nextState] += 1;
-    postSynaptic["VC3"].values[nextState] += 1;
-    postSynaptic["VD12"].values[nextState] += 1;
-    postSynaptic["VD6"].values[nextState] += 1;
-    postSynaptic["VD7"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 3;
+    postSynaptic[nAVJL].values[nextState] += 4;
+    postSynaptic[nAVJR].values[nextState] += 1;
+    postSynaptic[nAVL].values[nextState] += 2;
+    postSynaptic[nBDUL].values[nextState] += 1;
+    postSynaptic[nBDUR].values[nextState] += 2;
+    postSynaptic[nDD3].values[nextState] += 1;
+    postSynaptic[nHSNR].values[nextState] += 2;
+    postSynaptic[nMVL12].values[nextState] += 1;
+    postSynaptic[nMVL13].values[nextState] += 2;
+    postSynaptic[nPQR].values[nextState] += 2;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nPVNL].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 2;
+    postSynaptic[nPVWL].values[nextState] += 2;
+    postSynaptic[nVC2].values[nextState] += 1;
+    postSynaptic[nVC3].values[nextState] += 1;
+    postSynaptic[nVD12].values[nextState] += 1;
+    postSynaptic[nVD6].values[nextState] += 1;
+    postSynaptic[nVD7].values[nextState] += 1;
 }
 
 void PVPL() {
-    postSynaptic["ADAL"].values[nextState] += 1;
-    postSynaptic["AQR"].values[nextState] += 8;
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 5;
-    postSynaptic["AVBR"].values[nextState] += 6;
-    postSynaptic["AVDR"].values[nextState] += 2;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["AVHR"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["AVKR"].values[nextState] += 6;
-    postSynaptic["DVC"].values[nextState] += 2;
-    postSynaptic["PHAR"].values[nextState] += 3;
-    postSynaptic["PQR"].values[nextState] += 4;
-    postSynaptic["PVCR"].values[nextState] += 3;
-    postSynaptic["PVPR"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 2;
-    postSynaptic["VD13"].values[nextState] += 2;
-    postSynaptic["VD3"].values[nextState] += 1;
+    postSynaptic[nADAL].values[nextState] += 1;
+    postSynaptic[nAQR].values[nextState] += 8;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 5;
+    postSynaptic[nAVBR].values[nextState] += 6;
+    postSynaptic[nAVDR].values[nextState] += 2;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nAVHR].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nAVKR].values[nextState] += 6;
+    postSynaptic[nDVC].values[nextState] += 2;
+    postSynaptic[nPHAR].values[nextState] += 3;
+    postSynaptic[nPQR].values[nextState] += 4;
+    postSynaptic[nPVCR].values[nextState] += 3;
+    postSynaptic[nPVPR].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 2;
+    postSynaptic[nVD13].values[nextState] += 2;
+    postSynaptic[nVD3].values[nextState] += 1;
 }
 
 void PVPR() {
-    postSynaptic["ADFR"].values[nextState] += 1;
-    postSynaptic["AQR"].values[nextState] += 11;
-    postSynaptic["ASHR"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 4;
-    postSynaptic["AVBR"].values[nextState] += 5;
-    postSynaptic["AVHL"].values[nextState] += 3;
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["AVL"].values[nextState] += 4;
-    postSynaptic["DD2"].values[nextState] += 1;
-    postSynaptic["DVC"].values[nextState] += 14;
-    postSynaptic["PVCL"].values[nextState] += 4;
-    postSynaptic["PVCR"].values[nextState] += 7;
-    postSynaptic["PVPL"].values[nextState] += 1;
-    postSynaptic["PVQR"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 2;
-    postSynaptic["RIGR"].values[nextState] += 1;
-    postSynaptic["RIMR"].values[nextState] += 1;
-    postSynaptic["RMGR"].values[nextState] += 1;
-    postSynaptic["VD4"].values[nextState] += 1;
-    postSynaptic["VD5"].values[nextState] += 1;
+    postSynaptic[nADFR].values[nextState] += 1;
+    postSynaptic[nAQR].values[nextState] += 11;
+    postSynaptic[nASHR].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 4;
+    postSynaptic[nAVBR].values[nextState] += 5;
+    postSynaptic[nAVHL].values[nextState] += 3;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nAVL].values[nextState] += 4;
+    postSynaptic[nDD2].values[nextState] += 1;
+    postSynaptic[nDVC].values[nextState] += 14;
+    postSynaptic[nPVCL].values[nextState] += 4;
+    postSynaptic[nPVCR].values[nextState] += 7;
+    postSynaptic[nPVPL].values[nextState] += 1;
+    postSynaptic[nPVQR].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 2;
+    postSynaptic[nRIGR].values[nextState] += 1;
+    postSynaptic[nRIMR].values[nextState] += 1;
+    postSynaptic[nRMGR].values[nextState] += 1;
+    postSynaptic[nVD4].values[nextState] += 1;
+    postSynaptic[nVD5].values[nextState] += 1;
 }
 
 void PVQL() {
-    postSynaptic["ADAL"].values[nextState] += 1;
-    postSynaptic["AIAL"].values[nextState] += 3;
-    postSynaptic["ASJL"].values[nextState] += 1;
-    postSynaptic["ASKL"].values[nextState] += 5;
-    postSynaptic["HSNL"].values[nextState] += 2;
-    postSynaptic["PVQR"].values[nextState] += 2;
-    postSynaptic["RMGL"].values[nextState] += 1;
+    postSynaptic[nADAL].values[nextState] += 1;
+    postSynaptic[nAIAL].values[nextState] += 3;
+    postSynaptic[nASJL].values[nextState] += 1;
+    postSynaptic[nASKL].values[nextState] += 5;
+    postSynaptic[nHSNL].values[nextState] += 2;
+    postSynaptic[nPVQR].values[nextState] += 2;
+    postSynaptic[nRMGL].values[nextState] += 1;
 }
 
 void PVQR() {
-    postSynaptic["ADAR"].values[nextState] += 1;
-    postSynaptic["AIAR"].values[nextState] += 7;
-    postSynaptic["ASER"].values[nextState] += 1;
-    postSynaptic["ASKR"].values[nextState] += 8;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVFL"].values[nextState] += 1;
-    postSynaptic["AVFR"].values[nextState] += 1;
-    postSynaptic["AVL"].values[nextState] += 1;
-    postSynaptic["AWAR"].values[nextState] += 2;
-    postSynaptic["DD1"].values[nextState] += 1;
-    postSynaptic["DVC"].values[nextState] += 1;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["PVNL"].values[nextState] += 1;
-    postSynaptic["PVQL"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["RIFR"].values[nextState] += 1;
-    postSynaptic["VD1"].values[nextState] += 1;
+    postSynaptic[nADAR].values[nextState] += 1;
+    postSynaptic[nAIAR].values[nextState] += 7;
+    postSynaptic[nASER].values[nextState] += 1;
+    postSynaptic[nASKR].values[nextState] += 8;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVFL].values[nextState] += 1;
+    postSynaptic[nAVFR].values[nextState] += 1;
+    postSynaptic[nAVL].values[nextState] += 1;
+    postSynaptic[nAWAR].values[nextState] += 2;
+    postSynaptic[nDD1].values[nextState] += 1;
+    postSynaptic[nDVC].values[nextState] += 1;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nPVNL].values[nextState] += 1;
+    postSynaptic[nPVQL].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nRIFR].values[nextState] += 1;
+    postSynaptic[nVD1].values[nextState] += 1;
 }
 
 void PVR() {
-    postSynaptic["ADAL"].values[nextState] += 1;
-    postSynaptic["ALML"].values[nextState] += 1;
-    postSynaptic["AS6"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 4;
-    postSynaptic["AVBR"].values[nextState] += 4;
-    postSynaptic["AVJL"].values[nextState] += 3;
-    postSynaptic["AVJR"].values[nextState] += 2;
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["DA9"].values[nextState] += 1;
-    postSynaptic["DB2"].values[nextState] += 1;
-    postSynaptic["DB3"].values[nextState] += 1;
-    postSynaptic["DVA"].values[nextState] += 3;
-    postSynaptic["IL1DL"].values[nextState] += 1;
-    postSynaptic["IL1DR"].values[nextState] += 1;
-    postSynaptic["IL1VL"].values[nextState] += 1;
-    postSynaptic["IL1VR"].values[nextState] += 1;
-    postSynaptic["LUAL"].values[nextState] += 1;
-    postSynaptic["LUAR"].values[nextState] += 1;
-    postSynaptic["PDEL"].values[nextState] += 1;
-    postSynaptic["PDER"].values[nextState] += 1;
-    postSynaptic["PLMR"].values[nextState] += 2;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["RIPL"].values[nextState] += 3;
-    postSynaptic["RIPR"].values[nextState] += 3;
-    postSynaptic["SABD"].values[nextState] += 1;
-    postSynaptic["URADL"].values[nextState] += 1;
+    postSynaptic[nADAL].values[nextState] += 1;
+    postSynaptic[nALML].values[nextState] += 1;
+    postSynaptic[nAS6].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 4;
+    postSynaptic[nAVBR].values[nextState] += 4;
+    postSynaptic[nAVJL].values[nextState] += 3;
+    postSynaptic[nAVJR].values[nextState] += 2;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nDA9].values[nextState] += 1;
+    postSynaptic[nDB2].values[nextState] += 1;
+    postSynaptic[nDB3].values[nextState] += 1;
+    postSynaptic[nDVA].values[nextState] += 3;
+    postSynaptic[nIL1DL].values[nextState] += 1;
+    postSynaptic[nIL1DR].values[nextState] += 1;
+    postSynaptic[nIL1VL].values[nextState] += 1;
+    postSynaptic[nIL1VR].values[nextState] += 1;
+    postSynaptic[nLUAL].values[nextState] += 1;
+    postSynaptic[nLUAR].values[nextState] += 1;
+    postSynaptic[nPDEL].values[nextState] += 1;
+    postSynaptic[nPDER].values[nextState] += 1;
+    postSynaptic[nPLMR].values[nextState] += 2;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nRIPL].values[nextState] += 3;
+    postSynaptic[nRIPR].values[nextState] += 3;
+    postSynaptic[nSABD].values[nextState] += 1;
+    postSynaptic[nURADL].values[nextState] += 1;
 }
 
 void PVT() {
-    postSynaptic["AIBL"].values[nextState] += 3;
-    postSynaptic["AIBR"].values[nextState] += 5;
-    postSynaptic["AVKL"].values[nextState] += 9;
-    postSynaptic["AVKR"].values[nextState] += 7;
-    postSynaptic["AVL"].values[nextState] += 2;
-    postSynaptic["DVC"].values[nextState] += 2;
-    postSynaptic["PVPL"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 2;
-    postSynaptic["RIGR"].values[nextState] += 3;
-    postSynaptic["RIH"].values[nextState] += 1;
-    postSynaptic["RMEV"].values[nextState] += 1;
-    postSynaptic["RMFL"].values[nextState] += 2;
-    postSynaptic["RMFR"].values[nextState] += 3;
-    postSynaptic["SMBDR"].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 3;
+    postSynaptic[nAIBR].values[nextState] += 5;
+    postSynaptic[nAVKL].values[nextState] += 9;
+    postSynaptic[nAVKR].values[nextState] += 7;
+    postSynaptic[nAVL].values[nextState] += 2;
+    postSynaptic[nDVC].values[nextState] += 2;
+    postSynaptic[nPVPL].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 2;
+    postSynaptic[nRIGR].values[nextState] += 3;
+    postSynaptic[nRIH].values[nextState] += 1;
+    postSynaptic[nRMEV].values[nextState] += 1;
+    postSynaptic[nRMFL].values[nextState] += 2;
+    postSynaptic[nRMFR].values[nextState] += 3;
+    postSynaptic[nSMBDR].values[nextState] += 1;
 }
 
 void PVWL() {
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 2;
-    postSynaptic["PVT"].values[nextState] += 2;
-    postSynaptic["PVWR"].values[nextState] += 1;
-    postSynaptic["VA12"].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 2;
+    postSynaptic[nPVT].values[nextState] += 2;
+    postSynaptic[nPVWR].values[nextState] += 1;
+    postSynaptic[nVA12].values[nextState] += 1;
 }
 
 void PVWR() {
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 2;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["VA12"].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 2;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nVA12].values[nextState] += 1;
 }
 
 void RIAL() {
-    postSynaptic["CEPVL"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 1;
-    postSynaptic["RIVL"].values[nextState] += 2;
-    postSynaptic["RIVR"].values[nextState] += 4;
-    postSynaptic["RMDDL"].values[nextState] += 12;
-    postSynaptic["RMDDR"].values[nextState] += 7;
-    postSynaptic["RMDL"].values[nextState] += 6;
-    postSynaptic["RMDR"].values[nextState] += 6;
-    postSynaptic["RMDVL"].values[nextState] += 9;
-    postSynaptic["RMDVR"].values[nextState] += 11;
-    postSynaptic["SIADL"].values[nextState] += 2;
-    postSynaptic["SMDDL"].values[nextState] += 8;
-    postSynaptic["SMDDR"].values[nextState] += 10;
-    postSynaptic["SMDVL"].values[nextState] += 6;
-    postSynaptic["SMDVR"].values[nextState] += 11;
+    postSynaptic[nCEPVL].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 1;
+    postSynaptic[nRIVL].values[nextState] += 2;
+    postSynaptic[nRIVR].values[nextState] += 4;
+    postSynaptic[nRMDDL].values[nextState] += 12;
+    postSynaptic[nRMDDR].values[nextState] += 7;
+    postSynaptic[nRMDL].values[nextState] += 6;
+    postSynaptic[nRMDR].values[nextState] += 6;
+    postSynaptic[nRMDVL].values[nextState] += 9;
+    postSynaptic[nRMDVR].values[nextState] += 11;
+    postSynaptic[nSIADL].values[nextState] += 2;
+    postSynaptic[nSMDDL].values[nextState] += 8;
+    postSynaptic[nSMDDR].values[nextState] += 10;
+    postSynaptic[nSMDVL].values[nextState] += 6;
+    postSynaptic[nSMDVR].values[nextState] += 11;
 }
 
 void RIAR() {
-    postSynaptic["CEPVR"].values[nextState] += 1;
-    postSynaptic["IL1R"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 4;
-    postSynaptic["RIVL"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 10;
-    postSynaptic["RMDDR"].values[nextState] += 11;
-    postSynaptic["RMDL"].values[nextState] += 3;
-    postSynaptic["RMDR"].values[nextState] += 8;
-    postSynaptic["RMDVL"].values[nextState] += 12;
-    postSynaptic["RMDVR"].values[nextState] += 10;
-    postSynaptic["SAADR"].values[nextState] += 1;
-    postSynaptic["SIADL"].values[nextState] += 1;
-    postSynaptic["SIADR"].values[nextState] += 1;
-    postSynaptic["SIAVL"].values[nextState] += 1;
-    postSynaptic["SMDDL"].values[nextState] += 7;
-    postSynaptic["SMDDR"].values[nextState] += 7;
-    postSynaptic["SMDVL"].values[nextState] += 13;
-    postSynaptic["SMDVR"].values[nextState] += 7;
+    postSynaptic[nCEPVR].values[nextState] += 1;
+    postSynaptic[nIL1R].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 4;
+    postSynaptic[nRIVL].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 10;
+    postSynaptic[nRMDDR].values[nextState] += 11;
+    postSynaptic[nRMDL].values[nextState] += 3;
+    postSynaptic[nRMDR].values[nextState] += 8;
+    postSynaptic[nRMDVL].values[nextState] += 12;
+    postSynaptic[nRMDVR].values[nextState] += 10;
+    postSynaptic[nSAADR].values[nextState] += 1;
+    postSynaptic[nSIADL].values[nextState] += 1;
+    postSynaptic[nSIADR].values[nextState] += 1;
+    postSynaptic[nSIAVL].values[nextState] += 1;
+    postSynaptic[nSMDDL].values[nextState] += 7;
+    postSynaptic[nSMDDR].values[nextState] += 7;
+    postSynaptic[nSMDVL].values[nextState] += 13;
+    postSynaptic[nSMDVR].values[nextState] += 7;
 }
 
 void RIBL() {
-    postSynaptic["AIBR"].values[nextState] += 2;
-    postSynaptic["AUAL"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["AVDR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 5;
-    postSynaptic["BAGR"].values[nextState] += 1;
-    postSynaptic["OLQDL"].values[nextState] += 2;
-    postSynaptic["OLQVL"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 3;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 3;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["SIADL"].values[nextState] += 1;
-    postSynaptic["SIAVL"].values[nextState] += 1;
-    postSynaptic["SIBDL"].values[nextState] += 1;
-    postSynaptic["SIBVL"].values[nextState] += 1;
-    postSynaptic["SIBVR"].values[nextState] += 1;
-    postSynaptic["SMBDL"].values[nextState] += 1;
-    postSynaptic["SMDDL"].values[nextState] += 1;
-    postSynaptic["SMDVR"].values[nextState] += 4;
+    postSynaptic[nAIBR].values[nextState] += 2;
+    postSynaptic[nAUAL].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nAVDR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 5;
+    postSynaptic[nBAGR].values[nextState] += 1;
+    postSynaptic[nOLQDL].values[nextState] += 2;
+    postSynaptic[nOLQVL].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 3;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 3;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nSIADL].values[nextState] += 1;
+    postSynaptic[nSIAVL].values[nextState] += 1;
+    postSynaptic[nSIBDL].values[nextState] += 1;
+    postSynaptic[nSIBVL].values[nextState] += 1;
+    postSynaptic[nSIBVR].values[nextState] += 1;
+    postSynaptic[nSMBDL].values[nextState] += 1;
+    postSynaptic[nSMDDL].values[nextState] += 1;
+    postSynaptic[nSMDVR].values[nextState] += 4;
 }
 
 void RIBR() {
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["AIZR"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 3;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["BAGL"].values[nextState] += 1;
-    postSynaptic["OLQDR"].values[nextState] += 2;
-    postSynaptic["OLQVR"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 2;
-    postSynaptic["RIBL"].values[nextState] += 3;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RIGR"].values[nextState] += 2;
-    postSynaptic["RIH"].values[nextState] += 1;
-    postSynaptic["SIADR"].values[nextState] += 1;
-    postSynaptic["SIAVR"].values[nextState] += 1;
-    postSynaptic["SIBDR"].values[nextState] += 1;
-    postSynaptic["SIBVR"].values[nextState] += 1;
-    postSynaptic["SMBDR"].values[nextState] += 1;
-    postSynaptic["SMDDL"].values[nextState] += 2;
-    postSynaptic["SMDDR"].values[nextState] += 1;
-    postSynaptic["SMDVL"].values[nextState] += 2;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nAIZR].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 3;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nBAGL].values[nextState] += 1;
+    postSynaptic[nOLQDR].values[nextState] += 2;
+    postSynaptic[nOLQVR].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 2;
+    postSynaptic[nRIBL].values[nextState] += 3;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRIGR].values[nextState] += 2;
+    postSynaptic[nRIH].values[nextState] += 1;
+    postSynaptic[nSIADR].values[nextState] += 1;
+    postSynaptic[nSIAVR].values[nextState] += 1;
+    postSynaptic[nSIBDR].values[nextState] += 1;
+    postSynaptic[nSIBVR].values[nextState] += 1;
+    postSynaptic[nSMBDR].values[nextState] += 1;
+    postSynaptic[nSMDDL].values[nextState] += 2;
+    postSynaptic[nSMDDR].values[nextState] += 1;
+    postSynaptic[nSMDVL].values[nextState] += 2;
 }
 
 void RICL() {
-    postSynaptic["ADAR"].values[nextState] += 1;
-    postSynaptic["ASHL"].values[nextState] += 2;
-    postSynaptic["AVAL"].values[nextState] += 5;
-    postSynaptic["AVAR"].values[nextState] += 6;
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["AVKR"].values[nextState] += 2;
-    postSynaptic["AWBR"].values[nextState] += 1;
-    postSynaptic["RIML"].values[nextState] += 1;
-    postSynaptic["RIMR"].values[nextState] += 3;
-    postSynaptic["RIVR"].values[nextState] += 1;
-    postSynaptic["RMFR"].values[nextState] += 1;
-    postSynaptic["SMBDL"].values[nextState] += 2;
-    postSynaptic["SMDDL"].values[nextState] += 3;
-    postSynaptic["SMDDR"].values[nextState] += 3;
-    postSynaptic["SMDVR"].values[nextState] += 1;
+    postSynaptic[nADAR].values[nextState] += 1;
+    postSynaptic[nASHL].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 5;
+    postSynaptic[nAVAR].values[nextState] += 6;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nAVKR].values[nextState] += 2;
+    postSynaptic[nAWBR].values[nextState] += 1;
+    postSynaptic[nRIML].values[nextState] += 1;
+    postSynaptic[nRIMR].values[nextState] += 3;
+    postSynaptic[nRIVR].values[nextState] += 1;
+    postSynaptic[nRMFR].values[nextState] += 1;
+    postSynaptic[nSMBDL].values[nextState] += 2;
+    postSynaptic[nSMDDL].values[nextState] += 3;
+    postSynaptic[nSMDDR].values[nextState] += 3;
+    postSynaptic[nSMDVR].values[nextState] += 1;
 }
 
 void RICR() {
-    postSynaptic["ADAR"].values[nextState] += 1;
-    postSynaptic["ASHR"].values[nextState] += 2;
-    postSynaptic["AVAL"].values[nextState] += 5;
-    postSynaptic["AVAR"].values[nextState] += 5;
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["SMBDR"].values[nextState] += 1;
-    postSynaptic["SMDDL"].values[nextState] += 4;
-    postSynaptic["SMDDR"].values[nextState] += 3;
-    postSynaptic["SMDVL"].values[nextState] += 2;
-    postSynaptic["SMDVR"].values[nextState] += 1;
+    postSynaptic[nADAR].values[nextState] += 1;
+    postSynaptic[nASHR].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 5;
+    postSynaptic[nAVAR].values[nextState] += 5;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nSMBDR].values[nextState] += 1;
+    postSynaptic[nSMDDL].values[nextState] += 4;
+    postSynaptic[nSMDDR].values[nextState] += 3;
+    postSynaptic[nSMDVL].values[nextState] += 2;
+    postSynaptic[nSMDVR].values[nextState] += 1;
 }
 
 void RID() {
-    postSynaptic["ALA"].values[nextState] += 1;
-    postSynaptic["AS2"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["DA6"].values[nextState] += 3;
-    postSynaptic["DA9"].values[nextState] += 1;
-    postSynaptic["DB1"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 4;
-    postSynaptic["DD2"].values[nextState] += 4;
-    postSynaptic["DD3"].values[nextState] += 3;
-    postSynaptic["MDL14"].values[nextState] += -2;
-    postSynaptic["MDL21"].values[nextState] += -3;
-    postSynaptic["PDB"].values[nextState] += 2;
-    postSynaptic["VD13"].values[nextState] += 1;
-    postSynaptic["VD5"].values[nextState] += 1;
+    postSynaptic[nALA].values[nextState] += 1;
+    postSynaptic[nAS2].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nDA6].values[nextState] += 3;
+    postSynaptic[nDA9].values[nextState] += 1;
+    postSynaptic[nDB1].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 4;
+    postSynaptic[nDD2].values[nextState] += 4;
+    postSynaptic[nDD3].values[nextState] += 3;
+    postSynaptic[nMDL14].values[nextState] += -2;
+    postSynaptic[nMDL21].values[nextState] += -3;
+    postSynaptic[nPDB].values[nextState] += 2;
+    postSynaptic[nVD13].values[nextState] += 1;
+    postSynaptic[nVD5].values[nextState] += 1;
 }
 
 void RIFL() {
-    postSynaptic["ALML"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 10;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["AVG"].values[nextState] += 1;
-    postSynaptic["AVHR"].values[nextState] += 1;
-    postSynaptic["AVJR"].values[nextState] += 2;
-    postSynaptic["PVPL"].values[nextState] += 3;
-    postSynaptic["RIML"].values[nextState] += 4;
-    postSynaptic["VD1"].values[nextState] += 1;
+    postSynaptic[nALML].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 10;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nAVG].values[nextState] += 1;
+    postSynaptic[nAVHR].values[nextState] += 1;
+    postSynaptic[nAVJR].values[nextState] += 2;
+    postSynaptic[nPVPL].values[nextState] += 3;
+    postSynaptic[nRIML].values[nextState] += 4;
+    postSynaptic[nVD1].values[nextState] += 1;
 }
 
 void RIFR() {
-    postSynaptic["ASHR"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 17;
-    postSynaptic["AVFL"].values[nextState] += 1;
-    postSynaptic["AVG"].values[nextState] += 1;
-    postSynaptic["AVHL"].values[nextState] += 1;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AVJR"].values[nextState] += 2;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["PVPR"].values[nextState] += 4;
-    postSynaptic["RIMR"].values[nextState] += 4;
-    postSynaptic["RIPR"].values[nextState] += 1;
+    postSynaptic[nASHR].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 17;
+    postSynaptic[nAVFL].values[nextState] += 1;
+    postSynaptic[nAVG].values[nextState] += 1;
+    postSynaptic[nAVHL].values[nextState] += 1;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAVJR].values[nextState] += 2;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nPVPR].values[nextState] += 4;
+    postSynaptic[nRIMR].values[nextState] += 4;
+    postSynaptic[nRIPR].values[nextState] += 1;
 }
 
 void RIGL() {
-    postSynaptic["AIBR"].values[nextState] += 3;
-    postSynaptic["AIZR"].values[nextState] += 1;
-    postSynaptic["ALNL"].values[nextState] += 1;
-    postSynaptic["AQR"].values[nextState] += 2;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["AVKR"].values[nextState] += 2;
-    postSynaptic["BAGR"].values[nextState] += 2;
-    postSynaptic["DVC"].values[nextState] += 1;
-    postSynaptic["OLLL"].values[nextState] += 1;
-    postSynaptic["OLQDL"].values[nextState] += 1;
-    postSynaptic["OLQVL"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 2;
-    postSynaptic["RIGR"].values[nextState] += 3;
-    postSynaptic["RIR"].values[nextState] += 2;
-    postSynaptic["RMEL"].values[nextState] += 2;
-    postSynaptic["RMHR"].values[nextState] += 3;
-    postSynaptic["URYDL"].values[nextState] += 1;
-    postSynaptic["URYVL"].values[nextState] += 1;
-    postSynaptic["VB2"].values[nextState] += 1;
-    postSynaptic["VD1"].values[nextState] += 2;
+    postSynaptic[nAIBR].values[nextState] += 3;
+    postSynaptic[nAIZR].values[nextState] += 1;
+    postSynaptic[nALNL].values[nextState] += 1;
+    postSynaptic[nAQR].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nAVKR].values[nextState] += 2;
+    postSynaptic[nBAGR].values[nextState] += 2;
+    postSynaptic[nDVC].values[nextState] += 1;
+    postSynaptic[nOLLL].values[nextState] += 1;
+    postSynaptic[nOLQDL].values[nextState] += 1;
+    postSynaptic[nOLQVL].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 2;
+    postSynaptic[nRIGR].values[nextState] += 3;
+    postSynaptic[nRIR].values[nextState] += 2;
+    postSynaptic[nRMEL].values[nextState] += 2;
+    postSynaptic[nRMHR].values[nextState] += 3;
+    postSynaptic[nURYDL].values[nextState] += 1;
+    postSynaptic[nURYVL].values[nextState] += 1;
+    postSynaptic[nVB2].values[nextState] += 1;
+    postSynaptic[nVD1].values[nextState] += 2;
 }
 
 void RIGR() {
-    postSynaptic["AIBL"].values[nextState] += 3;
-    postSynaptic["ALNR"].values[nextState] += 1;
-    postSynaptic["AQR"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 2;
-    postSynaptic["AVKL"].values[nextState] += 4;
-    postSynaptic["AVKR"].values[nextState] += 2;
-    postSynaptic["BAGL"].values[nextState] += 1;
-    postSynaptic["OLLR"].values[nextState] += 1;
-    postSynaptic["OLQDR"].values[nextState] += 1;
-    postSynaptic["OLQVR"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 2;
-    postSynaptic["RIGL"].values[nextState] += 3;
-    postSynaptic["RIR"].values[nextState] += 1;
-    postSynaptic["RMHL"].values[nextState] += 4;
-    postSynaptic["URYDR"].values[nextState] += 1;
-    postSynaptic["URYVR"].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 3;
+    postSynaptic[nALNR].values[nextState] += 1;
+    postSynaptic[nAQR].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 2;
+    postSynaptic[nAVKL].values[nextState] += 4;
+    postSynaptic[nAVKR].values[nextState] += 2;
+    postSynaptic[nBAGL].values[nextState] += 1;
+    postSynaptic[nOLLR].values[nextState] += 1;
+    postSynaptic[nOLQDR].values[nextState] += 1;
+    postSynaptic[nOLQVR].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 2;
+    postSynaptic[nRIGL].values[nextState] += 3;
+    postSynaptic[nRIR].values[nextState] += 1;
+    postSynaptic[nRMHL].values[nextState] += 4;
+    postSynaptic[nURYDR].values[nextState] += 1;
+    postSynaptic[nURYVR].values[nextState] += 1;
 }
 
 void RIH() {
-    postSynaptic["ADFR"].values[nextState] += 1;
-    postSynaptic["AIZL"].values[nextState] += 4;
-    postSynaptic["AIZR"].values[nextState] += 4;
-    postSynaptic["AUAR"].values[nextState] += 1;
-    postSynaptic["BAGR"].values[nextState] += 1;
-    postSynaptic["CEPDL"].values[nextState] += 2;
-    postSynaptic["CEPDR"].values[nextState] += 2;
-    postSynaptic["CEPVL"].values[nextState] += 2;
-    postSynaptic["CEPVR"].values[nextState] += 2;
-    postSynaptic["FLPL"].values[nextState] += 1;
-    postSynaptic["IL2L"].values[nextState] += 2;
-    postSynaptic["IL2R"].values[nextState] += 1;
-    postSynaptic["OLQDL"].values[nextState] += 4;
-    postSynaptic["OLQDR"].values[nextState] += 2;
-    postSynaptic["OLQVL"].values[nextState] += 1;
-    postSynaptic["OLQVR"].values[nextState] += 6;
-    postSynaptic["RIAL"].values[nextState] += 10;
-    postSynaptic["RIAR"].values[nextState] += 8;
-    postSynaptic["RIBL"].values[nextState] += 5;
-    postSynaptic["RIBR"].values[nextState] += 4;
-    postSynaptic["RIPL"].values[nextState] += 4;
-    postSynaptic["RIPR"].values[nextState] += 6;
-    postSynaptic["RMER"].values[nextState] += 2;
-    postSynaptic["RMEV"].values[nextState] += 1;
-    postSynaptic["URYVR"].values[nextState] += 1;
+    postSynaptic[nADFR].values[nextState] += 1;
+    postSynaptic[nAIZL].values[nextState] += 4;
+    postSynaptic[nAIZR].values[nextState] += 4;
+    postSynaptic[nAUAR].values[nextState] += 1;
+    postSynaptic[nBAGR].values[nextState] += 1;
+    postSynaptic[nCEPDL].values[nextState] += 2;
+    postSynaptic[nCEPDR].values[nextState] += 2;
+    postSynaptic[nCEPVL].values[nextState] += 2;
+    postSynaptic[nCEPVR].values[nextState] += 2;
+    postSynaptic[nFLPL].values[nextState] += 1;
+    postSynaptic[nIL2L].values[nextState] += 2;
+    postSynaptic[nIL2R].values[nextState] += 1;
+    postSynaptic[nOLQDL].values[nextState] += 4;
+    postSynaptic[nOLQDR].values[nextState] += 2;
+    postSynaptic[nOLQVL].values[nextState] += 1;
+    postSynaptic[nOLQVR].values[nextState] += 6;
+    postSynaptic[nRIAL].values[nextState] += 10;
+    postSynaptic[nRIAR].values[nextState] += 8;
+    postSynaptic[nRIBL].values[nextState] += 5;
+    postSynaptic[nRIBR].values[nextState] += 4;
+    postSynaptic[nRIPL].values[nextState] += 4;
+    postSynaptic[nRIPR].values[nextState] += 6;
+    postSynaptic[nRMER].values[nextState] += 2;
+    postSynaptic[nRMEV].values[nextState] += 1;
+    postSynaptic[nURYVR].values[nextState] += 1;
 }
 
 void RIML() {
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["AIYL"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["AVBL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 3;
-    postSynaptic["AVEL"].values[nextState] += 2;
-    postSynaptic["AVER"].values[nextState] += 3;
-    postSynaptic["MDR05"].values[nextState] += 2;
-    postSynaptic["MVR05"].values[nextState] += 2;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIS"].values[nextState] += 1;
-    postSynaptic["RMDL"].values[nextState] += 1;
-    postSynaptic["RMDR"].values[nextState] += 1;
-    postSynaptic["RMFR"].values[nextState] += 1;
-    postSynaptic["SAADR"].values[nextState] += 1;
-    postSynaptic["SAAVL"].values[nextState] += 3;
-    postSynaptic["SAAVR"].values[nextState] += 2;
-    postSynaptic["SMDDR"].values[nextState] += 5;
-    postSynaptic["SMDVL"].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nAIYL].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 3;
+    postSynaptic[nAVEL].values[nextState] += 2;
+    postSynaptic[nAVER].values[nextState] += 3;
+    postSynaptic[nMDR05].values[nextState] += 2;
+    postSynaptic[nMVR05].values[nextState] += 2;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIS].values[nextState] += 1;
+    postSynaptic[nRMDL].values[nextState] += 1;
+    postSynaptic[nRMDR].values[nextState] += 1;
+    postSynaptic[nRMFR].values[nextState] += 1;
+    postSynaptic[nSAADR].values[nextState] += 1;
+    postSynaptic[nSAAVL].values[nextState] += 3;
+    postSynaptic[nSAAVR].values[nextState] += 2;
+    postSynaptic[nSMDDR].values[nextState] += 5;
+    postSynaptic[nSMDVL].values[nextState] += 1;
 }
 
 void RIMR() {
-    postSynaptic["ADAR"].values[nextState] += 1;
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["AIYR"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 5;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 5;
-    postSynaptic["AVEL"].values[nextState] += 3;
-    postSynaptic["AVER"].values[nextState] += 2;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["MDL05"].values[nextState] += 1;
-    postSynaptic["MDL07"].values[nextState] += 1;
-    postSynaptic["MVL05"].values[nextState] += 1;
-    postSynaptic["MVL07"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RIS"].values[nextState] += 2;
-    postSynaptic["RMDL"].values[nextState] += 1;
-    postSynaptic["RMDR"].values[nextState] += 1;
-    postSynaptic["RMFL"].values[nextState] += 1;
-    postSynaptic["RMFR"].values[nextState] += 1;
-    postSynaptic["SAAVL"].values[nextState] += 3;
-    postSynaptic["SAAVR"].values[nextState] += 3;
-    postSynaptic["SMDDL"].values[nextState] += 2;
-    postSynaptic["SMDDR"].values[nextState] += 4;
+    postSynaptic[nADAR].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nAIYR].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 5;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 5;
+    postSynaptic[nAVEL].values[nextState] += 3;
+    postSynaptic[nAVER].values[nextState] += 2;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nMDL05].values[nextState] += 1;
+    postSynaptic[nMDL07].values[nextState] += 1;
+    postSynaptic[nMVL05].values[nextState] += 1;
+    postSynaptic[nMVL07].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRIS].values[nextState] += 2;
+    postSynaptic[nRMDL].values[nextState] += 1;
+    postSynaptic[nRMDR].values[nextState] += 1;
+    postSynaptic[nRMFL].values[nextState] += 1;
+    postSynaptic[nRMFR].values[nextState] += 1;
+    postSynaptic[nSAAVL].values[nextState] += 3;
+    postSynaptic[nSAAVR].values[nextState] += 3;
+    postSynaptic[nSMDDL].values[nextState] += 2;
+    postSynaptic[nSMDDR].values[nextState] += 4;
 }
 
 void RIPL() {
-    postSynaptic["OLQDL"].values[nextState] += 1;
-    postSynaptic["OLQDR"].values[nextState] += 1;
-    postSynaptic["RMED"].values[nextState] += 1;
+    postSynaptic[nOLQDL].values[nextState] += 1;
+    postSynaptic[nOLQDR].values[nextState] += 1;
+    postSynaptic[nRMED].values[nextState] += 1;
 }
 
 void RIPR() {
-    postSynaptic["OLQDL"].values[nextState] += 1;
-    postSynaptic["OLQDR"].values[nextState] += 1;
-    postSynaptic["RMED"].values[nextState] += 1;
+    postSynaptic[nOLQDL].values[nextState] += 1;
+    postSynaptic[nOLQDR].values[nextState] += 1;
+    postSynaptic[nRMED].values[nextState] += 1;
 }
 
 void RIR() {
-    postSynaptic["AFDR"].values[nextState] += 1;
-    postSynaptic["AIZL"].values[nextState] += 3;
-    postSynaptic["AIZR"].values[nextState] += 5;
-    postSynaptic["AUAL"].values[nextState] += 1;
-    postSynaptic["AWBR"].values[nextState] += 1;
-    postSynaptic["BAGL"].values[nextState] += 1;
-    postSynaptic["BAGR"].values[nextState] += 2;
-    postSynaptic["DVA"].values[nextState] += 2;
-    postSynaptic["HSNL"].values[nextState] += 1;
-    postSynaptic["PVPL"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 5;
-    postSynaptic["RIAR"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["URXL"].values[nextState] += 5;
-    postSynaptic["URXR"].values[nextState] += 1;
+    postSynaptic[nAFDR].values[nextState] += 1;
+    postSynaptic[nAIZL].values[nextState] += 3;
+    postSynaptic[nAIZR].values[nextState] += 5;
+    postSynaptic[nAUAL].values[nextState] += 1;
+    postSynaptic[nAWBR].values[nextState] += 1;
+    postSynaptic[nBAGL].values[nextState] += 1;
+    postSynaptic[nBAGR].values[nextState] += 2;
+    postSynaptic[nDVA].values[nextState] += 2;
+    postSynaptic[nHSNL].values[nextState] += 1;
+    postSynaptic[nPVPL].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 5;
+    postSynaptic[nRIAR].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nURXL].values[nextState] += 5;
+    postSynaptic[nURXR].values[nextState] += 1;
 }
 
 void RIS() {
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 7;
-    postSynaptic["AVER"].values[nextState] += 7;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["AVKR"].values[nextState] += 4;
-    postSynaptic["AVL"].values[nextState] += 2;
-    postSynaptic["CEPDR"].values[nextState] += 1;
-    postSynaptic["CEPVL"].values[nextState] += 2;
-    postSynaptic["CEPVR"].values[nextState] += 1;
-    postSynaptic["DB1"].values[nextState] += 1;
-    postSynaptic["OLLR"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 3;
-    postSynaptic["RIBR"].values[nextState] += 5;
-    postSynaptic["RIML"].values[nextState] += 2;
-    postSynaptic["RIMR"].values[nextState] += 5;
-    postSynaptic["RMDDL"].values[nextState] += 1;
-    postSynaptic["RMDL"].values[nextState] += 2;
-    postSynaptic["RMDR"].values[nextState] += 4;
-    postSynaptic["SMDDL"].values[nextState] += 1;
-    postSynaptic["SMDDR"].values[nextState] += 3;
-    postSynaptic["SMDVL"].values[nextState] += 1;
-    postSynaptic["SMDVR"].values[nextState] += 1;
-    postSynaptic["URYVR"].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 7;
+    postSynaptic[nAVER].values[nextState] += 7;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nAVKR].values[nextState] += 4;
+    postSynaptic[nAVL].values[nextState] += 2;
+    postSynaptic[nCEPDR].values[nextState] += 1;
+    postSynaptic[nCEPVL].values[nextState] += 2;
+    postSynaptic[nCEPVR].values[nextState] += 1;
+    postSynaptic[nDB1].values[nextState] += 1;
+    postSynaptic[nOLLR].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 3;
+    postSynaptic[nRIBR].values[nextState] += 5;
+    postSynaptic[nRIML].values[nextState] += 2;
+    postSynaptic[nRIMR].values[nextState] += 5;
+    postSynaptic[nRMDDL].values[nextState] += 1;
+    postSynaptic[nRMDL].values[nextState] += 2;
+    postSynaptic[nRMDR].values[nextState] += 4;
+    postSynaptic[nSMDDL].values[nextState] += 1;
+    postSynaptic[nSMDDR].values[nextState] += 3;
+    postSynaptic[nSMDVL].values[nextState] += 1;
+    postSynaptic[nSMDVR].values[nextState] += 1;
+    postSynaptic[nURYVR].values[nextState] += 1;
 }
 
 void RIVL() {
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["MVR05"].values[nextState] += -2;
-    postSynaptic["MVR06"].values[nextState] += -2;
-    postSynaptic["MVR08"].values[nextState] += -3;
-    postSynaptic["RIAL"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 1;
-    postSynaptic["RIVR"].values[nextState] += 2;
-    postSynaptic["RMDL"].values[nextState] += 2;
-    postSynaptic["SAADR"].values[nextState] += 3;
-    postSynaptic["SDQR"].values[nextState] += 2;
-    postSynaptic["SIAVR"].values[nextState] += 2;
-    postSynaptic["SMDDR"].values[nextState] += 1;
-    postSynaptic["SMDVL"].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nMVR05].values[nextState] += -2;
+    postSynaptic[nMVR06].values[nextState] += -2;
+    postSynaptic[nMVR08].values[nextState] += -3;
+    postSynaptic[nRIAL].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 1;
+    postSynaptic[nRIVR].values[nextState] += 2;
+    postSynaptic[nRMDL].values[nextState] += 2;
+    postSynaptic[nSAADR].values[nextState] += 3;
+    postSynaptic[nSDQR].values[nextState] += 2;
+    postSynaptic[nSIAVR].values[nextState] += 2;
+    postSynaptic[nSMDDR].values[nextState] += 1;
+    postSynaptic[nSMDVL].values[nextState] += 1;
 }
 
 void RIVR() {
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["MVL05"].values[nextState] += -2;
-    postSynaptic["MVL06"].values[nextState] += -2;
-    postSynaptic["MVL08"].values[nextState] += -2;
-    postSynaptic["MVR04"].values[nextState] += -2;
-    postSynaptic["MVR06"].values[nextState] += -2;
-    postSynaptic["RIAL"].values[nextState] += 2;
-    postSynaptic["RIAR"].values[nextState] += 1;
-    postSynaptic["RIVL"].values[nextState] += 2;
-    postSynaptic["RMDDL"].values[nextState] += 1;
-    postSynaptic["RMDR"].values[nextState] += 1;
-    postSynaptic["RMDVR"].values[nextState] += 1;
-    postSynaptic["RMEV"].values[nextState] += 1;
-    postSynaptic["SAADL"].values[nextState] += 2;
-    postSynaptic["SDQR"].values[nextState] += 2;
-    postSynaptic["SIAVL"].values[nextState] += 2;
-    postSynaptic["SMDDL"].values[nextState] += 2;
-    postSynaptic["SMDVR"].values[nextState] += 4;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nMVL05].values[nextState] += -2;
+    postSynaptic[nMVL06].values[nextState] += -2;
+    postSynaptic[nMVL08].values[nextState] += -2;
+    postSynaptic[nMVR04].values[nextState] += -2;
+    postSynaptic[nMVR06].values[nextState] += -2;
+    postSynaptic[nRIAL].values[nextState] += 2;
+    postSynaptic[nRIAR].values[nextState] += 1;
+    postSynaptic[nRIVL].values[nextState] += 2;
+    postSynaptic[nRMDDL].values[nextState] += 1;
+    postSynaptic[nRMDR].values[nextState] += 1;
+    postSynaptic[nRMDVR].values[nextState] += 1;
+    postSynaptic[nRMEV].values[nextState] += 1;
+    postSynaptic[nSAADL].values[nextState] += 2;
+    postSynaptic[nSDQR].values[nextState] += 2;
+    postSynaptic[nSIAVL].values[nextState] += 2;
+    postSynaptic[nSMDDL].values[nextState] += 2;
+    postSynaptic[nSMDVR].values[nextState] += 4;
 }
 
 void RMDDL() {
-    postSynaptic["MDR01"].values[nextState] += 1;
-    postSynaptic["MDR02"].values[nextState] += 1;
-    postSynaptic["MDR03"].values[nextState] += 1;
-    postSynaptic["MDR04"].values[nextState] += 1;
-    postSynaptic["MDR08"].values[nextState] += 2;
-    postSynaptic["MVR01"].values[nextState] += 1;
-    postSynaptic["OLQVL"].values[nextState] += 1;
-    postSynaptic["RMDL"].values[nextState] += 1;
-    postSynaptic["RMDVL"].values[nextState] += 1;
-    postSynaptic["RMDVR"].values[nextState] += 7;
-    postSynaptic["SMDDL"].values[nextState] += 1;
+    postSynaptic[nMDR01].values[nextState] += 1;
+    postSynaptic[nMDR02].values[nextState] += 1;
+    postSynaptic[nMDR03].values[nextState] += 1;
+    postSynaptic[nMDR04].values[nextState] += 1;
+    postSynaptic[nMDR08].values[nextState] += 2;
+    postSynaptic[nMVR01].values[nextState] += 1;
+    postSynaptic[nOLQVL].values[nextState] += 1;
+    postSynaptic[nRMDL].values[nextState] += 1;
+    postSynaptic[nRMDVL].values[nextState] += 1;
+    postSynaptic[nRMDVR].values[nextState] += 7;
+    postSynaptic[nSMDDL].values[nextState] += 1;
 }
 
 void RMDDR() {
-    postSynaptic["MDL01"].values[nextState] += 1;
-    postSynaptic["MDL02"].values[nextState] += 1;
-    postSynaptic["MDL03"].values[nextState] += 2;
-    postSynaptic["MDL04"].values[nextState] += 1;
-    postSynaptic["MDR04"].values[nextState] += 1;
-    postSynaptic["MVR01"].values[nextState] += 1;
-    postSynaptic["MVR02"].values[nextState] += 1;
-    postSynaptic["OLQVR"].values[nextState] += 1;
-    postSynaptic["RMDVL"].values[nextState] += 12;
-    postSynaptic["RMDVR"].values[nextState] += 1;
-    postSynaptic["SAADR"].values[nextState] += 1;
-    postSynaptic["SMDDR"].values[nextState] += 1;
-    postSynaptic["URYDL"].values[nextState] += 1;
+    postSynaptic[nMDL01].values[nextState] += 1;
+    postSynaptic[nMDL02].values[nextState] += 1;
+    postSynaptic[nMDL03].values[nextState] += 2;
+    postSynaptic[nMDL04].values[nextState] += 1;
+    postSynaptic[nMDR04].values[nextState] += 1;
+    postSynaptic[nMVR01].values[nextState] += 1;
+    postSynaptic[nMVR02].values[nextState] += 1;
+    postSynaptic[nOLQVR].values[nextState] += 1;
+    postSynaptic[nRMDVL].values[nextState] += 12;
+    postSynaptic[nRMDVR].values[nextState] += 1;
+    postSynaptic[nSAADR].values[nextState] += 1;
+    postSynaptic[nSMDDR].values[nextState] += 1;
+    postSynaptic[nURYDL].values[nextState] += 1;
 }
 
 void RMDL() {
-    postSynaptic["MDL03"].values[nextState] += 1;
-    postSynaptic["MDL05"].values[nextState] += 2;
-    postSynaptic["MDR01"].values[nextState] += 1;
-    postSynaptic["MDR03"].values[nextState] += 1;
-    postSynaptic["MVL01"].values[nextState] += 1;
-    postSynaptic["MVR01"].values[nextState] += 1;
-    postSynaptic["MVR03"].values[nextState] += 1;
-    postSynaptic["MVR05"].values[nextState] += 2;
-    postSynaptic["MVR07"].values[nextState] += 1;
-    postSynaptic["OLLR"].values[nextState] += 2;
-    postSynaptic["RIAL"].values[nextState] += 4;
-    postSynaptic["RIAR"].values[nextState] += 3;
-    postSynaptic["RMDDL"].values[nextState] += 1;
-    postSynaptic["RMDDR"].values[nextState] += 1;
-    postSynaptic["RMDR"].values[nextState] += 3;
-    postSynaptic["RMDVL"].values[nextState] += 1;
-    postSynaptic["RMER"].values[nextState] += 1;
-    postSynaptic["RMFL"].values[nextState] += 1;
+    postSynaptic[nMDL03].values[nextState] += 1;
+    postSynaptic[nMDL05].values[nextState] += 2;
+    postSynaptic[nMDR01].values[nextState] += 1;
+    postSynaptic[nMDR03].values[nextState] += 1;
+    postSynaptic[nMVL01].values[nextState] += 1;
+    postSynaptic[nMVR01].values[nextState] += 1;
+    postSynaptic[nMVR03].values[nextState] += 1;
+    postSynaptic[nMVR05].values[nextState] += 2;
+    postSynaptic[nMVR07].values[nextState] += 1;
+    postSynaptic[nOLLR].values[nextState] += 2;
+    postSynaptic[nRIAL].values[nextState] += 4;
+    postSynaptic[nRIAR].values[nextState] += 3;
+    postSynaptic[nRMDDL].values[nextState] += 1;
+    postSynaptic[nRMDDR].values[nextState] += 1;
+    postSynaptic[nRMDR].values[nextState] += 3;
+    postSynaptic[nRMDVL].values[nextState] += 1;
+    postSynaptic[nRMER].values[nextState] += 1;
+    postSynaptic[nRMFL].values[nextState] += 1;
 }
 
 void RMDR() {
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["MDL03"].values[nextState] += 1;
-    postSynaptic["MDL05"].values[nextState] += 1;
-    postSynaptic["MDR05"].values[nextState] += 1;
-    postSynaptic["MVL03"].values[nextState] += 1;
-    postSynaptic["MVL05"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 3;
-    postSynaptic["RIAR"].values[nextState] += 7;
-    postSynaptic["RIMR"].values[nextState] += 2;
-    postSynaptic["RIS"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 1;
-    postSynaptic["RMDL"].values[nextState] += 1;
-    postSynaptic["RMDVR"].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nMDL03].values[nextState] += 1;
+    postSynaptic[nMDL05].values[nextState] += 1;
+    postSynaptic[nMDR05].values[nextState] += 1;
+    postSynaptic[nMVL03].values[nextState] += 1;
+    postSynaptic[nMVL05].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 3;
+    postSynaptic[nRIAR].values[nextState] += 7;
+    postSynaptic[nRIMR].values[nextState] += 2;
+    postSynaptic[nRIS].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 1;
+    postSynaptic[nRMDL].values[nextState] += 1;
+    postSynaptic[nRMDVR].values[nextState] += 1;
 }
 
 void RMDVL() {
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["MDR01"].values[nextState] += 1;
-    postSynaptic["MVL04"].values[nextState] += 1;
-    postSynaptic["MVR01"].values[nextState] += 1;
-    postSynaptic["MVR02"].values[nextState] += 1;
-    postSynaptic["MVR03"].values[nextState] += 1;
-    postSynaptic["MVR04"].values[nextState] += 1;
-    postSynaptic["MVR05"].values[nextState] += 1;
-    postSynaptic["MVR06"].values[nextState] += 1;
-    postSynaptic["MVR08"].values[nextState] += 1;
-    postSynaptic["OLQDL"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 1;
-    postSynaptic["RMDDR"].values[nextState] += 6;
-    postSynaptic["RMDL"].values[nextState] += 1;
-    postSynaptic["RMDVR"].values[nextState] += 1;
-    postSynaptic["SAAVL"].values[nextState] += 1;
-    postSynaptic["SMDVL"].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nMDR01].values[nextState] += 1;
+    postSynaptic[nMVL04].values[nextState] += 1;
+    postSynaptic[nMVR01].values[nextState] += 1;
+    postSynaptic[nMVR02].values[nextState] += 1;
+    postSynaptic[nMVR03].values[nextState] += 1;
+    postSynaptic[nMVR04].values[nextState] += 1;
+    postSynaptic[nMVR05].values[nextState] += 1;
+    postSynaptic[nMVR06].values[nextState] += 1;
+    postSynaptic[nMVR08].values[nextState] += 1;
+    postSynaptic[nOLQDL].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 1;
+    postSynaptic[nRMDDR].values[nextState] += 6;
+    postSynaptic[nRMDL].values[nextState] += 1;
+    postSynaptic[nRMDVR].values[nextState] += 1;
+    postSynaptic[nSAAVL].values[nextState] += 1;
+    postSynaptic[nSMDVL].values[nextState] += 1;
 }
 
 void RMDVR() {
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["MDL01"].values[nextState] += 1;
-    postSynaptic["MVL01"].values[nextState] += 1;
-    postSynaptic["MVL02"].values[nextState] += 1;
-    postSynaptic["MVL03"].values[nextState] += 1;
-    postSynaptic["MVL04"].values[nextState] += 1;
-    postSynaptic["MVL05"].values[nextState] += 1;
-    postSynaptic["MVL06"].values[nextState] += 1;
-    postSynaptic["MVL08"].values[nextState] += 1;
-    postSynaptic["MVR04"].values[nextState] += 1;
-    postSynaptic["MVR06"].values[nextState] += 1;
-    postSynaptic["MVR08"].values[nextState] += 1;
-    postSynaptic["OLQDR"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 4;
-    postSynaptic["RMDDR"].values[nextState] += 1;
-    postSynaptic["RMDR"].values[nextState] += 1;
-    postSynaptic["RMDVL"].values[nextState] += 1;
-    postSynaptic["SAAVR"].values[nextState] += 1;
-    postSynaptic["SIBDR"].values[nextState] += 1;
-    postSynaptic["SIBVR"].values[nextState] += 1;
-    postSynaptic["SMDVR"].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nMDL01].values[nextState] += 1;
+    postSynaptic[nMVL01].values[nextState] += 1;
+    postSynaptic[nMVL02].values[nextState] += 1;
+    postSynaptic[nMVL03].values[nextState] += 1;
+    postSynaptic[nMVL04].values[nextState] += 1;
+    postSynaptic[nMVL05].values[nextState] += 1;
+    postSynaptic[nMVL06].values[nextState] += 1;
+    postSynaptic[nMVL08].values[nextState] += 1;
+    postSynaptic[nMVR04].values[nextState] += 1;
+    postSynaptic[nMVR06].values[nextState] += 1;
+    postSynaptic[nMVR08].values[nextState] += 1;
+    postSynaptic[nOLQDR].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 4;
+    postSynaptic[nRMDDR].values[nextState] += 1;
+    postSynaptic[nRMDR].values[nextState] += 1;
+    postSynaptic[nRMDVL].values[nextState] += 1;
+    postSynaptic[nSAAVR].values[nextState] += 1;
+    postSynaptic[nSIBDR].values[nextState] += 1;
+    postSynaptic[nSIBVR].values[nextState] += 1;
+    postSynaptic[nSMDVR].values[nextState] += 1;
 }
 
 void RMED() {
-    postSynaptic["IL1VL"].values[nextState] += 1;
-    postSynaptic["MVL02"].values[nextState] += -4;
-    postSynaptic["MVL04"].values[nextState] += -4;
-    postSynaptic["MVL06"].values[nextState] += -4;
-    postSynaptic["MVR02"].values[nextState] += -4;
-    postSynaptic["MVR04"].values[nextState] += -4;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RIPL"].values[nextState] += 1;
-    postSynaptic["RIPR"].values[nextState] += 1;
-    postSynaptic["RMEV"].values[nextState] += 2;
+    postSynaptic[nIL1VL].values[nextState] += 1;
+    postSynaptic[nMVL02].values[nextState] += -4;
+    postSynaptic[nMVL04].values[nextState] += -4;
+    postSynaptic[nMVL06].values[nextState] += -4;
+    postSynaptic[nMVR02].values[nextState] += -4;
+    postSynaptic[nMVR04].values[nextState] += -4;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRIPL].values[nextState] += 1;
+    postSynaptic[nRIPR].values[nextState] += 1;
+    postSynaptic[nRMEV].values[nextState] += 2;
 }
 
 void RMEL() {
-    postSynaptic["MDR01"].values[nextState] += -5;
-    postSynaptic["MDR03"].values[nextState] += -5;
-    postSynaptic["MVR01"].values[nextState] += -5;
-    postSynaptic["MVR03"].values[nextState] += -5;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RMEV"].values[nextState] += 1;
+    postSynaptic[nMDR01].values[nextState] += -5;
+    postSynaptic[nMDR03].values[nextState] += -5;
+    postSynaptic[nMVR01].values[nextState] += -5;
+    postSynaptic[nMVR03].values[nextState] += -5;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRMEV].values[nextState] += 1;
 }
 
 void RMER() {
-    postSynaptic["MDL01"].values[nextState] += -7;
-    postSynaptic["MDL03"].values[nextState] += -7;
-    postSynaptic["MVL01"].values[nextState] += -7;
-    postSynaptic["RMEV"].values[nextState] += 1;
+    postSynaptic[nMDL01].values[nextState] += -7;
+    postSynaptic[nMDL03].values[nextState] += -7;
+    postSynaptic[nMVL01].values[nextState] += -7;
+    postSynaptic[nRMEV].values[nextState] += 1;
 }
 
 void RMEV() {
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 1;
-    postSynaptic["IL1DL"].values[nextState] += 1;
-    postSynaptic["IL1DR"].values[nextState] += 1;
-    postSynaptic["MDL02"].values[nextState] += -3;
-    postSynaptic["MDL04"].values[nextState] += -3;
-    postSynaptic["MDL06"].values[nextState] += -3;
-    postSynaptic["MDR02"].values[nextState] += -3;
-    postSynaptic["MDR04"].values[nextState] += -3;
-    postSynaptic["RMED"].values[nextState] += 2;
-    postSynaptic["RMEL"].values[nextState] += 1;
-    postSynaptic["RMER"].values[nextState] += 1;
-    postSynaptic["SMDDR"].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 1;
+    postSynaptic[nIL1DL].values[nextState] += 1;
+    postSynaptic[nIL1DR].values[nextState] += 1;
+    postSynaptic[nMDL02].values[nextState] += -3;
+    postSynaptic[nMDL04].values[nextState] += -3;
+    postSynaptic[nMDL06].values[nextState] += -3;
+    postSynaptic[nMDR02].values[nextState] += -3;
+    postSynaptic[nMDR04].values[nextState] += -3;
+    postSynaptic[nRMED].values[nextState] += 2;
+    postSynaptic[nRMEL].values[nextState] += 1;
+    postSynaptic[nRMER].values[nextState] += 1;
+    postSynaptic[nSMDDR].values[nextState] += 1;
 }
 
 void RMFL() {
-    postSynaptic["AVKL"].values[nextState] += 4;
-    postSynaptic["AVKR"].values[nextState] += 4;
-    postSynaptic["MDR03"].values[nextState] += 1;
-    postSynaptic["MVR01"].values[nextState] += 1;
-    postSynaptic["MVR03"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["RIGR"].values[nextState] += 1;
-    postSynaptic["RMDR"].values[nextState] += 3;
-    postSynaptic["RMGR"].values[nextState] += 1;
-    postSynaptic["URBR"].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 4;
+    postSynaptic[nAVKR].values[nextState] += 4;
+    postSynaptic[nMDR03].values[nextState] += 1;
+    postSynaptic[nMVR01].values[nextState] += 1;
+    postSynaptic[nMVR03].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nRIGR].values[nextState] += 1;
+    postSynaptic[nRMDR].values[nextState] += 3;
+    postSynaptic[nRMGR].values[nextState] += 1;
+    postSynaptic[nURBR].values[nextState] += 1;
 }
 
 void RMFR() {
-    postSynaptic["AVKL"].values[nextState] += 3;
-    postSynaptic["AVKR"].values[nextState] += 3;
-    postSynaptic["RMDL"].values[nextState] += 2;
+    postSynaptic[nAVKL].values[nextState] += 3;
+    postSynaptic[nAVKR].values[nextState] += 3;
+    postSynaptic[nRMDL].values[nextState] += 2;
 }
 
 void RMGL() {
-    postSynaptic["ADAL"].values[nextState] += 1;
-    postSynaptic["ADLL"].values[nextState] += 1;
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["ALML"].values[nextState] += 1;
-    postSynaptic["ALNL"].values[nextState] += 1;
-    postSynaptic["ASHL"].values[nextState] += 2;
-    postSynaptic["ASKL"].values[nextState] += 2;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["AVEL"].values[nextState] += 2;
-    postSynaptic["AWBL"].values[nextState] += 1;
-    postSynaptic["CEPDL"].values[nextState] += 1;
-    postSynaptic["IL2L"].values[nextState] += 1;
-    postSynaptic["MDL05"].values[nextState] += 2;
-    postSynaptic["MVL05"].values[nextState] += 2;
-    postSynaptic["RID"].values[nextState] += 1;
-    postSynaptic["RMDL"].values[nextState] += 1;
-    postSynaptic["RMDR"].values[nextState] += 3;
-    postSynaptic["RMDVL"].values[nextState] += 3;
-    postSynaptic["RMHL"].values[nextState] += 3;
-    postSynaptic["RMHR"].values[nextState] += 1;
-    postSynaptic["SIAVL"].values[nextState] += 1;
-    postSynaptic["SIBVL"].values[nextState] += 3;
-    postSynaptic["SIBVR"].values[nextState] += 1;
-    postSynaptic["SMBVL"].values[nextState] += 1;
-    postSynaptic["URXL"].values[nextState] += 2;
+    postSynaptic[nADAL].values[nextState] += 1;
+    postSynaptic[nADLL].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nALML].values[nextState] += 1;
+    postSynaptic[nALNL].values[nextState] += 1;
+    postSynaptic[nASHL].values[nextState] += 2;
+    postSynaptic[nASKL].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 2;
+    postSynaptic[nAWBL].values[nextState] += 1;
+    postSynaptic[nCEPDL].values[nextState] += 1;
+    postSynaptic[nIL2L].values[nextState] += 1;
+    postSynaptic[nMDL05].values[nextState] += 2;
+    postSynaptic[nMVL05].values[nextState] += 2;
+    postSynaptic[nRID].values[nextState] += 1;
+    postSynaptic[nRMDL].values[nextState] += 1;
+    postSynaptic[nRMDR].values[nextState] += 3;
+    postSynaptic[nRMDVL].values[nextState] += 3;
+    postSynaptic[nRMHL].values[nextState] += 3;
+    postSynaptic[nRMHR].values[nextState] += 1;
+    postSynaptic[nSIAVL].values[nextState] += 1;
+    postSynaptic[nSIBVL].values[nextState] += 3;
+    postSynaptic[nSIBVR].values[nextState] += 1;
+    postSynaptic[nSMBVL].values[nextState] += 1;
+    postSynaptic[nURXL].values[nextState] += 2;
 }
 
 void RMGR() {
-    postSynaptic["ADAR"].values[nextState] += 1;
-    postSynaptic["AIMR"].values[nextState] += 1;
-    postSynaptic["ALNR"].values[nextState] += 1;
-    postSynaptic["ASHR"].values[nextState] += 2;
-    postSynaptic["ASKR"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 3;
-    postSynaptic["AVJL"].values[nextState] += 1;
-    postSynaptic["AWBR"].values[nextState] += 1;
-    postSynaptic["IL2R"].values[nextState] += 1;
-    postSynaptic["MDR05"].values[nextState] += 1;
-    postSynaptic["MVR05"].values[nextState] += 1;
-    postSynaptic["MVR07"].values[nextState] += 1;
-    postSynaptic["RIR"].values[nextState] += 1;
-    postSynaptic["RMDL"].values[nextState] += 4;
-    postSynaptic["RMDR"].values[nextState] += 2;
-    postSynaptic["RMDVR"].values[nextState] += 5;
-    postSynaptic["RMHR"].values[nextState] += 1;
-    postSynaptic["URXR"].values[nextState] += 2;
+    postSynaptic[nADAR].values[nextState] += 1;
+    postSynaptic[nAIMR].values[nextState] += 1;
+    postSynaptic[nALNR].values[nextState] += 1;
+    postSynaptic[nASHR].values[nextState] += 2;
+    postSynaptic[nASKR].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 3;
+    postSynaptic[nAVJL].values[nextState] += 1;
+    postSynaptic[nAWBR].values[nextState] += 1;
+    postSynaptic[nIL2R].values[nextState] += 1;
+    postSynaptic[nMDR05].values[nextState] += 1;
+    postSynaptic[nMVR05].values[nextState] += 1;
+    postSynaptic[nMVR07].values[nextState] += 1;
+    postSynaptic[nRIR].values[nextState] += 1;
+    postSynaptic[nRMDL].values[nextState] += 4;
+    postSynaptic[nRMDR].values[nextState] += 2;
+    postSynaptic[nRMDVR].values[nextState] += 5;
+    postSynaptic[nRMHR].values[nextState] += 1;
+    postSynaptic[nURXR].values[nextState] += 2;
 }
 
 void RMHL() {
-    postSynaptic["MDR01"].values[nextState] += 2;
-    postSynaptic["MDR03"].values[nextState] += 3;
-    postSynaptic["MVR01"].values[nextState] += 2;
-    postSynaptic["RMDR"].values[nextState] += 1;
-    postSynaptic["RMGL"].values[nextState] += 3;
-    postSynaptic["SIBVR"].values[nextState] += 1;
+    postSynaptic[nMDR01].values[nextState] += 2;
+    postSynaptic[nMDR03].values[nextState] += 3;
+    postSynaptic[nMVR01].values[nextState] += 2;
+    postSynaptic[nRMDR].values[nextState] += 1;
+    postSynaptic[nRMGL].values[nextState] += 3;
+    postSynaptic[nSIBVR].values[nextState] += 1;
 }
 
 void RMHR() {
-    postSynaptic["MDL01"].values[nextState] += 2;
-    postSynaptic["MDL03"].values[nextState] += 2;
-    postSynaptic["MDL05"].values[nextState] += 2;
-    postSynaptic["MVL01"].values[nextState] += 2;
-    postSynaptic["RMER"].values[nextState] += 1;
-    postSynaptic["RMGL"].values[nextState] += 1;
-    postSynaptic["RMGR"].values[nextState] += 1;
+    postSynaptic[nMDL01].values[nextState] += 2;
+    postSynaptic[nMDL03].values[nextState] += 2;
+    postSynaptic[nMDL05].values[nextState] += 2;
+    postSynaptic[nMVL01].values[nextState] += 2;
+    postSynaptic[nRMER].values[nextState] += 1;
+    postSynaptic[nRMGL].values[nextState] += 1;
+    postSynaptic[nRMGR].values[nextState] += 1;
 }
 
 void SAADL() {
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 6;
-    postSynaptic["RIML"].values[nextState] += 3;
-    postSynaptic["RIMR"].values[nextState] += 6;
-    postSynaptic["RMGR"].values[nextState] += 1;
-    postSynaptic["SMBDL"].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 6;
+    postSynaptic[nRIML].values[nextState] += 3;
+    postSynaptic[nRIMR].values[nextState] += 6;
+    postSynaptic[nRMGR].values[nextState] += 1;
+    postSynaptic[nSMBDL].values[nextState] += 1;
 }
 
 void SAADR() {
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 3;
-    postSynaptic["OLLL"].values[nextState] += 1;
-    postSynaptic["RIML"].values[nextState] += 4;
-    postSynaptic["RIMR"].values[nextState] += 5;
-    postSynaptic["RMDDR"].values[nextState] += 1;
-    postSynaptic["RMFL"].values[nextState] += 1;
-    postSynaptic["RMGL"].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 3;
+    postSynaptic[nOLLL].values[nextState] += 1;
+    postSynaptic[nRIML].values[nextState] += 4;
+    postSynaptic[nRIMR].values[nextState] += 5;
+    postSynaptic[nRMDDR].values[nextState] += 1;
+    postSynaptic[nRMFL].values[nextState] += 1;
+    postSynaptic[nRMGL].values[nextState] += 1;
 }
 
 void SAAVL() {
-    postSynaptic["AIBL"].values[nextState] += 1;
-    postSynaptic["ALNL"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 16;
-    postSynaptic["OLLR"].values[nextState] += 1;
-    postSynaptic["RIML"].values[nextState] += 2;
-    postSynaptic["RIMR"].values[nextState] += 12;
-    postSynaptic["RMDVL"].values[nextState] += 2;
-    postSynaptic["RMFR"].values[nextState] += 2;
-    postSynaptic["SMBVR"].values[nextState] += 3;
-    postSynaptic["SMDDR"].values[nextState] += 8;
+    postSynaptic[nAIBL].values[nextState] += 1;
+    postSynaptic[nALNL].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 16;
+    postSynaptic[nOLLR].values[nextState] += 1;
+    postSynaptic[nRIML].values[nextState] += 2;
+    postSynaptic[nRIMR].values[nextState] += 12;
+    postSynaptic[nRMDVL].values[nextState] += 2;
+    postSynaptic[nRMFR].values[nextState] += 2;
+    postSynaptic[nSMBVR].values[nextState] += 3;
+    postSynaptic[nSMDDR].values[nextState] += 8;
 }
 
 void SAAVR() {
-    postSynaptic["AVAR"].values[nextState] += 13;
-    postSynaptic["RIML"].values[nextState] += 5;
-    postSynaptic["RIMR"].values[nextState] += 2;
-    postSynaptic["RMDVR"].values[nextState] += 1;
-    postSynaptic["SMBVL"].values[nextState] += 2;
-    postSynaptic["SMDDL"].values[nextState] += 6;
+    postSynaptic[nAVAR].values[nextState] += 13;
+    postSynaptic[nRIML].values[nextState] += 5;
+    postSynaptic[nRIMR].values[nextState] += 2;
+    postSynaptic[nRMDVR].values[nextState] += 1;
+    postSynaptic[nSMBVL].values[nextState] += 2;
+    postSynaptic[nSMDDL].values[nextState] += 6;
 }
 
 void SABD() {
-    postSynaptic["AVAL"].values[nextState] += 4;
-    postSynaptic["VA2"].values[nextState] += 4;
-    postSynaptic["VA3"].values[nextState] += 2;
-    postSynaptic["VA4"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 4;
+    postSynaptic[nVA2].values[nextState] += 4;
+    postSynaptic[nVA3].values[nextState] += 2;
+    postSynaptic[nVA4].values[nextState] += 1;
 }
 
 void SABVL() {
-    postSynaptic["AVAR"].values[nextState] += 3;
-    postSynaptic["DA1"].values[nextState] += 2;
-    postSynaptic["DA2"].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 3;
+    postSynaptic[nDA1].values[nextState] += 2;
+    postSynaptic[nDA2].values[nextState] += 1;
 }
 
 void SABVR() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["DA1"].values[nextState] += 3;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nDA1].values[nextState] += 3;
 }
 
 void SDQL() {
-    postSynaptic["ALML"].values[nextState] += 2;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 3;
-    postSynaptic["AVEL"].values[nextState] += 1;
-    postSynaptic["FLPL"].values[nextState] += 1;
-    postSynaptic["RICR"].values[nextState] += 1;
-    postSynaptic["RIS"].values[nextState] += 3;
-    postSynaptic["RMFL"].values[nextState] += 1;
-    postSynaptic["SDQR"].values[nextState] += 1;
+    postSynaptic[nALML].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 3;
+    postSynaptic[nAVEL].values[nextState] += 1;
+    postSynaptic[nFLPL].values[nextState] += 1;
+    postSynaptic[nRICR].values[nextState] += 1;
+    postSynaptic[nRIS].values[nextState] += 3;
+    postSynaptic[nRMFL].values[nextState] += 1;
+    postSynaptic[nSDQR].values[nextState] += 1;
 }
 
 void SDQR() {
-    postSynaptic["ADLL"].values[nextState] += 1;
-    postSynaptic["AIBL"].values[nextState] += 2;
-    postSynaptic["AVAL"].values[nextState] += 3;
-    postSynaptic["AVBL"].values[nextState] += 7;
-    postSynaptic["AVBR"].values[nextState] += 4;
-    postSynaptic["DVA"].values[nextState] += 3;
-    postSynaptic["RICR"].values[nextState] += 1;
-    postSynaptic["RIVL"].values[nextState] += 2;
-    postSynaptic["RIVR"].values[nextState] += 2;
-    postSynaptic["RMHL"].values[nextState] += 2;
-    postSynaptic["RMHR"].values[nextState] += 1;
-    postSynaptic["SDQL"].values[nextState] += 1;
-    postSynaptic["SIBVL"].values[nextState] += 1;
+    postSynaptic[nADLL].values[nextState] += 1;
+    postSynaptic[nAIBL].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 3;
+    postSynaptic[nAVBL].values[nextState] += 7;
+    postSynaptic[nAVBR].values[nextState] += 4;
+    postSynaptic[nDVA].values[nextState] += 3;
+    postSynaptic[nRICR].values[nextState] += 1;
+    postSynaptic[nRIVL].values[nextState] += 2;
+    postSynaptic[nRIVR].values[nextState] += 2;
+    postSynaptic[nRMHL].values[nextState] += 2;
+    postSynaptic[nRMHR].values[nextState] += 1;
+    postSynaptic[nSDQL].values[nextState] += 1;
+    postSynaptic[nSIBVL].values[nextState] += 1;
 }
 
 void SIADL() {
-    postSynaptic["RIBL"].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 1;
 }
 
 void SIADR() {
-    postSynaptic["RIBR"].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
 }
 
 void SIAVL() {
-    postSynaptic["RIBL"].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 1;
 }
 
 void SIAVR() {
-    postSynaptic["RIBR"].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
 }
 
 void SIBDL() {
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["SIBVL"].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nSIBVL].values[nextState] += 1;
 }
 
 void SIBDR() {
-    postSynaptic["AIML"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["SIBVR"].values[nextState] += 1;
+    postSynaptic[nAIML].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nSIBVR].values[nextState] += 1;
 }
 
 void SIBVL() {
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["SDQR"].values[nextState] += 1;
-    postSynaptic["SIBDL"].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nSDQR].values[nextState] += 1;
+    postSynaptic[nSIBDL].values[nextState] += 1;
 }
 
 void SIBVR() {
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RMHL"].values[nextState] += 1;
-    postSynaptic["SIBDR"].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRMHL].values[nextState] += 1;
+    postSynaptic[nSIBDR].values[nextState] += 1;
 }
 
 void SMBDL() {
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["AVKR"].values[nextState] += 1;
-    postSynaptic["MDR01"].values[nextState] += 2;
-    postSynaptic["MDR02"].values[nextState] += 2;
-    postSynaptic["MDR03"].values[nextState] += 2;
-    postSynaptic["MDR04"].values[nextState] += 2;
-    postSynaptic["MDR06"].values[nextState] += 3;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RMED"].values[nextState] += 3;
-    postSynaptic["SAADL"].values[nextState] += 1;
-    postSynaptic["SAAVR"].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nAVKR].values[nextState] += 1;
+    postSynaptic[nMDR01].values[nextState] += 2;
+    postSynaptic[nMDR02].values[nextState] += 2;
+    postSynaptic[nMDR03].values[nextState] += 2;
+    postSynaptic[nMDR04].values[nextState] += 2;
+    postSynaptic[nMDR06].values[nextState] += 3;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRMED].values[nextState] += 3;
+    postSynaptic[nSAADL].values[nextState] += 1;
+    postSynaptic[nSAAVR].values[nextState] += 1;
 }
 
 void SMBDR() {
-    postSynaptic["ALNL"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["AVKR"].values[nextState] += 2;
-    postSynaptic["MDL02"].values[nextState] += 1;
-    postSynaptic["MDL03"].values[nextState] += 1;
-    postSynaptic["MDL04"].values[nextState] += 1;
-    postSynaptic["MDL06"].values[nextState] += 2;
-    postSynaptic["MDR04"].values[nextState] += 1;
-    postSynaptic["MDR08"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RMED"].values[nextState] += 4;
-    postSynaptic["SAAVL"].values[nextState] += 3;
+    postSynaptic[nALNL].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nAVKR].values[nextState] += 2;
+    postSynaptic[nMDL02].values[nextState] += 1;
+    postSynaptic[nMDL03].values[nextState] += 1;
+    postSynaptic[nMDL04].values[nextState] += 1;
+    postSynaptic[nMDL06].values[nextState] += 2;
+    postSynaptic[nMDR04].values[nextState] += 1;
+    postSynaptic[nMDR08].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRMED].values[nextState] += 4;
+    postSynaptic[nSAAVL].values[nextState] += 3;
 }
 
 void SMBVL() {
-    postSynaptic["MVL01"].values[nextState] += 1;
-    postSynaptic["MVL02"].values[nextState] += 1;
-    postSynaptic["MVL03"].values[nextState] += 1;
-    postSynaptic["MVL04"].values[nextState] += 1;
-    postSynaptic["MVL05"].values[nextState] += 1;
-    postSynaptic["MVL06"].values[nextState] += 1;
-    postSynaptic["MVL08"].values[nextState] += 1;
-    postSynaptic["PLNL"].values[nextState] += 1;
-    postSynaptic["RMEV"].values[nextState] += 5;
-    postSynaptic["SAADL"].values[nextState] += 3;
-    postSynaptic["SAAVR"].values[nextState] += 2;
+    postSynaptic[nMVL01].values[nextState] += 1;
+    postSynaptic[nMVL02].values[nextState] += 1;
+    postSynaptic[nMVL03].values[nextState] += 1;
+    postSynaptic[nMVL04].values[nextState] += 1;
+    postSynaptic[nMVL05].values[nextState] += 1;
+    postSynaptic[nMVL06].values[nextState] += 1;
+    postSynaptic[nMVL08].values[nextState] += 1;
+    postSynaptic[nPLNL].values[nextState] += 1;
+    postSynaptic[nRMEV].values[nextState] += 5;
+    postSynaptic[nSAADL].values[nextState] += 3;
+    postSynaptic[nSAAVR].values[nextState] += 2;
 }
 
 void SMBVR() {
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["AVKR"].values[nextState] += 1;
-    postSynaptic["MVR01"].values[nextState] += 1;
-    postSynaptic["MVR02"].values[nextState] += 1;
-    postSynaptic["MVR03"].values[nextState] += 1;
-    postSynaptic["MVR04"].values[nextState] += 1;
-    postSynaptic["MVR06"].values[nextState] += 1;
-    postSynaptic["MVR07"].values[nextState] += 1;
-    postSynaptic["RMEV"].values[nextState] += 3;
-    postSynaptic["SAADR"].values[nextState] += 4;
-    postSynaptic["SAAVL"].values[nextState] += 3;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nAVKR].values[nextState] += 1;
+    postSynaptic[nMVR01].values[nextState] += 1;
+    postSynaptic[nMVR02].values[nextState] += 1;
+    postSynaptic[nMVR03].values[nextState] += 1;
+    postSynaptic[nMVR04].values[nextState] += 1;
+    postSynaptic[nMVR06].values[nextState] += 1;
+    postSynaptic[nMVR07].values[nextState] += 1;
+    postSynaptic[nRMEV].values[nextState] += 3;
+    postSynaptic[nSAADR].values[nextState] += 4;
+    postSynaptic[nSAAVL].values[nextState] += 3;
 }
 
 void SMDDL() {
-    postSynaptic["MDL04"].values[nextState] += 1;
-    postSynaptic["MDL06"].values[nextState] += 1;
-    postSynaptic["MDL08"].values[nextState] += 1;
-    postSynaptic["MDR02"].values[nextState] += 1;
-    postSynaptic["MDR03"].values[nextState] += 1;
-    postSynaptic["MDR04"].values[nextState] += 1;
-    postSynaptic["MDR05"].values[nextState] += 1;
-    postSynaptic["MDR06"].values[nextState] += 1;
-    postSynaptic["MDR07"].values[nextState] += 1;
-    postSynaptic["MVL02"].values[nextState] += 1;
-    postSynaptic["MVL04"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RIS"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 1;
-    postSynaptic["SMDVR"].values[nextState] += 2;
+    postSynaptic[nMDL04].values[nextState] += 1;
+    postSynaptic[nMDL06].values[nextState] += 1;
+    postSynaptic[nMDL08].values[nextState] += 1;
+    postSynaptic[nMDR02].values[nextState] += 1;
+    postSynaptic[nMDR03].values[nextState] += 1;
+    postSynaptic[nMDR04].values[nextState] += 1;
+    postSynaptic[nMDR05].values[nextState] += 1;
+    postSynaptic[nMDR06].values[nextState] += 1;
+    postSynaptic[nMDR07].values[nextState] += 1;
+    postSynaptic[nMVL02].values[nextState] += 1;
+    postSynaptic[nMVL04].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRIS].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 1;
+    postSynaptic[nSMDVR].values[nextState] += 2;
 }
 
 void SMDDR() {
-    postSynaptic["MDL04"].values[nextState] += 1;
-    postSynaptic["MDL05"].values[nextState] += 1;
-    postSynaptic["MDL06"].values[nextState] += 1;
-    postSynaptic["MDL08"].values[nextState] += 1;
-    postSynaptic["MDR04"].values[nextState] += 1;
-    postSynaptic["MDR06"].values[nextState] += 1;
-    postSynaptic["MVR02"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 2;
-    postSynaptic["RIAR"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RIS"].values[nextState] += 1;
-    postSynaptic["RMDDR"].values[nextState] += 1;
-    postSynaptic["VD1"].values[nextState] += 1;
+    postSynaptic[nMDL04].values[nextState] += 1;
+    postSynaptic[nMDL05].values[nextState] += 1;
+    postSynaptic[nMDL06].values[nextState] += 1;
+    postSynaptic[nMDL08].values[nextState] += 1;
+    postSynaptic[nMDR04].values[nextState] += 1;
+    postSynaptic[nMDR06].values[nextState] += 1;
+    postSynaptic[nMVR02].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 2;
+    postSynaptic[nRIAR].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRIS].values[nextState] += 1;
+    postSynaptic[nRMDDR].values[nextState] += 1;
+    postSynaptic[nVD1].values[nextState] += 1;
 }
 
 void SMDVL() {
-    postSynaptic["MVL03"].values[nextState] += 1;
-    postSynaptic["MVL06"].values[nextState] += 1;
-    postSynaptic["MVR02"].values[nextState] += 1;
-    postSynaptic["MVR03"].values[nextState] += 1;
-    postSynaptic["MVR04"].values[nextState] += 1;
-    postSynaptic["MVR06"].values[nextState] += 1;
-    postSynaptic["PVR"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 3;
-    postSynaptic["RIAR"].values[nextState] += 8;
-    postSynaptic["RIBR"].values[nextState] += 2;
-    postSynaptic["RIS"].values[nextState] += 1;
-    postSynaptic["RIVL"].values[nextState] += 2;
-    postSynaptic["RMDDR"].values[nextState] += 1;
-    postSynaptic["RMDVL"].values[nextState] += 1;
-    postSynaptic["SMDDR"].values[nextState] += 4;
-    postSynaptic["SMDVR"].values[nextState] += 1;
+    postSynaptic[nMVL03].values[nextState] += 1;
+    postSynaptic[nMVL06].values[nextState] += 1;
+    postSynaptic[nMVR02].values[nextState] += 1;
+    postSynaptic[nMVR03].values[nextState] += 1;
+    postSynaptic[nMVR04].values[nextState] += 1;
+    postSynaptic[nMVR06].values[nextState] += 1;
+    postSynaptic[nPVR].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 3;
+    postSynaptic[nRIAR].values[nextState] += 8;
+    postSynaptic[nRIBR].values[nextState] += 2;
+    postSynaptic[nRIS].values[nextState] += 1;
+    postSynaptic[nRIVL].values[nextState] += 2;
+    postSynaptic[nRMDDR].values[nextState] += 1;
+    postSynaptic[nRMDVL].values[nextState] += 1;
+    postSynaptic[nSMDDR].values[nextState] += 4;
+    postSynaptic[nSMDVR].values[nextState] += 1;
 }
 
 void SMDVR() {
-    postSynaptic["MVL02"].values[nextState] += 1;
-    postSynaptic["MVL03"].values[nextState] += 1;
-    postSynaptic["MVL04"].values[nextState] += 1;
-    postSynaptic["MVR07"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 7;
-    postSynaptic["RIAR"].values[nextState] += 5;
-    postSynaptic["RIBL"].values[nextState] += 2;
-    postSynaptic["RIVR"].values[nextState] += 2;
-    postSynaptic["RMDDL"].values[nextState] += 1;
-    postSynaptic["RMDVR"].values[nextState] += 1;
-    postSynaptic["SMDDL"].values[nextState] += 2;
-    postSynaptic["SMDVL"].values[nextState] += 1;
-    postSynaptic["VB1"].values[nextState] += 1;
+    postSynaptic[nMVL02].values[nextState] += 1;
+    postSynaptic[nMVL03].values[nextState] += 1;
+    postSynaptic[nMVL04].values[nextState] += 1;
+    postSynaptic[nMVR07].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 7;
+    postSynaptic[nRIAR].values[nextState] += 5;
+    postSynaptic[nRIBL].values[nextState] += 2;
+    postSynaptic[nRIVR].values[nextState] += 2;
+    postSynaptic[nRMDDL].values[nextState] += 1;
+    postSynaptic[nRMDVR].values[nextState] += 1;
+    postSynaptic[nSMDDL].values[nextState] += 2;
+    postSynaptic[nSMDVL].values[nextState] += 1;
+    postSynaptic[nVB1].values[nextState] += 1;
 }
 
 void URADL() {
-    postSynaptic["IL1DL"].values[nextState] += 2;
-    postSynaptic["MDL02"].values[nextState] += 2;
-    postSynaptic["MDL03"].values[nextState] += 2;
-    postSynaptic["MDL04"].values[nextState] += 2;
-    postSynaptic["RIPL"].values[nextState] += 3;
-    postSynaptic["RMEL"].values[nextState] += 1;
+    postSynaptic[nIL1DL].values[nextState] += 2;
+    postSynaptic[nMDL02].values[nextState] += 2;
+    postSynaptic[nMDL03].values[nextState] += 2;
+    postSynaptic[nMDL04].values[nextState] += 2;
+    postSynaptic[nRIPL].values[nextState] += 3;
+    postSynaptic[nRMEL].values[nextState] += 1;
 }
 
 void URADR() {
-    postSynaptic["IL1DR"].values[nextState] += 1;
-    postSynaptic["MDR01"].values[nextState] += 3;
-    postSynaptic["MDR02"].values[nextState] += 2;
-    postSynaptic["MDR03"].values[nextState] += 3;
-    postSynaptic["RIPR"].values[nextState] += 3;
-    postSynaptic["RMDVR"].values[nextState] += 1;
-    postSynaptic["RMED"].values[nextState] += 1;
-    postSynaptic["RMER"].values[nextState] += 1;
-    postSynaptic["URYDR"].values[nextState] += 1;
+    postSynaptic[nIL1DR].values[nextState] += 1;
+    postSynaptic[nMDR01].values[nextState] += 3;
+    postSynaptic[nMDR02].values[nextState] += 2;
+    postSynaptic[nMDR03].values[nextState] += 3;
+    postSynaptic[nRIPR].values[nextState] += 3;
+    postSynaptic[nRMDVR].values[nextState] += 1;
+    postSynaptic[nRMED].values[nextState] += 1;
+    postSynaptic[nRMER].values[nextState] += 1;
+    postSynaptic[nURYDR].values[nextState] += 1;
 }
 
 void URAVL() {
-    postSynaptic["MVL01"].values[nextState] += 2;
-    postSynaptic["MVL02"].values[nextState] += 2;
-    postSynaptic["MVL03"].values[nextState] += 3;
-    postSynaptic["MVL04"].values[nextState] += 2;
-    postSynaptic["RIPL"].values[nextState] += 3;
-    postSynaptic["RMEL"].values[nextState] += 1;
-    postSynaptic["RMER"].values[nextState] += 1;
-    postSynaptic["RMEV"].values[nextState] += 2;
+    postSynaptic[nMVL01].values[nextState] += 2;
+    postSynaptic[nMVL02].values[nextState] += 2;
+    postSynaptic[nMVL03].values[nextState] += 3;
+    postSynaptic[nMVL04].values[nextState] += 2;
+    postSynaptic[nRIPL].values[nextState] += 3;
+    postSynaptic[nRMEL].values[nextState] += 1;
+    postSynaptic[nRMER].values[nextState] += 1;
+    postSynaptic[nRMEV].values[nextState] += 2;
 }
 
 void URAVR() {
-    postSynaptic["IL1R"].values[nextState] += 1;
-    postSynaptic["MVR01"].values[nextState] += 2;
-    postSynaptic["MVR02"].values[nextState] += 2;
-    postSynaptic["MVR03"].values[nextState] += 2;
-    postSynaptic["MVR04"].values[nextState] += 2;
-    postSynaptic["RIPR"].values[nextState] += 3;
-    postSynaptic["RMDVL"].values[nextState] += 1;
-    postSynaptic["RMER"].values[nextState] += 2;
-    postSynaptic["RMEV"].values[nextState] += 2;
+    postSynaptic[nIL1R].values[nextState] += 1;
+    postSynaptic[nMVR01].values[nextState] += 2;
+    postSynaptic[nMVR02].values[nextState] += 2;
+    postSynaptic[nMVR03].values[nextState] += 2;
+    postSynaptic[nMVR04].values[nextState] += 2;
+    postSynaptic[nRIPR].values[nextState] += 3;
+    postSynaptic[nRMDVL].values[nextState] += 1;
+    postSynaptic[nRMER].values[nextState] += 2;
+    postSynaptic[nRMEV].values[nextState] += 2;
 }
 
 void URBL() {
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["CEPDL"].values[nextState] += 1;
-    postSynaptic["IL1L"].values[nextState] += 1;
-    postSynaptic["OLQDL"].values[nextState] += 1;
-    postSynaptic["OLQVL"].values[nextState] += 1;
-    postSynaptic["RICR"].values[nextState] += 1;
-    postSynaptic["RMDDR"].values[nextState] += 1;
-    postSynaptic["SIAVL"].values[nextState] += 1;
-    postSynaptic["SMBDR"].values[nextState] += 1;
-    postSynaptic["URXL"].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nCEPDL].values[nextState] += 1;
+    postSynaptic[nIL1L].values[nextState] += 1;
+    postSynaptic[nOLQDL].values[nextState] += 1;
+    postSynaptic[nOLQVL].values[nextState] += 1;
+    postSynaptic[nRICR].values[nextState] += 1;
+    postSynaptic[nRMDDR].values[nextState] += 1;
+    postSynaptic[nSIAVL].values[nextState] += 1;
+    postSynaptic[nSMBDR].values[nextState] += 1;
+    postSynaptic[nURXL].values[nextState] += 2;
 }
 
 void URBR() {
-    postSynaptic["ADAR"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["CEPDR"].values[nextState] += 1;
-    postSynaptic["IL1R"].values[nextState] += 3;
-    postSynaptic["IL2R"].values[nextState] += 1;
-    postSynaptic["OLQDR"].values[nextState] += 1;
-    postSynaptic["OLQVR"].values[nextState] += 1;
-    postSynaptic["RICR"].values[nextState] += 1;
-    postSynaptic["RMDL"].values[nextState] += 1;
-    postSynaptic["RMDR"].values[nextState] += 1;
-    postSynaptic["RMFL"].values[nextState] += 1;
-    postSynaptic["SIAVR"].values[nextState] += 2;
-    postSynaptic["SMBDL"].values[nextState] += 1;
-    postSynaptic["URXR"].values[nextState] += 4;
+    postSynaptic[nADAR].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nCEPDR].values[nextState] += 1;
+    postSynaptic[nIL1R].values[nextState] += 3;
+    postSynaptic[nIL2R].values[nextState] += 1;
+    postSynaptic[nOLQDR].values[nextState] += 1;
+    postSynaptic[nOLQVR].values[nextState] += 1;
+    postSynaptic[nRICR].values[nextState] += 1;
+    postSynaptic[nRMDL].values[nextState] += 1;
+    postSynaptic[nRMDR].values[nextState] += 1;
+    postSynaptic[nRMFL].values[nextState] += 1;
+    postSynaptic[nSIAVR].values[nextState] += 2;
+    postSynaptic[nSMBDL].values[nextState] += 1;
+    postSynaptic[nURXR].values[nextState] += 4;
 }
 
 void URXL() {
-    postSynaptic["ASHL"].values[nextState] += 1;
-    postSynaptic["AUAL"].values[nextState] += 5;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 4;
-    postSynaptic["AVJR"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 8;
-    postSynaptic["RICL"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 3;
-    postSynaptic["RMGL"].values[nextState] += 1;
+    postSynaptic[nASHL].values[nextState] += 1;
+    postSynaptic[nAUAL].values[nextState] += 5;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 4;
+    postSynaptic[nAVJR].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 8;
+    postSynaptic[nRICL].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 3;
+    postSynaptic[nRMGL].values[nextState] += 1;
 }
 
 void URXR() {
-    postSynaptic["AUAR"].values[nextState] += 4;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["AVER"].values[nextState] += 2;
-    postSynaptic["IL2R"].values[nextState] += 1;
-    postSynaptic["OLQVR"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 3;
-    postSynaptic["RIGR"].values[nextState] += 2;
-    postSynaptic["RIPR"].values[nextState] += 3;
-    postSynaptic["RMDR"].values[nextState] += 1;
-    postSynaptic["RMGR"].values[nextState] += 2;
-    postSynaptic["SIAVR"].values[nextState] += 1;
+    postSynaptic[nAUAR].values[nextState] += 4;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nAVER].values[nextState] += 2;
+    postSynaptic[nIL2R].values[nextState] += 1;
+    postSynaptic[nOLQVR].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 3;
+    postSynaptic[nRIGR].values[nextState] += 2;
+    postSynaptic[nRIPR].values[nextState] += 3;
+    postSynaptic[nRMDR].values[nextState] += 1;
+    postSynaptic[nRMGR].values[nextState] += 2;
+    postSynaptic[nSIAVR].values[nextState] += 1;
 }
 
 void URYDL() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 2;
-    postSynaptic["RIBL"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RMDDR"].values[nextState] += 4;
-    postSynaptic["RMDVL"].values[nextState] += 6;
-    postSynaptic["SMDDL"].values[nextState] += 1;
-    postSynaptic["SMDDR"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 2;
+    postSynaptic[nRIBL].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRMDDR].values[nextState] += 4;
+    postSynaptic[nRMDVL].values[nextState] += 6;
+    postSynaptic[nSMDDL].values[nextState] += 1;
+    postSynaptic[nSMDDR].values[nextState] += 1;
 }
 
 void URYDR() {
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVEL"].values[nextState] += 2;
-    postSynaptic["AVER"].values[nextState] += 2;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RIGR"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 3;
-    postSynaptic["RMDVR"].values[nextState] += 5;
-    postSynaptic["SMDDL"].values[nextState] += 4;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVEL].values[nextState] += 2;
+    postSynaptic[nAVER].values[nextState] += 2;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRIGR].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 3;
+    postSynaptic[nRMDVR].values[nextState] += 5;
+    postSynaptic[nSMDDL].values[nextState] += 4;
 }
 
 void URYVL() {
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["AVER"].values[nextState] += 5;
-    postSynaptic["IL1VL"].values[nextState] += 1;
-    postSynaptic["RIAL"].values[nextState] += 1;
-    postSynaptic["RIBL"].values[nextState] += 2;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["RIH"].values[nextState] += 1;
-    postSynaptic["RIS"].values[nextState] += 1;
-    postSynaptic["RMDDL"].values[nextState] += 4;
-    postSynaptic["RMDVR"].values[nextState] += 2;
-    postSynaptic["SIBVR"].values[nextState] += 1;
-    postSynaptic["SMDVR"].values[nextState] += 4;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nAVER].values[nextState] += 5;
+    postSynaptic[nIL1VL].values[nextState] += 1;
+    postSynaptic[nRIAL].values[nextState] += 1;
+    postSynaptic[nRIBL].values[nextState] += 2;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nRIH].values[nextState] += 1;
+    postSynaptic[nRIS].values[nextState] += 1;
+    postSynaptic[nRMDDL].values[nextState] += 4;
+    postSynaptic[nRMDVR].values[nextState] += 2;
+    postSynaptic[nSIBVR].values[nextState] += 1;
+    postSynaptic[nSMDVR].values[nextState] += 4;
 }
 
 void URYVR() {
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVEL"].values[nextState] += 6;
-    postSynaptic["IL1VR"].values[nextState] += 1;
-    postSynaptic["RIAR"].values[nextState] += 1;
-    postSynaptic["RIBR"].values[nextState] += 1;
-    postSynaptic["RIGR"].values[nextState] += 1;
-    postSynaptic["RMDDR"].values[nextState] += 6;
-    postSynaptic["RMDVL"].values[nextState] += 4;
-    postSynaptic["SIBDR"].values[nextState] += 1;
-    postSynaptic["SIBVL"].values[nextState] += 1;
-    postSynaptic["SMDVL"].values[nextState] += 3;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVEL].values[nextState] += 6;
+    postSynaptic[nIL1VR].values[nextState] += 1;
+    postSynaptic[nRIAR].values[nextState] += 1;
+    postSynaptic[nRIBR].values[nextState] += 1;
+    postSynaptic[nRIGR].values[nextState] += 1;
+    postSynaptic[nRMDDR].values[nextState] += 6;
+    postSynaptic[nRMDVL].values[nextState] += 4;
+    postSynaptic[nSIBDR].values[nextState] += 1;
+    postSynaptic[nSIBVL].values[nextState] += 1;
+    postSynaptic[nSMDVL].values[nextState] += 3;
 }
 
 void VA1() {
-    postSynaptic["AVAL"].values[nextState] += 3;
-    postSynaptic["DA2"].values[nextState] += 2;
-    postSynaptic["DD1"].values[nextState] += 9;
-    postSynaptic["MVL07"].values[nextState] += 3;
-    postSynaptic["MVL08"].values[nextState] += 3;
-    postSynaptic["MVR07"].values[nextState] += 3;
-    postSynaptic["MVR08"].values[nextState] += 3;
-    postSynaptic["VD1"].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 3;
+    postSynaptic[nDA2].values[nextState] += 2;
+    postSynaptic[nDD1].values[nextState] += 9;
+    postSynaptic[nMVL07].values[nextState] += 3;
+    postSynaptic[nMVL08].values[nextState] += 3;
+    postSynaptic[nMVR07].values[nextState] += 3;
+    postSynaptic[nMVR08].values[nextState] += 3;
+    postSynaptic[nVD1].values[nextState] += 2;
 }
 
 void VA2() {
-    postSynaptic["AVAL"].values[nextState] += 5;
-    postSynaptic["DD1"].values[nextState] += 13;
-    postSynaptic["MVL07"].values[nextState] += 5;
-    postSynaptic["MVL10"].values[nextState] += 5;
-    postSynaptic["MVR07"].values[nextState] += 5;
-    postSynaptic["MVR10"].values[nextState] += 5;
-    postSynaptic["SABD"].values[nextState] += 3;
-    postSynaptic["VA3"].values[nextState] += 2;
-    postSynaptic["VB1"].values[nextState] += 2;
-    postSynaptic["VD1"].values[nextState] += 1;
-    postSynaptic["VD2"].values[nextState] += 11;
+    postSynaptic[nAVAL].values[nextState] += 5;
+    postSynaptic[nDD1].values[nextState] += 13;
+    postSynaptic[nMVL07].values[nextState] += 5;
+    postSynaptic[nMVL10].values[nextState] += 5;
+    postSynaptic[nMVR07].values[nextState] += 5;
+    postSynaptic[nMVR10].values[nextState] += 5;
+    postSynaptic[nSABD].values[nextState] += 3;
+    postSynaptic[nVA3].values[nextState] += 2;
+    postSynaptic[nVB1].values[nextState] += 2;
+    postSynaptic[nVD1].values[nextState] += 1;
+    postSynaptic[nVD2].values[nextState] += 11;
 }
 
 void VA3() {
-    postSynaptic["AS1"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["DD1"].values[nextState] += 18;
-    postSynaptic["DD2"].values[nextState] += 11;
-    postSynaptic["MVL09"].values[nextState] += 5;
-    postSynaptic["MVL10"].values[nextState] += 5;
-    postSynaptic["MVL12"].values[nextState] += 5;
-    postSynaptic["MVR09"].values[nextState] += 5;
-    postSynaptic["MVR10"].values[nextState] += 5;
-    postSynaptic["MVR12"].values[nextState] += 5;
-    postSynaptic["SABD"].values[nextState] += 2;
-    postSynaptic["VA4"].values[nextState] += 1;
-    postSynaptic["VD2"].values[nextState] += 3;
-    postSynaptic["VD3"].values[nextState] += 3;
+    postSynaptic[nAS1].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nDD1].values[nextState] += 18;
+    postSynaptic[nDD2].values[nextState] += 11;
+    postSynaptic[nMVL09].values[nextState] += 5;
+    postSynaptic[nMVL10].values[nextState] += 5;
+    postSynaptic[nMVL12].values[nextState] += 5;
+    postSynaptic[nMVR09].values[nextState] += 5;
+    postSynaptic[nMVR10].values[nextState] += 5;
+    postSynaptic[nMVR12].values[nextState] += 5;
+    postSynaptic[nSABD].values[nextState] += 2;
+    postSynaptic[nVA4].values[nextState] += 1;
+    postSynaptic[nVD2].values[nextState] += 3;
+    postSynaptic[nVD3].values[nextState] += 3;
 }
 
 void VA4() {
-    postSynaptic["AS2"].values[nextState] += 2;
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["AVDL"].values[nextState] += 1;
-    postSynaptic["DA5"].values[nextState] += 1;
-    postSynaptic["DD2"].values[nextState] += 21;
-    postSynaptic["MVL11"].values[nextState] += 6;
-    postSynaptic["MVL12"].values[nextState] += 6;
-    postSynaptic["MVR11"].values[nextState] += 6;
-    postSynaptic["MVR12"].values[nextState] += 6;
-    postSynaptic["SABD"].values[nextState] += 1;
-    postSynaptic["VB3"].values[nextState] += 2;
-    postSynaptic["VD4"].values[nextState] += 3;
+    postSynaptic[nAS2].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nAVDL].values[nextState] += 1;
+    postSynaptic[nDA5].values[nextState] += 1;
+    postSynaptic[nDD2].values[nextState] += 21;
+    postSynaptic[nMVL11].values[nextState] += 6;
+    postSynaptic[nMVL12].values[nextState] += 6;
+    postSynaptic[nMVR11].values[nextState] += 6;
+    postSynaptic[nMVR12].values[nextState] += 6;
+    postSynaptic[nSABD].values[nextState] += 1;
+    postSynaptic[nVB3].values[nextState] += 2;
+    postSynaptic[nVD4].values[nextState] += 3;
 }
 
 void VA5() {
-    postSynaptic["AS3"].values[nextState] += 2;
-    postSynaptic["AVAL"].values[nextState] += 5;
-    postSynaptic["AVAR"].values[nextState] += 3;
-    postSynaptic["DA5"].values[nextState] += 2;
-    postSynaptic["DD2"].values[nextState] += 5;
-    postSynaptic["DD3"].values[nextState] += 13;
-    postSynaptic["MVL11"].values[nextState] += 5;
-    postSynaptic["MVL14"].values[nextState] += 5;
-    postSynaptic["MVR11"].values[nextState] += 5;
-    postSynaptic["MVR14"].values[nextState] += 5;
-    postSynaptic["VD5"].values[nextState] += 2;
+    postSynaptic[nAS3].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 5;
+    postSynaptic[nAVAR].values[nextState] += 3;
+    postSynaptic[nDA5].values[nextState] += 2;
+    postSynaptic[nDD2].values[nextState] += 5;
+    postSynaptic[nDD3].values[nextState] += 13;
+    postSynaptic[nMVL11].values[nextState] += 5;
+    postSynaptic[nMVL14].values[nextState] += 5;
+    postSynaptic[nMVR11].values[nextState] += 5;
+    postSynaptic[nMVR14].values[nextState] += 5;
+    postSynaptic[nVD5].values[nextState] += 2;
 }
 
 void VA6() {
-    postSynaptic["AVAL"].values[nextState] += 6;
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["DD3"].values[nextState] += 24;
-    postSynaptic["MVL13"].values[nextState] += 5;
-    postSynaptic["MVL14"].values[nextState] += 5;
-    postSynaptic["MVR13"].values[nextState] += 5;
-    postSynaptic["MVR14"].values[nextState] += 5;
-    postSynaptic["VB5"].values[nextState] += 2;
-    postSynaptic["VD5"].values[nextState] += 1;
-    postSynaptic["VD6"].values[nextState] += 2;
+    postSynaptic[nAVAL].values[nextState] += 6;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nDD3].values[nextState] += 24;
+    postSynaptic[nMVL13].values[nextState] += 5;
+    postSynaptic[nMVL14].values[nextState] += 5;
+    postSynaptic[nMVR13].values[nextState] += 5;
+    postSynaptic[nMVR14].values[nextState] += 5;
+    postSynaptic[nVB5].values[nextState] += 2;
+    postSynaptic[nVD5].values[nextState] += 1;
+    postSynaptic[nVD6].values[nextState] += 2;
 }
 
 void VA7() {
-    postSynaptic["AS5"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 2;
-    postSynaptic["AVAR"].values[nextState] += 4;
-    postSynaptic["DD3"].values[nextState] += 3;
-    postSynaptic["DD4"].values[nextState] += 12;
-    postSynaptic["MVL13"].values[nextState] += 4;
-    postSynaptic["MVL15"].values[nextState] += 4;
-    postSynaptic["MVL16"].values[nextState] += 4;
-    postSynaptic["MVR13"].values[nextState] += 4;
-    postSynaptic["MVR15"].values[nextState] += 4;
-    postSynaptic["MVR16"].values[nextState] += 4;
-    postSynaptic["MVULVA"].values[nextState] += 4;
-    postSynaptic["VB3"].values[nextState] += 1;
-    postSynaptic["VD7"].values[nextState] += 9;
+    postSynaptic[nAS5].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 4;
+    postSynaptic[nDD3].values[nextState] += 3;
+    postSynaptic[nDD4].values[nextState] += 12;
+    postSynaptic[nMVL13].values[nextState] += 4;
+    postSynaptic[nMVL15].values[nextState] += 4;
+    postSynaptic[nMVL16].values[nextState] += 4;
+    postSynaptic[nMVR13].values[nextState] += 4;
+    postSynaptic[nMVR15].values[nextState] += 4;
+    postSynaptic[nMVR16].values[nextState] += 4;
+    postSynaptic[nMVULVA].values[nextState] += 4;
+    postSynaptic[nVB3].values[nextState] += 1;
+    postSynaptic[nVD7].values[nextState] += 9;
 }
 
 void VA8() {
-    postSynaptic["AS6"].values[nextState] += 1;
-    postSynaptic["AVAL"].values[nextState] += 10;
-    postSynaptic["AVAR"].values[nextState] += 4;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DD4"].values[nextState] += 21;
-    postSynaptic["MVL15"].values[nextState] += 6;
-    postSynaptic["MVL16"].values[nextState] += 6;
-    postSynaptic["MVR15"].values[nextState] += 6;
-    postSynaptic["MVR16"].values[nextState] += 6;
-    postSynaptic["PDER"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 2;
-    postSynaptic["VA8"].values[nextState] += 1;
-    postSynaptic["VA9"].values[nextState] += 1;
-    postSynaptic["VB6"].values[nextState] += 1;
-    postSynaptic["VB8"].values[nextState] += 3;
-    postSynaptic["VB9"].values[nextState] += 3;
-    postSynaptic["VD7"].values[nextState] += 5;
-    postSynaptic["VD8"].values[nextState] += 1;
+    postSynaptic[nAS6].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 10;
+    postSynaptic[nAVAR].values[nextState] += 4;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDD4].values[nextState] += 21;
+    postSynaptic[nMVL15].values[nextState] += 6;
+    postSynaptic[nMVL16].values[nextState] += 6;
+    postSynaptic[nMVR15].values[nextState] += 6;
+    postSynaptic[nMVR16].values[nextState] += 6;
+    postSynaptic[nPDER].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 2;
+    postSynaptic[nVA8].values[nextState] += 1;
+    postSynaptic[nVA9].values[nextState] += 1;
+    postSynaptic[nVB6].values[nextState] += 1;
+    postSynaptic[nVB8].values[nextState] += 3;
+    postSynaptic[nVB9].values[nextState] += 3;
+    postSynaptic[nVD7].values[nextState] += 5;
+    postSynaptic[nVD8].values[nextState] += 1;
 }
 
 void VA9() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DD4"].values[nextState] += 3;
-    postSynaptic["DD5"].values[nextState] += 15;
-    postSynaptic["DVB"].values[nextState] += 1;
-    postSynaptic["DVC"].values[nextState] += 1;
-    postSynaptic["MVL15"].values[nextState] += 5;
-    postSynaptic["MVL18"].values[nextState] += 5;
-    postSynaptic["MVR15"].values[nextState] += 5;
-    postSynaptic["MVR18"].values[nextState] += 5;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["VB8"].values[nextState] += 1;
-    postSynaptic["VB9"].values[nextState] += 4;
-    postSynaptic["VD7"].values[nextState] += 1;
-    postSynaptic["VD9"].values[nextState] += 10;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDD4].values[nextState] += 3;
+    postSynaptic[nDD5].values[nextState] += 15;
+    postSynaptic[nDVB].values[nextState] += 1;
+    postSynaptic[nDVC].values[nextState] += 1;
+    postSynaptic[nMVL15].values[nextState] += 5;
+    postSynaptic[nMVL18].values[nextState] += 5;
+    postSynaptic[nMVR15].values[nextState] += 5;
+    postSynaptic[nMVR18].values[nextState] += 5;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nVB8].values[nextState] += 1;
+    postSynaptic[nVB9].values[nextState] += 4;
+    postSynaptic[nVD7].values[nextState] += 1;
+    postSynaptic[nVD9].values[nextState] += 10;
 }
 
 void VA10() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["MVL17"].values[nextState] += 5;
-    postSynaptic["MVL18"].values[nextState] += 5;
-    postSynaptic["MVR17"].values[nextState] += 5;
-    postSynaptic["MVR18"].values[nextState] += 5;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nMVL17].values[nextState] += 5;
+    postSynaptic[nMVL18].values[nextState] += 5;
+    postSynaptic[nMVR17].values[nextState] += 5;
+    postSynaptic[nMVR18].values[nextState] += 5;
 }
 
 void VA11() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["AVAR"].values[nextState] += 7;
-    postSynaptic["DD6"].values[nextState] += 10;
-    postSynaptic["MVL19"].values[nextState] += 5;
-    postSynaptic["MVL20"].values[nextState] += 5;
-    postSynaptic["MVR19"].values[nextState] += 5;
-    postSynaptic["MVR20"].values[nextState] += 5;
-    postSynaptic["PVNR"].values[nextState] += 2;
-    postSynaptic["VB10"].values[nextState] += 1;
-    postSynaptic["VD12"].values[nextState] += 4;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 7;
+    postSynaptic[nDD6].values[nextState] += 10;
+    postSynaptic[nMVL19].values[nextState] += 5;
+    postSynaptic[nMVL20].values[nextState] += 5;
+    postSynaptic[nMVR19].values[nextState] += 5;
+    postSynaptic[nMVR20].values[nextState] += 5;
+    postSynaptic[nPVNR].values[nextState] += 2;
+    postSynaptic[nVB10].values[nextState] += 1;
+    postSynaptic[nVD12].values[nextState] += 4;
 }
 
 void VA12() {
-    postSynaptic["AS11"].values[nextState] += 2;
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["DA8"].values[nextState] += 3;
-    postSynaptic["DA9"].values[nextState] += 5;
-    postSynaptic["DB7"].values[nextState] += 4;
-    postSynaptic["DD6"].values[nextState] += 2;
-    postSynaptic["LUAL"].values[nextState] += 2;
-    postSynaptic["MVL21"].values[nextState] += 5;
-    postSynaptic["MVL22"].values[nextState] += 5;
-    postSynaptic["MVL23"].values[nextState] += 5;
-    postSynaptic["MVR21"].values[nextState] += 5;
-    postSynaptic["MVR22"].values[nextState] += 5;
-    postSynaptic["MVR23"].values[nextState] += 5;
-    postSynaptic["MVR24"].values[nextState] += 5;
-    postSynaptic["PHCL"].values[nextState] += 1;
-    postSynaptic["PHCR"].values[nextState] += 1;
-    postSynaptic["PVCL"].values[nextState] += 2;
-    postSynaptic["PVCR"].values[nextState] += 3;
-    postSynaptic["VA11"].values[nextState] += 1;
-    postSynaptic["VB11"].values[nextState] += 1;
-    postSynaptic["VD12"].values[nextState] += 3;
-    postSynaptic["VD13"].values[nextState] += 11;
+    postSynaptic[nAS11].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nDA8].values[nextState] += 3;
+    postSynaptic[nDA9].values[nextState] += 5;
+    postSynaptic[nDB7].values[nextState] += 4;
+    postSynaptic[nDD6].values[nextState] += 2;
+    postSynaptic[nLUAL].values[nextState] += 2;
+    postSynaptic[nMVL21].values[nextState] += 5;
+    postSynaptic[nMVL22].values[nextState] += 5;
+    postSynaptic[nMVL23].values[nextState] += 5;
+    postSynaptic[nMVR21].values[nextState] += 5;
+    postSynaptic[nMVR22].values[nextState] += 5;
+    postSynaptic[nMVR23].values[nextState] += 5;
+    postSynaptic[nMVR24].values[nextState] += 5;
+    postSynaptic[nPHCL].values[nextState] += 1;
+    postSynaptic[nPHCR].values[nextState] += 1;
+    postSynaptic[nPVCL].values[nextState] += 2;
+    postSynaptic[nPVCR].values[nextState] += 3;
+    postSynaptic[nVA11].values[nextState] += 1;
+    postSynaptic[nVB11].values[nextState] += 1;
+    postSynaptic[nVD12].values[nextState] += 3;
+    postSynaptic[nVD13].values[nextState] += 11;
 }
 
 void VB1() {
-    postSynaptic["AIBR"].values[nextState] += 1;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 4;
-    postSynaptic["DB2"].values[nextState] += 2;
-    postSynaptic["DD1"].values[nextState] += 1;
-    postSynaptic["DVA"].values[nextState] += 1;
-    postSynaptic["MVL07"].values[nextState] += 1;
-    postSynaptic["MVL08"].values[nextState] += 1;
-    postSynaptic["MVR07"].values[nextState] += 1;
-    postSynaptic["MVR08"].values[nextState] += 1;
-    postSynaptic["RIML"].values[nextState] += 2;
-    postSynaptic["RMFL"].values[nextState] += 2;
-    postSynaptic["SAADL"].values[nextState] += 9;
-    postSynaptic["SAADR"].values[nextState] += 2;
-    postSynaptic["SABD"].values[nextState] += 1;
-    postSynaptic["SMDVR"].values[nextState] += 1;
-    postSynaptic["VA1"].values[nextState] += 3;
-    postSynaptic["VA3"].values[nextState] += 1;
-    postSynaptic["VB2"].values[nextState] += 4;
-    postSynaptic["VD1"].values[nextState] += 3;
-    postSynaptic["VD2"].values[nextState] += 1;
+    postSynaptic[nAIBR].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 4;
+    postSynaptic[nDB2].values[nextState] += 2;
+    postSynaptic[nDD1].values[nextState] += 1;
+    postSynaptic[nDVA].values[nextState] += 1;
+    postSynaptic[nMVL07].values[nextState] += 1;
+    postSynaptic[nMVL08].values[nextState] += 1;
+    postSynaptic[nMVR07].values[nextState] += 1;
+    postSynaptic[nMVR08].values[nextState] += 1;
+    postSynaptic[nRIML].values[nextState] += 2;
+    postSynaptic[nRMFL].values[nextState] += 2;
+    postSynaptic[nSAADL].values[nextState] += 9;
+    postSynaptic[nSAADR].values[nextState] += 2;
+    postSynaptic[nSABD].values[nextState] += 1;
+    postSynaptic[nSMDVR].values[nextState] += 1;
+    postSynaptic[nVA1].values[nextState] += 3;
+    postSynaptic[nVA3].values[nextState] += 1;
+    postSynaptic[nVB2].values[nextState] += 4;
+    postSynaptic[nVD1].values[nextState] += 3;
+    postSynaptic[nVD2].values[nextState] += 1;
 }
 
 void VB2() {
-    postSynaptic["AVBL"].values[nextState] += 3;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DB4"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 20;
-    postSynaptic["DD2"].values[nextState] += 1;
-    postSynaptic["MVL07"].values[nextState] += 4;
-    postSynaptic["MVL09"].values[nextState] += 4;
-    postSynaptic["MVL10"].values[nextState] += 4;
-    postSynaptic["MVL12"].values[nextState] += 4;
-    postSynaptic["MVR07"].values[nextState] += 4;
-    postSynaptic["MVR09"].values[nextState] += 4;
-    postSynaptic["MVR10"].values[nextState] += 4;
-    postSynaptic["MVR12"].values[nextState] += 4;
-    postSynaptic["RIGL"].values[nextState] += 1;
-    postSynaptic["VA2"].values[nextState] += 1;
-    postSynaptic["VB1"].values[nextState] += 4;
-    postSynaptic["VB3"].values[nextState] += 1;
-    postSynaptic["VB5"].values[nextState] += 1;
-    postSynaptic["VB7"].values[nextState] += 2;
-    postSynaptic["VC2"].values[nextState] += 1;
-    postSynaptic["VD2"].values[nextState] += 9;
-    postSynaptic["VD3"].values[nextState] += 3;
+    postSynaptic[nAVBL].values[nextState] += 3;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDB4].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 20;
+    postSynaptic[nDD2].values[nextState] += 1;
+    postSynaptic[nMVL07].values[nextState] += 4;
+    postSynaptic[nMVL09].values[nextState] += 4;
+    postSynaptic[nMVL10].values[nextState] += 4;
+    postSynaptic[nMVL12].values[nextState] += 4;
+    postSynaptic[nMVR07].values[nextState] += 4;
+    postSynaptic[nMVR09].values[nextState] += 4;
+    postSynaptic[nMVR10].values[nextState] += 4;
+    postSynaptic[nMVR12].values[nextState] += 4;
+    postSynaptic[nRIGL].values[nextState] += 1;
+    postSynaptic[nVA2].values[nextState] += 1;
+    postSynaptic[nVB1].values[nextState] += 4;
+    postSynaptic[nVB3].values[nextState] += 1;
+    postSynaptic[nVB5].values[nextState] += 1;
+    postSynaptic[nVB7].values[nextState] += 2;
+    postSynaptic[nVC2].values[nextState] += 1;
+    postSynaptic[nVD2].values[nextState] += 9;
+    postSynaptic[nVD3].values[nextState] += 3;
 }
 
 void VB3() {
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DB1"].values[nextState] += 1;
-    postSynaptic["DD2"].values[nextState] += 37;
-    postSynaptic["MVL11"].values[nextState] += 6;
-    postSynaptic["MVL12"].values[nextState] += 6;
-    postSynaptic["MVL14"].values[nextState] += 6;
-    postSynaptic["MVR11"].values[nextState] += 6;
-    postSynaptic["MVR12"].values[nextState] += 6;
-    postSynaptic["MVR14"].values[nextState] += 6;
-    postSynaptic["VA4"].values[nextState] += 1;
-    postSynaptic["VA7"].values[nextState] += 1;
-    postSynaptic["VB2"].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDB1].values[nextState] += 1;
+    postSynaptic[nDD2].values[nextState] += 37;
+    postSynaptic[nMVL11].values[nextState] += 6;
+    postSynaptic[nMVL12].values[nextState] += 6;
+    postSynaptic[nMVL14].values[nextState] += 6;
+    postSynaptic[nMVR11].values[nextState] += 6;
+    postSynaptic[nMVR12].values[nextState] += 6;
+    postSynaptic[nMVR14].values[nextState] += 6;
+    postSynaptic[nVA4].values[nextState] += 1;
+    postSynaptic[nVA7].values[nextState] += 1;
+    postSynaptic[nVB2].values[nextState] += 1;
 }
 
 void VB4() {
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DB1"].values[nextState] += 1;
-    postSynaptic["DB4"].values[nextState] += 1;
-    postSynaptic["DD2"].values[nextState] += 6;
-    postSynaptic["DD3"].values[nextState] += 16;
-    postSynaptic["MVL11"].values[nextState] += 5;
-    postSynaptic["MVL14"].values[nextState] += 5;
-    postSynaptic["MVR11"].values[nextState] += 5;
-    postSynaptic["MVR14"].values[nextState] += 5;
-    postSynaptic["VB5"].values[nextState] += 1;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDB1].values[nextState] += 1;
+    postSynaptic[nDB4].values[nextState] += 1;
+    postSynaptic[nDD2].values[nextState] += 6;
+    postSynaptic[nDD3].values[nextState] += 16;
+    postSynaptic[nMVL11].values[nextState] += 5;
+    postSynaptic[nMVL14].values[nextState] += 5;
+    postSynaptic[nMVR11].values[nextState] += 5;
+    postSynaptic[nMVR14].values[nextState] += 5;
+    postSynaptic[nVB5].values[nextState] += 1;
 }
 
 void VB5() {
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["DD3"].values[nextState] += 27;
-    postSynaptic["MVL13"].values[nextState] += 6;
-    postSynaptic["MVL14"].values[nextState] += 6;
-    postSynaptic["MVR13"].values[nextState] += 6;
-    postSynaptic["MVR14"].values[nextState] += 6;
-    postSynaptic["VB2"].values[nextState] += 1;
-    postSynaptic["VB4"].values[nextState] += 1;
-    postSynaptic["VB6"].values[nextState] += 8;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nDD3].values[nextState] += 27;
+    postSynaptic[nMVL13].values[nextState] += 6;
+    postSynaptic[nMVL14].values[nextState] += 6;
+    postSynaptic[nMVR13].values[nextState] += 6;
+    postSynaptic[nMVR14].values[nextState] += 6;
+    postSynaptic[nVB2].values[nextState] += 1;
+    postSynaptic[nVB4].values[nextState] += 1;
+    postSynaptic[nVB6].values[nextState] += 8;
 }
 
 void VB6() {
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["DA4"].values[nextState] += 1;
-    postSynaptic["DD4"].values[nextState] += 30;
-    postSynaptic["MVL15"].values[nextState] += 6;
-    postSynaptic["MVL16"].values[nextState] += 6;
-    postSynaptic["MVR15"].values[nextState] += 6;
-    postSynaptic["MVR16"].values[nextState] += 6;
-    postSynaptic["MVULVA"].values[nextState] += 6;
-    postSynaptic["VA8"].values[nextState] += 1;
-    postSynaptic["VB5"].values[nextState] += 1;
-    postSynaptic["VB7"].values[nextState] += 1;
-    postSynaptic["VD6"].values[nextState] += 1;
-    postSynaptic["VD7"].values[nextState] += 8;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nDA4].values[nextState] += 1;
+    postSynaptic[nDD4].values[nextState] += 30;
+    postSynaptic[nMVL15].values[nextState] += 6;
+    postSynaptic[nMVL16].values[nextState] += 6;
+    postSynaptic[nMVR15].values[nextState] += 6;
+    postSynaptic[nMVR16].values[nextState] += 6;
+    postSynaptic[nMVULVA].values[nextState] += 6;
+    postSynaptic[nVA8].values[nextState] += 1;
+    postSynaptic[nVB5].values[nextState] += 1;
+    postSynaptic[nVB7].values[nextState] += 1;
+    postSynaptic[nVD6].values[nextState] += 1;
+    postSynaptic[nVD7].values[nextState] += 8;
 }
 
 void VB7() {
-    postSynaptic["AVBL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 2;
-    postSynaptic["DD4"].values[nextState] += 2;
-    postSynaptic["MVL15"].values[nextState] += 5;
-    postSynaptic["MVR15"].values[nextState] += 5;
-    postSynaptic["VB2"].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 2;
+    postSynaptic[nDD4].values[nextState] += 2;
+    postSynaptic[nMVL15].values[nextState] += 5;
+    postSynaptic[nMVR15].values[nextState] += 5;
+    postSynaptic[nVB2].values[nextState] += 2;
 }
 
 void VB8() {
-    postSynaptic["AVBL"].values[nextState] += 7;
-    postSynaptic["AVBR"].values[nextState] += 3;
-    postSynaptic["DD5"].values[nextState] += 30;
-    postSynaptic["MVL17"].values[nextState] += 5;
-    postSynaptic["MVL18"].values[nextState] += 5;
-    postSynaptic["MVL20"].values[nextState] += 5;
-    postSynaptic["MVR17"].values[nextState] += 5;
-    postSynaptic["MVR18"].values[nextState] += 5;
-    postSynaptic["MVR20"].values[nextState] += 5;
-    postSynaptic["VA8"].values[nextState] += 3;
-    postSynaptic["VA9"].values[nextState] += 1;
-    postSynaptic["VB9"].values[nextState] += 6;
-    postSynaptic["VD10"].values[nextState] += 1;
-    postSynaptic["VD9"].values[nextState] += 10;
+    postSynaptic[nAVBL].values[nextState] += 7;
+    postSynaptic[nAVBR].values[nextState] += 3;
+    postSynaptic[nDD5].values[nextState] += 30;
+    postSynaptic[nMVL17].values[nextState] += 5;
+    postSynaptic[nMVL18].values[nextState] += 5;
+    postSynaptic[nMVL20].values[nextState] += 5;
+    postSynaptic[nMVR17].values[nextState] += 5;
+    postSynaptic[nMVR18].values[nextState] += 5;
+    postSynaptic[nMVR20].values[nextState] += 5;
+    postSynaptic[nVA8].values[nextState] += 3;
+    postSynaptic[nVA9].values[nextState] += 1;
+    postSynaptic[nVB9].values[nextState] += 6;
+    postSynaptic[nVD10].values[nextState] += 1;
+    postSynaptic[nVD9].values[nextState] += 10;
 }
 
 void VB9() {
-    postSynaptic["AVAL"].values[nextState] += 5;
-    postSynaptic["AVAR"].values[nextState] += 4;
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVBR"].values[nextState] += 6;
-    postSynaptic["DD5"].values[nextState] += 8;
-    postSynaptic["DVB"].values[nextState] += 1;
-    postSynaptic["MVL17"].values[nextState] += 6;
-    postSynaptic["MVL20"].values[nextState] += 6;
-    postSynaptic["MVR17"].values[nextState] += 6;
-    postSynaptic["MVR20"].values[nextState] += 6;
-    postSynaptic["PVCL"].values[nextState] += 2;
-    postSynaptic["VA8"].values[nextState] += 3;
-    postSynaptic["VA9"].values[nextState] += 4;
-    postSynaptic["VB8"].values[nextState] += 3;
-    postSynaptic["VD10"].values[nextState] += 5;
+    postSynaptic[nAVAL].values[nextState] += 5;
+    postSynaptic[nAVAR].values[nextState] += 4;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVBR].values[nextState] += 6;
+    postSynaptic[nDD5].values[nextState] += 8;
+    postSynaptic[nDVB].values[nextState] += 1;
+    postSynaptic[nMVL17].values[nextState] += 6;
+    postSynaptic[nMVL20].values[nextState] += 6;
+    postSynaptic[nMVR17].values[nextState] += 6;
+    postSynaptic[nMVR20].values[nextState] += 6;
+    postSynaptic[nPVCL].values[nextState] += 2;
+    postSynaptic[nVA8].values[nextState] += 3;
+    postSynaptic[nVA9].values[nextState] += 4;
+    postSynaptic[nVB8].values[nextState] += 3;
+    postSynaptic[nVD10].values[nextState] += 5;
 }
 
 void VB10() {
-    postSynaptic["AVBL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["AVKL"].values[nextState] += 1;
-    postSynaptic["DD6"].values[nextState] += 9;
-    postSynaptic["MVL19"].values[nextState] += 5;
-    postSynaptic["MVL20"].values[nextState] += 5;
-    postSynaptic["MVR19"].values[nextState] += 5;
-    postSynaptic["MVR20"].values[nextState] += 5;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["VD11"].values[nextState] += 1;
-    postSynaptic["VD12"].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nAVKL].values[nextState] += 1;
+    postSynaptic[nDD6].values[nextState] += 9;
+    postSynaptic[nMVL19].values[nextState] += 5;
+    postSynaptic[nMVL20].values[nextState] += 5;
+    postSynaptic[nMVR19].values[nextState] += 5;
+    postSynaptic[nMVR20].values[nextState] += 5;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nVD11].values[nextState] += 1;
+    postSynaptic[nVD12].values[nextState] += 2;
 }
 
 void VB11() {
-    postSynaptic["AVBL"].values[nextState] += 2;
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DD6"].values[nextState] += 7;
-    postSynaptic["MVL21"].values[nextState] += 5;
-    postSynaptic["MVL22"].values[nextState] += 5;
-    postSynaptic["MVL23"].values[nextState] += 5;
-    postSynaptic["MVR21"].values[nextState] += 5;
-    postSynaptic["MVR22"].values[nextState] += 5;
-    postSynaptic["MVR23"].values[nextState] += 5;
-    postSynaptic["MVR24"].values[nextState] += 5;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["VA12"].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 2;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDD6].values[nextState] += 7;
+    postSynaptic[nMVL21].values[nextState] += 5;
+    postSynaptic[nMVL22].values[nextState] += 5;
+    postSynaptic[nMVL23].values[nextState] += 5;
+    postSynaptic[nMVR21].values[nextState] += 5;
+    postSynaptic[nMVR22].values[nextState] += 5;
+    postSynaptic[nMVR23].values[nextState] += 5;
+    postSynaptic[nMVR24].values[nextState] += 5;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nVA12].values[nextState] += 2;
 }
 
 void VC1() {
-    postSynaptic["AVL"].values[nextState] += 2;
-    postSynaptic["DD1"].values[nextState] += 7;
-    postSynaptic["DD2"].values[nextState] += 6;
-    postSynaptic["DD3"].values[nextState] += 6;
-    postSynaptic["DVC"].values[nextState] += 1;
-    postSynaptic["MVULVA"].values[nextState] += 6;
-    postSynaptic["PVT"].values[nextState] += 2;
-    postSynaptic["VC2"].values[nextState] += 9;
-    postSynaptic["VC3"].values[nextState] += 3;
-    postSynaptic["VD1"].values[nextState] += 5;
-    postSynaptic["VD2"].values[nextState] += 1;
-    postSynaptic["VD3"].values[nextState] += 1;
-    postSynaptic["VD4"].values[nextState] += 2;
-    postSynaptic["VD5"].values[nextState] += 5;
-    postSynaptic["VD6"].values[nextState] += 1;
+    postSynaptic[nAVL].values[nextState] += 2;
+    postSynaptic[nDD1].values[nextState] += 7;
+    postSynaptic[nDD2].values[nextState] += 6;
+    postSynaptic[nDD3].values[nextState] += 6;
+    postSynaptic[nDVC].values[nextState] += 1;
+    postSynaptic[nMVULVA].values[nextState] += 6;
+    postSynaptic[nPVT].values[nextState] += 2;
+    postSynaptic[nVC2].values[nextState] += 9;
+    postSynaptic[nVC3].values[nextState] += 3;
+    postSynaptic[nVD1].values[nextState] += 5;
+    postSynaptic[nVD2].values[nextState] += 1;
+    postSynaptic[nVD3].values[nextState] += 1;
+    postSynaptic[nVD4].values[nextState] += 2;
+    postSynaptic[nVD5].values[nextState] += 5;
+    postSynaptic[nVD6].values[nextState] += 1;
 }
 
 void VC2() {
-    postSynaptic["DB4"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 6;
-    postSynaptic["DD2"].values[nextState] += 4;
-    postSynaptic["DD3"].values[nextState] += 9;
-    postSynaptic["DVC"].values[nextState] += 1;
-    postSynaptic["MVULVA"].values[nextState] += 10;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["PVQR"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 2;
-    postSynaptic["VC1"].values[nextState] += 10;
-    postSynaptic["VC3"].values[nextState] += 6;
-    postSynaptic["VD1"].values[nextState] += 2;
-    postSynaptic["VD2"].values[nextState] += 2;
-    postSynaptic["VD4"].values[nextState] += 5;
-    postSynaptic["VD5"].values[nextState] += 5;
-    postSynaptic["VD6"].values[nextState] += 1;
+    postSynaptic[nDB4].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 6;
+    postSynaptic[nDD2].values[nextState] += 4;
+    postSynaptic[nDD3].values[nextState] += 9;
+    postSynaptic[nDVC].values[nextState] += 1;
+    postSynaptic[nMVULVA].values[nextState] += 10;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nPVQR].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 2;
+    postSynaptic[nVC1].values[nextState] += 10;
+    postSynaptic[nVC3].values[nextState] += 6;
+    postSynaptic[nVD1].values[nextState] += 2;
+    postSynaptic[nVD2].values[nextState] += 2;
+    postSynaptic[nVD4].values[nextState] += 5;
+    postSynaptic[nVD5].values[nextState] += 5;
+    postSynaptic[nVD6].values[nextState] += 1;
 }
 
 void VC3() {
-    postSynaptic["AVL"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 2;
-    postSynaptic["DD2"].values[nextState] += 4;
-    postSynaptic["DD3"].values[nextState] += 5;
-    postSynaptic["DD4"].values[nextState] += 13;
-    postSynaptic["DVC"].values[nextState] += 1;
-    postSynaptic["HSNR"].values[nextState] += 1;
-    postSynaptic["MVULVA"].values[nextState] += 11;
-    postSynaptic["PVNR"].values[nextState] += 1;
-    postSynaptic["PVPR"].values[nextState] += 1;
-    postSynaptic["PVQR"].values[nextState] += 4;
-    postSynaptic["VC1"].values[nextState] += 4;
-    postSynaptic["VC2"].values[nextState] += 3;
-    postSynaptic["VC4"].values[nextState] += 1;
-    postSynaptic["VC5"].values[nextState] += 2;
-    postSynaptic["VD1"].values[nextState] += 1;
-    postSynaptic["VD2"].values[nextState] += 1;
-    postSynaptic["VD3"].values[nextState] += 1;
-    postSynaptic["VD4"].values[nextState] += 2;
-    postSynaptic["VD5"].values[nextState] += 4;
-    postSynaptic["VD6"].values[nextState] += 4;
-    postSynaptic["VD7"].values[nextState] += 5;
+    postSynaptic[nAVL].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 2;
+    postSynaptic[nDD2].values[nextState] += 4;
+    postSynaptic[nDD3].values[nextState] += 5;
+    postSynaptic[nDD4].values[nextState] += 13;
+    postSynaptic[nDVC].values[nextState] += 1;
+    postSynaptic[nHSNR].values[nextState] += 1;
+    postSynaptic[nMVULVA].values[nextState] += 11;
+    postSynaptic[nPVNR].values[nextState] += 1;
+    postSynaptic[nPVPR].values[nextState] += 1;
+    postSynaptic[nPVQR].values[nextState] += 4;
+    postSynaptic[nVC1].values[nextState] += 4;
+    postSynaptic[nVC2].values[nextState] += 3;
+    postSynaptic[nVC4].values[nextState] += 1;
+    postSynaptic[nVC5].values[nextState] += 2;
+    postSynaptic[nVD1].values[nextState] += 1;
+    postSynaptic[nVD2].values[nextState] += 1;
+    postSynaptic[nVD3].values[nextState] += 1;
+    postSynaptic[nVD4].values[nextState] += 2;
+    postSynaptic[nVD5].values[nextState] += 4;
+    postSynaptic[nVD6].values[nextState] += 4;
+    postSynaptic[nVD7].values[nextState] += 5;
 }
 
 void VC4() {
-    postSynaptic["AVBL"].values[nextState] += 1;
-    postSynaptic["AVFR"].values[nextState] += 1;
-    postSynaptic["AVHR"].values[nextState] += 1;
-    postSynaptic["MVULVA"].values[nextState] += 7;
-    postSynaptic["VC1"].values[nextState] += 1;
-    postSynaptic["VC3"].values[nextState] += 5;
-    postSynaptic["VC5"].values[nextState] += 2;
+    postSynaptic[nAVBL].values[nextState] += 1;
+    postSynaptic[nAVFR].values[nextState] += 1;
+    postSynaptic[nAVHR].values[nextState] += 1;
+    postSynaptic[nMVULVA].values[nextState] += 7;
+    postSynaptic[nVC1].values[nextState] += 1;
+    postSynaptic[nVC3].values[nextState] += 5;
+    postSynaptic[nVC5].values[nextState] += 2;
 }
 
 void VC5() {
-    postSynaptic["AVFL"].values[nextState] += 1;
-    postSynaptic["AVFR"].values[nextState] += 1;
-    postSynaptic["DVC"].values[nextState] += 2;
-    postSynaptic["HSNL"].values[nextState] += 1;
-    postSynaptic["MVULVA"].values[nextState] += 2;
-    postSynaptic["OLLR"].values[nextState] += 1;
-    postSynaptic["PVT"].values[nextState] += 1;
-    postSynaptic["URBL"].values[nextState] += 3;
-    postSynaptic["VC3"].values[nextState] += 3;
-    postSynaptic["VC4"].values[nextState] += 2;
+    postSynaptic[nAVFL].values[nextState] += 1;
+    postSynaptic[nAVFR].values[nextState] += 1;
+    postSynaptic[nDVC].values[nextState] += 2;
+    postSynaptic[nHSNL].values[nextState] += 1;
+    postSynaptic[nMVULVA].values[nextState] += 2;
+    postSynaptic[nOLLR].values[nextState] += 1;
+    postSynaptic[nPVT].values[nextState] += 1;
+    postSynaptic[nURBL].values[nextState] += 3;
+    postSynaptic[nVC3].values[nextState] += 3;
+    postSynaptic[nVC4].values[nextState] += 2;
 }
 
 void VC6() {
-    postSynaptic["MVULVA"].values[nextState] += 1;
+    postSynaptic[nMVULVA].values[nextState] += 1;
 }
 
 void VD1() {
-    postSynaptic["DD1"].values[nextState] += 5;
-    postSynaptic["DVC"].values[nextState] += 5;
-    postSynaptic["MVL05"].values[nextState] += -5;
-    postSynaptic["MVL08"].values[nextState] += -5;
-    postSynaptic["MVR05"].values[nextState] += -5;
-    postSynaptic["MVR08"].values[nextState] += -5;
-    postSynaptic["RIFL"].values[nextState] += 1;
-    postSynaptic["RIGL"].values[nextState] += 2;
-    postSynaptic["SMDDR"].values[nextState] += 1;
-    postSynaptic["VA1"].values[nextState] += 2;
-    postSynaptic["VA2"].values[nextState] += 1;
-    postSynaptic["VC1"].values[nextState] += 1;
-    postSynaptic["VD2"].values[nextState] += 7;
+    postSynaptic[nDD1].values[nextState] += 5;
+    postSynaptic[nDVC].values[nextState] += 5;
+    postSynaptic[nMVL05].values[nextState] += -5;
+    postSynaptic[nMVL08].values[nextState] += -5;
+    postSynaptic[nMVR05].values[nextState] += -5;
+    postSynaptic[nMVR08].values[nextState] += -5;
+    postSynaptic[nRIFL].values[nextState] += 1;
+    postSynaptic[nRIGL].values[nextState] += 2;
+    postSynaptic[nSMDDR].values[nextState] += 1;
+    postSynaptic[nVA1].values[nextState] += 2;
+    postSynaptic[nVA2].values[nextState] += 1;
+    postSynaptic[nVC1].values[nextState] += 1;
+    postSynaptic[nVD2].values[nextState] += 7;
 }
 
 void VD2() {
-    postSynaptic["AS1"].values[nextState] += 1;
-    postSynaptic["DD1"].values[nextState] += 3;
-    postSynaptic["MVL07"].values[nextState] += -7;
-    postSynaptic["MVL10"].values[nextState] += -7;
-    postSynaptic["MVR07"].values[nextState] += -7;
-    postSynaptic["MVR10"].values[nextState] += -7;
-    postSynaptic["VA2"].values[nextState] += 9;
-    postSynaptic["VB2"].values[nextState] += 3;
-    postSynaptic["VD1"].values[nextState] += 7;
-    postSynaptic["VD3"].values[nextState] += 2;
+    postSynaptic[nAS1].values[nextState] += 1;
+    postSynaptic[nDD1].values[nextState] += 3;
+    postSynaptic[nMVL07].values[nextState] += -7;
+    postSynaptic[nMVL10].values[nextState] += -7;
+    postSynaptic[nMVR07].values[nextState] += -7;
+    postSynaptic[nMVR10].values[nextState] += -7;
+    postSynaptic[nVA2].values[nextState] += 9;
+    postSynaptic[nVB2].values[nextState] += 3;
+    postSynaptic[nVD1].values[nextState] += 7;
+    postSynaptic[nVD3].values[nextState] += 2;
 }
 
 void VD3() {
-    postSynaptic["MVL09"].values[nextState] += -7;
-    postSynaptic["MVL12"].values[nextState] += -9;
-    postSynaptic["MVR09"].values[nextState] += -7;
-    postSynaptic["MVR12"].values[nextState] += -7;
-    postSynaptic["PVPL"].values[nextState] += 1;
-    postSynaptic["VA3"].values[nextState] += 2;
-    postSynaptic["VB2"].values[nextState] += 2;
-    postSynaptic["VD2"].values[nextState] += 2;
-    postSynaptic["VD4"].values[nextState] += 1;
+    postSynaptic[nMVL09].values[nextState] += -7;
+    postSynaptic[nMVL12].values[nextState] += -9;
+    postSynaptic[nMVR09].values[nextState] += -7;
+    postSynaptic[nMVR12].values[nextState] += -7;
+    postSynaptic[nPVPL].values[nextState] += 1;
+    postSynaptic[nVA3].values[nextState] += 2;
+    postSynaptic[nVB2].values[nextState] += 2;
+    postSynaptic[nVD2].values[nextState] += 2;
+    postSynaptic[nVD4].values[nextState] += 1;
 }
 
 void VD4() {
-    postSynaptic["DD2"].values[nextState] += 2;
-    postSynaptic["MVL11"].values[nextState] += -9;
-    postSynaptic["MVL12"].values[nextState] += -9;
-    postSynaptic["MVR11"].values[nextState] += -9;
-    postSynaptic["MVR12"].values[nextState] += -9;
-    postSynaptic["PVPR"].values[nextState] += 1;
-    postSynaptic["VD3"].values[nextState] += 1;
-    postSynaptic["VD5"].values[nextState] += 1;
+    postSynaptic[nDD2].values[nextState] += 2;
+    postSynaptic[nMVL11].values[nextState] += -9;
+    postSynaptic[nMVL12].values[nextState] += -9;
+    postSynaptic[nMVR11].values[nextState] += -9;
+    postSynaptic[nMVR12].values[nextState] += -9;
+    postSynaptic[nPVPR].values[nextState] += 1;
+    postSynaptic[nVD3].values[nextState] += 1;
+    postSynaptic[nVD5].values[nextState] += 1;
 }
 
 void VD5() {
-    postSynaptic["AVAR"].values[nextState] += 1;
-    postSynaptic["MVL14"].values[nextState] += -17;
-    postSynaptic["MVR14"].values[nextState] += -17;
-    postSynaptic["PVPR"].values[nextState] += 1;
-    postSynaptic["VA5"].values[nextState] += 2;
-    postSynaptic["VB4"].values[nextState] += 2;
-    postSynaptic["VD4"].values[nextState] += 1;
-    postSynaptic["VD6"].values[nextState] += 2;
+    postSynaptic[nAVAR].values[nextState] += 1;
+    postSynaptic[nMVL14].values[nextState] += -17;
+    postSynaptic[nMVR14].values[nextState] += -17;
+    postSynaptic[nPVPR].values[nextState] += 1;
+    postSynaptic[nVA5].values[nextState] += 2;
+    postSynaptic[nVB4].values[nextState] += 2;
+    postSynaptic[nVD4].values[nextState] += 1;
+    postSynaptic[nVD6].values[nextState] += 2;
 }
 
 void VD6() {
-    postSynaptic["AVAL"].values[nextState] += 1;
-    postSynaptic["MVL13"].values[nextState] += -7;
-    postSynaptic["MVL14"].values[nextState] += -7;
-    postSynaptic["MVL16"].values[nextState] += -7;
-    postSynaptic["MVR13"].values[nextState] += -7;
-    postSynaptic["MVR14"].values[nextState] += -7;
-    postSynaptic["MVR16"].values[nextState] += -7;
-    postSynaptic["VA6"].values[nextState] += 1;
-    postSynaptic["VB5"].values[nextState] += 2;
-    postSynaptic["VD5"].values[nextState] += 2;
-    postSynaptic["VD7"].values[nextState] += 1;
+    postSynaptic[nAVAL].values[nextState] += 1;
+    postSynaptic[nMVL13].values[nextState] += -7;
+    postSynaptic[nMVL14].values[nextState] += -7;
+    postSynaptic[nMVL16].values[nextState] += -7;
+    postSynaptic[nMVR13].values[nextState] += -7;
+    postSynaptic[nMVR14].values[nextState] += -7;
+    postSynaptic[nMVR16].values[nextState] += -7;
+    postSynaptic[nVA6].values[nextState] += 1;
+    postSynaptic[nVB5].values[nextState] += 2;
+    postSynaptic[nVD5].values[nextState] += 2;
+    postSynaptic[nVD7].values[nextState] += 1;
 }
 
 void VD7() {
-    postSynaptic["MVL15"].values[nextState] += -7;
-    postSynaptic["MVL16"].values[nextState] += -7;
-    postSynaptic["MVR15"].values[nextState] += -7;
-    postSynaptic["MVR16"].values[nextState] += -7;
-    postSynaptic["MVULVA"].values[nextState] += -15;
-    postSynaptic["VA9"].values[nextState] += 1;
-    postSynaptic["VD6"].values[nextState] += 1;
+    postSynaptic[nMVL15].values[nextState] += -7;
+    postSynaptic[nMVL16].values[nextState] += -7;
+    postSynaptic[nMVR15].values[nextState] += -7;
+    postSynaptic[nMVR16].values[nextState] += -7;
+    postSynaptic[nMVULVA].values[nextState] += -15;
+    postSynaptic[nVA9].values[nextState] += 1;
+    postSynaptic[nVD6].values[nextState] += 1;
 }
 
 void VD8() {
-    postSynaptic["DD4"].values[nextState] += 2;
-    postSynaptic["MVL15"].values[nextState] += -18;
-    postSynaptic["MVR15"].values[nextState] += -18;
-    postSynaptic["VA8"].values[nextState] += 5;
+    postSynaptic[nDD4].values[nextState] += 2;
+    postSynaptic[nMVL15].values[nextState] += -18;
+    postSynaptic[nMVR15].values[nextState] += -18;
+    postSynaptic[nVA8].values[nextState] += 5;
 }
 
 void VD9() {
-    postSynaptic["MVL17"].values[nextState] += -10;
-    postSynaptic["MVL18"].values[nextState] += -10;
-    postSynaptic["MVR17"].values[nextState] += -10;
-    postSynaptic["MVR18"].values[nextState] += -10;
-    postSynaptic["PDER"].values[nextState] += 1;
-    postSynaptic["VD10"].values[nextState] += 5;
+    postSynaptic[nMVL17].values[nextState] += -10;
+    postSynaptic[nMVL18].values[nextState] += -10;
+    postSynaptic[nMVR17].values[nextState] += -10;
+    postSynaptic[nMVR18].values[nextState] += -10;
+    postSynaptic[nPDER].values[nextState] += 1;
+    postSynaptic[nVD10].values[nextState] += 5;
 }
 
 void VD10() {
-    postSynaptic["AVBR"].values[nextState] += 1;
-    postSynaptic["DD5"].values[nextState] += 2;
-    postSynaptic["DVC"].values[nextState] += 4;
-    postSynaptic["MVL17"].values[nextState] += -9;
-    postSynaptic["MVL20"].values[nextState] += -9;
-    postSynaptic["MVR17"].values[nextState] += -9;
-    postSynaptic["MVR20"].values[nextState] += -9;
-    postSynaptic["VB9"].values[nextState] += 2;
-    postSynaptic["VD9"].values[nextState] += 5;
+    postSynaptic[nAVBR].values[nextState] += 1;
+    postSynaptic[nDD5].values[nextState] += 2;
+    postSynaptic[nDVC].values[nextState] += 4;
+    postSynaptic[nMVL17].values[nextState] += -9;
+    postSynaptic[nMVL20].values[nextState] += -9;
+    postSynaptic[nMVR17].values[nextState] += -9;
+    postSynaptic[nMVR20].values[nextState] += -9;
+    postSynaptic[nVB9].values[nextState] += 2;
+    postSynaptic[nVD9].values[nextState] += 5;
 }
 
 void VD11() {
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["MVL19"].values[nextState] += -9;
-    postSynaptic["MVL20"].values[nextState] += -9;
-    postSynaptic["MVR19"].values[nextState] += -9;
-    postSynaptic["MVR20"].values[nextState] += -9;
-    postSynaptic["VA11"].values[nextState] += 1;
-    postSynaptic["VB10"].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nMVL19].values[nextState] += -9;
+    postSynaptic[nMVL20].values[nextState] += -9;
+    postSynaptic[nMVR19].values[nextState] += -9;
+    postSynaptic[nMVR20].values[nextState] += -9;
+    postSynaptic[nVA11].values[nextState] += 1;
+    postSynaptic[nVB10].values[nextState] += 1;
 }
 
 void VD12() {
-    postSynaptic["MVL19"].values[nextState] += -5;
-    postSynaptic["MVL21"].values[nextState] += -5;
-    postSynaptic["MVR19"].values[nextState] += -5;
-    postSynaptic["MVR22"].values[nextState] += -5;
-    postSynaptic["VA11"].values[nextState] += 3;
-    postSynaptic["VA12"].values[nextState] += 2;
-    postSynaptic["VB10"].values[nextState] += 1;
-    postSynaptic["VB11"].values[nextState] += 1;
+    postSynaptic[nMVL19].values[nextState] += -5;
+    postSynaptic[nMVL21].values[nextState] += -5;
+    postSynaptic[nMVR19].values[nextState] += -5;
+    postSynaptic[nMVR22].values[nextState] += -5;
+    postSynaptic[nVA11].values[nextState] += 3;
+    postSynaptic[nVA12].values[nextState] += 2;
+    postSynaptic[nVB10].values[nextState] += 1;
+    postSynaptic[nVB11].values[nextState] += 1;
 }
 
 void VD13() {
-    postSynaptic["AVAR"].values[nextState] += 2;
-    postSynaptic["MVL21"].values[nextState] += -9;
-    postSynaptic["MVL22"].values[nextState] += -9;
-    postSynaptic["MVL23"].values[nextState] += -9;
-    postSynaptic["MVR21"].values[nextState] += -9;
-    postSynaptic["MVR22"].values[nextState] += -9;
-    postSynaptic["MVR23"].values[nextState] += -9;
-    postSynaptic["MVR24"].values[nextState] += -9;
-    postSynaptic["PVCL"].values[nextState] += 1;
-    postSynaptic["PVCR"].values[nextState] += 1;
-    postSynaptic["PVPL"].values[nextState] += 2;
-    postSynaptic["VA12"].values[nextState] += 1;
+    postSynaptic[nAVAR].values[nextState] += 2;
+    postSynaptic[nMVL21].values[nextState] += -9;
+    postSynaptic[nMVL22].values[nextState] += -9;
+    postSynaptic[nMVL23].values[nextState] += -9;
+    postSynaptic[nMVR21].values[nextState] += -9;
+    postSynaptic[nMVR22].values[nextState] += -9;
+    postSynaptic[nMVR23].values[nextState] += -9;
+    postSynaptic[nMVR24].values[nextState] += -9;
+    postSynaptic[nPVCL].values[nextState] += 1;
+    postSynaptic[nPVCR].values[nextState] += 1;
+    postSynaptic[nPVPL].values[nextState] += 2;
+    postSynaptic[nVA12].values[nextState] += 1;
 }
 
 void createPostSynaptic() {
-    postSynaptic["ADAL"] = { ADAL, { 0, 0 } };
-    postSynaptic["ADAR"] = { ADAR, { 0, 0 } };
-    postSynaptic["ADEL"] = { ADEL, { 0, 0 } };
-    postSynaptic["ADER"] = { ADER, { 0, 0 } };
-    postSynaptic["ADFL"] = { ADFL, { 0, 0 } };
-    postSynaptic["ADFR"] = { ADFR, { 0, 0 } };
-    postSynaptic["ADLL"] = { ADLL, { 0, 0 } };
-    postSynaptic["ADLR"] = { ADLR, { 0, 0 } };
-    postSynaptic["AFDL"] = { AFDL, { 0, 0 } };
-    postSynaptic["AFDR"] = { AFDR, { 0, 0 } };
-    postSynaptic["AIAL"] = { AIAL, { 0, 0 } };
-    postSynaptic["AIAR"] = { AIAR, { 0, 0 } };
-    postSynaptic["AIBL"] = { AIBL, { 0, 0 } };
-    postSynaptic["AIBR"] = { AIBR, { 0, 0 } };
-    postSynaptic["AIML"] = { AIML, { 0, 0 } };
-    postSynaptic["AIMR"] = { AIMR, { 0, 0 } };
-    postSynaptic["AINL"] = { AINL, { 0, 0 } };
-    postSynaptic["AINR"] = { AINR, { 0, 0 } };
-    postSynaptic["AIYL"] = { AIYL, { 0, 0 } };
-    postSynaptic["AIYR"] = { AIYR, { 0, 0 } };
-    postSynaptic["AIZL"] = { AIZL, { 0, 0 } };
-    postSynaptic["AIZR"] = { AIZR, { 0, 0 } };
-    postSynaptic["ALA"] = { ALA, { 0, 0 } };
-    postSynaptic["ALML"] = { ALML, { 0, 0 } };
-    postSynaptic["ALMR"] = { ALMR, { 0, 0 } };
-    postSynaptic["ALNL"] = { ALNL, { 0, 0 } };
-    postSynaptic["ALNR"] = { ALNR, { 0, 0 } };
-    postSynaptic["AQR"] = { AQR, { 0, 0 } };
-    postSynaptic["AS1"] = { AS1, { 0, 0 } };
-    postSynaptic["AS10"] = { AS10, { 0, 0 } };
-    postSynaptic["AS11"] = { AS11, { 0, 0 } };
-    postSynaptic["AS2"] = { AS2, { 0, 0 } };
-    postSynaptic["AS3"] = { AS3, { 0, 0 } };
-    postSynaptic["AS4"] = { AS4, { 0, 0 } };
-    postSynaptic["AS5"] = { AS5, { 0, 0 } };
-    postSynaptic["AS6"] = { AS6, { 0, 0 } };
-    postSynaptic["AS7"] = { AS7, { 0, 0 } };
-    postSynaptic["AS8"] = { AS8, { 0, 0 } };
-    postSynaptic["AS9"] = { AS9, { 0, 0 } };
-    postSynaptic["ASEL"] = { ASEL, { 0, 0 } };
-    postSynaptic["ASER"] = { ASER, { 0, 0 } };
-    postSynaptic["ASGL"] = { ASGL, { 0, 0 } };
-    postSynaptic["ASGR"] = { ASGR, { 0, 0 } };
-    postSynaptic["ASHL"] = { ASHL, { 0, 0 } };
-    postSynaptic["ASHR"] = { ASHR, { 0, 0 } };
-    postSynaptic["ASIL"] = { ASIL, { 0, 0 } };
-    postSynaptic["ASIR"] = { ASIR, { 0, 0 } };
-    postSynaptic["ASJL"] = { ASJL, { 0, 0 } };
-    postSynaptic["ASJR"] = { ASJR, { 0, 0 } };
-    postSynaptic["ASKL"] = { ASKL, { 0, 0 } };
-    postSynaptic["ASKR"] = { ASKR, { 0, 0 } };
-    postSynaptic["AUAL"] = { AUAL, { 0, 0 } };
-    postSynaptic["AUAR"] = { AUAR, { 0, 0 } };
-    postSynaptic["AVAL"] = { AVAL, { 0, 0 } };
-    postSynaptic["AVAR"] = { AVAR, { 0, 0 } };
-    postSynaptic["AVBL"] = { AVBL, { 0, 0 } };
-    postSynaptic["AVBR"] = { AVBR, { 0, 0 } };
-    postSynaptic["AVDL"] = { AVDL, { 0, 0 } };
-    postSynaptic["AVDR"] = { AVDR, { 0, 0 } };
-    postSynaptic["AVEL"] = { AVEL, { 0, 0 } };
-    postSynaptic["AVER"] = { AVER, { 0, 0 } };
-    postSynaptic["AVFL"] = { AVFL, { 0, 0 } };
-    postSynaptic["AVFR"] = { AVFR, { 0, 0 } };
-    postSynaptic["AVG"] = { AVG, { 0, 0 } };
-    postSynaptic["AVHL"] = { AVHL, { 0, 0 } };
-    postSynaptic["AVHR"] = { AVHR, { 0, 0 } };
-    postSynaptic["AVJL"] = { AVJL, { 0, 0 } };
-    postSynaptic["AVJR"] = { AVJR, { 0, 0 } };
-    postSynaptic["AVKL"] = { AVKL, { 0, 0 } };
-    postSynaptic["AVKR"] = { AVKR, { 0, 0 } };
-    postSynaptic["AVL"] = { AVL, { 0, 0 } };
-    postSynaptic["AVM"] = { AVM, { 0, 0 } };
-    postSynaptic["AWAL"] = { AWAL, { 0, 0 } };
-    postSynaptic["AWAR"] = { AWAR, { 0, 0 } };
-    postSynaptic["AWBL"] = { AWBL, { 0, 0 } };
-    postSynaptic["AWBR"] = { AWBR, { 0, 0 } };
-    postSynaptic["AWCL"] = { AWCL, { 0, 0 } };
-    postSynaptic["AWCR"] = { AWCR, { 0, 0 } };
-    postSynaptic["BAGL"] = { BAGL, { 0, 0 } };
-    postSynaptic["BAGR"] = { BAGR, { 0, 0 } };
-    postSynaptic["BDUL"] = { BDUL, { 0, 0 } };
-    postSynaptic["BDUR"] = { BDUR, { 0, 0 } };
-    postSynaptic["CEPDL"] = { CEPDL, { 0, 0 } };
-    postSynaptic["CEPDR"] = { CEPDR, { 0, 0 } };
-    postSynaptic["CEPVL"] = { CEPVL, { 0, 0 } };
-    postSynaptic["CEPVR"] = { CEPVR, { 0, 0 } };
-    postSynaptic["DA1"] = { DA1, { 0, 0 } };
-    postSynaptic["DA2"] = { DA2, { 0, 0 } };
-    postSynaptic["DA3"] = { DA3, { 0, 0 } };
-    postSynaptic["DA4"] = { DA4, { 0, 0 } };
-    postSynaptic["DA5"] = { DA5, { 0, 0 } };
-    postSynaptic["DA6"] = { DA6, { 0, 0 } };
-    postSynaptic["DA7"] = { DA7, { 0, 0 } };
-    postSynaptic["DA8"] = { DA8, { 0, 0 } };
-    postSynaptic["DA9"] = { DA9, { 0, 0 } };
-    postSynaptic["DB1"] = { DB1, { 0, 0 } };
-    postSynaptic["DB2"] = { DB2, { 0, 0 } };
-    postSynaptic["DB3"] = { DB3, { 0, 0 } };
-    postSynaptic["DB4"] = { DB4, { 0, 0 } };
-    postSynaptic["DB5"] = { DB5, { 0, 0 } };
-    postSynaptic["DB6"] = { DB6, { 0, 0 } };
-    postSynaptic["DB7"] = { DB7, { 0, 0 } };
-    postSynaptic["DD1"] = { DD1, { 0, 0 } };
-    postSynaptic["DD2"] = { DD2, { 0, 0 } };
-    postSynaptic["DD3"] = { DD3, { 0, 0 } };
-    postSynaptic["DD4"] = { DD4, { 0, 0 } };
-    postSynaptic["DD5"] = { DD5, { 0, 0 } };
-    postSynaptic["DD6"] = { DD6, { 0, 0 } };
-    postSynaptic["DVA"] = { DVA, { 0, 0 } };
-    postSynaptic["DVB"] = { DVB, { 0, 0 } };
-    postSynaptic["DVC"] = { DVC, { 0, 0 } };
-    postSynaptic["FLPL"] = { FLPL, { 0, 0 } };
-    postSynaptic["FLPR"] = { FLPR, { 0, 0 } };
-    postSynaptic["HSNL"] = { HSNL, { 0, 0 } };
-    postSynaptic["HSNR"] = { HSNR, { 0, 0 } };
-    postSynaptic["I1L"] = { I1L, { 0, 0 } };
-    postSynaptic["I1R"] = { I1R, { 0, 0 } };
-    postSynaptic["I2L"] = { I2L, { 0, 0 } };
-    postSynaptic["I2R"] = { I2R, { 0, 0 } };
-    postSynaptic["I3"] = { I3, { 0, 0 } };
-    postSynaptic["I4"] = { I4, { 0, 0 } };
-    postSynaptic["I5"] = { I5, { 0, 0 } };
-    postSynaptic["I6"] = { I6, { 0, 0 } };
-    postSynaptic["IL1DL"] = { IL1DL, { 0, 0 } };
-    postSynaptic["IL1DR"] = { IL1DR, { 0, 0 } };
-    postSynaptic["IL1L"] = { IL1L, { 0, 0 } };
-    postSynaptic["IL1R"] = { IL1R, { 0, 0 } };
-    postSynaptic["IL1VL"] = { IL1VL, { 0, 0 } };
-    postSynaptic["IL1VR"] = { IL1VR, { 0, 0 } };
-    postSynaptic["IL2L"] = { IL2L, { 0, 0 } };
-    postSynaptic["IL2R"] = { IL2R, { 0, 0 } };
-    postSynaptic["IL2DL"] = { IL2DL, { 0, 0 } };
-    postSynaptic["IL2DR"] = { IL2DR, { 0, 0 } };
-    postSynaptic["IL2VL"] = { IL2VL, { 0, 0 } };
-    postSynaptic["IL2VR"] = { IL2VR, { 0, 0 } };
-    postSynaptic["LUAL"] = { LUAL, { 0, 0 } };
-    postSynaptic["LUAR"] = { LUAR, { 0, 0 } };
-    postSynaptic["M1"] = { M1, { 0, 0 } };
-    postSynaptic["M2L"] = { M2L, { 0, 0 } };
-    postSynaptic["M2R"] = { M2R, { 0, 0 } };
-    postSynaptic["M3L"] = { M3L, { 0, 0 } };
-    postSynaptic["M3R"] = { M3R, { 0, 0 } };
-    postSynaptic["M4"] = { M4, { 0, 0 } };
-    postSynaptic["M5"] = { M5, { 0, 0 } };
-    postSynaptic["MANAL"] = { nullptr, { 0, 0 } }; // why doesnt this have weight????
-    postSynaptic["MCL"] = { MCL, { 0, 0 } };
-    postSynaptic["MCR"] = { MCR, { 0, 0 } };
-    postSynaptic["MDL01"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL02"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL03"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL04"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL05"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL06"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL07"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL08"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL09"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL10"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL11"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL12"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL13"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL14"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL15"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL16"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL17"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL18"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL19"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL20"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL21"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL22"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL23"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDL24"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR01"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR02"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR03"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR04"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR05"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR06"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR07"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR08"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR09"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR10"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR11"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR12"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR13"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR14"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR15"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR16"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR17"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR18"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR19"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR20"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR21"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR22"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR23"] = { nullptr, { 0, 0 } };
-    postSynaptic["MDR24"] = { nullptr, { 0, 0 } };
-    postSynaptic["MI"] = { MI, { 0, 0 } };
-    postSynaptic["MVL01"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL02"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL03"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL04"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL05"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL06"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL07"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL08"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL09"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL10"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL11"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL12"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL13"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL14"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL15"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL16"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL17"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL18"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL19"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL20"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL21"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL22"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVL23"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR01"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR02"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR03"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR04"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR05"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR06"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR07"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR08"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR09"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR10"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR11"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR12"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR13"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR14"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR15"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR16"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR17"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR18"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR19"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR20"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR21"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR22"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR23"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVR24"] = { nullptr, { 0, 0 } };
-    postSynaptic["MVULVA"] = { nullptr, { 0, 0 } };
-    postSynaptic["NSML"] = { NSML, { 0, 0 } };
-    postSynaptic["NSMR"] = { NSMR, { 0, 0 } };
-    postSynaptic["OLLL"] = { OLLL, { 0, 0 } };
-    postSynaptic["OLLR"] = { OLLR, { 0, 0 } };
-    postSynaptic["OLQDL"] = { OLQDL, { 0, 0 } };
-    postSynaptic["OLQDR"] = { OLQDR, { 0, 0 } };
-    postSynaptic["OLQVL"] = { OLQVL, { 0, 0 } };
-    postSynaptic["OLQVR"] = { OLQVR, { 0, 0 } };
-    postSynaptic["PDA"] = { PDA, { 0, 0 } };
-    postSynaptic["PDB"] = { PDB, { 0, 0 } };
-    postSynaptic["PDEL"] = { PDEL, { 0, 0 } };
-    postSynaptic["PDER"] = { PDER, { 0, 0 } };
-    postSynaptic["PHAL"] = { PHAL, { 0, 0 } };
-    postSynaptic["PHAR"] = { PHAR, { 0, 0 } };
-    postSynaptic["PHBL"] = { PHBL, { 0, 0 } };
-    postSynaptic["PHBR"] = { PHBR, { 0, 0 } };
-    postSynaptic["PHCL"] = { PHCL, { 0, 0 } };
-    postSynaptic["PHCR"] = { PHCR, { 0, 0 } };
-    postSynaptic["PLML"] = { PLML, { 0, 0 } };
-    postSynaptic["PLMR"] = { PLMR, { 0, 0 } };
-    postSynaptic["PLNL"] = { PLNL, { 0, 0 } };
-    postSynaptic["PLNR"] = { PLNR, { 0, 0 } };
-    postSynaptic["PQR"] = { PQR, { 0, 0 } };
-    postSynaptic["PVCL"] = { PVCL, { 0, 0 } };
-    postSynaptic["PVCR"] = { PVCR, { 0, 0 } };
-    postSynaptic["PVDL"] = { PVDL, { 0, 0 } };
-    postSynaptic["PVDR"] = { PVDR, { 0, 0 } };
-    postSynaptic["PVM"] = { PVM, { 0, 0 } };
-    postSynaptic["PVNL"] = { PVNL, { 0, 0 } };
-    postSynaptic["PVNR"] = { PVNR, { 0, 0 } };
-    postSynaptic["PVPL"] = { PVPL, { 0, 0 } };
-    postSynaptic["PVPR"] = { PVPR, { 0, 0 } };
-    postSynaptic["PVQL"] = { PVQL, { 0, 0 } };
-    postSynaptic["PVQR"] = { PVQR, { 0, 0 } };
-    postSynaptic["PVR"] = { PVR, { 0, 0 } };
-    postSynaptic["PVT"] = { PVT, { 0, 0 } };
-    postSynaptic["PVWL"] = { PVWL, { 0, 0 } };
-    postSynaptic["PVWR"] = { PVWR, { 0, 0 } };
-    postSynaptic["RIAL"] = { RIAL, { 0, 0 } };
-    postSynaptic["RIAR"] = { RIAR, { 0, 0 } };
-    postSynaptic["RIBL"] = { RIBL, { 0, 0 } };
-    postSynaptic["RIBR"] = { RIBR, { 0, 0 } };
-    postSynaptic["RICL"] = { RICL, { 0, 0 } };
-    postSynaptic["RICR"] = { RICR, { 0, 0 } };
-    postSynaptic["RID"] = { RID, { 0, 0 } };
-    postSynaptic["RIFL"] = { RIFL, { 0, 0 } };
-    postSynaptic["RIFR"] = { RIFR, { 0, 0 } };
-    postSynaptic["RIGL"] = { RIGL, { 0, 0 } };
-    postSynaptic["RIGR"] = { RIGR, { 0, 0 } };
-    postSynaptic["RIH"] = { RIH, { 0, 0 } };
-    postSynaptic["RIML"] = { RIML, { 0, 0 } };
-    postSynaptic["RIMR"] = { RIMR, { 0, 0 } };
-    postSynaptic["RIPL"] = { RIPL, { 0, 0 } };
-    postSynaptic["RIPR"] = { RIPR, { 0, 0 } };
-    postSynaptic["RIR"] = { RIR, { 0, 0 } };
-    postSynaptic["RIS"] = { RIS, { 0, 0 } };
-    postSynaptic["RIVL"] = { RIVL, { 0, 0 } };
-    postSynaptic["RIVR"] = { RIVR, { 0, 0 } };
-    postSynaptic["RMDDL"] = { RMDDL, { 0, 0 } };
-    postSynaptic["RMDDR"] = { RMDDR, { 0, 0 } };
-    postSynaptic["RMDL"] = { RMDL, { 0, 0 } };
-    postSynaptic["RMDR"] = { RMDR, { 0, 0 } };
-    postSynaptic["RMDVL"] = { RMDVL, { 0, 0 } };
-    postSynaptic["RMDVR"] = { RMDVR, { 0, 0 } };
-    postSynaptic["RMED"] = { RMED, { 0, 0 } };
-    postSynaptic["RMEL"] = { RMEL, { 0, 0 } };
-    postSynaptic["RMER"] = { RMER, { 0, 0 } };
-    postSynaptic["RMEV"] = { RMEV, { 0, 0 } };
-    postSynaptic["RMFL"] = { RMFL, { 0, 0 } };
-    postSynaptic["RMFR"] = { RMFR, { 0, 0 } };
-    postSynaptic["RMGL"] = { RMGL, { 0, 0 } };
-    postSynaptic["RMGR"] = { RMGR, { 0, 0 } };
-    postSynaptic["RMHL"] = { RMHL, { 0, 0 } };
-    postSynaptic["RMHR"] = { RMHR, { 0, 0 } };
-    postSynaptic["SAADL"] = { SAADL, { 0, 0 } };
-    postSynaptic["SAADR"] = { SAADR, { 0, 0 } };
-    postSynaptic["SAAVL"] = { SAAVL, { 0, 0 } };
-    postSynaptic["SAAVR"] = { SAAVR, { 0, 0 } };
-    postSynaptic["SABD"] = { SABD, { 0, 0 } };
-    postSynaptic["SABVL"] = { SABVL, { 0, 0 } };
-    postSynaptic["SABVR"] = { SABVR, { 0, 0 } };
-    postSynaptic["SDQL"] = { SDQL, { 0, 0 } };
-    postSynaptic["SDQR"] = { SDQR, { 0, 0 } };
-    postSynaptic["SIADL"] = { SIADL, { 0, 0 } };
-    postSynaptic["SIADR"] = { SIADR, { 0, 0 } };
-    postSynaptic["SIAVL"] = { SIAVL, { 0, 0 } };
-    postSynaptic["SIAVR"] = { SIAVR, { 0, 0 } };
-    postSynaptic["SIBDL"] = { SIBDL, { 0, 0 } };
-    postSynaptic["SIBDR"] = { SIBDR, { 0, 0 } };
-    postSynaptic["SIBVL"] = { SIBVL, { 0, 0 } };
-    postSynaptic["SIBVR"] = { SIBVR, { 0, 0 } };
-    postSynaptic["SMBDL"] = { SMBDL, { 0, 0 } };
-    postSynaptic["SMBDR"] = { SMBDR, { 0, 0 } };
-    postSynaptic["SMBVL"] = { SMBVL, { 0, 0 } };
-    postSynaptic["SMBVR"] = { SMBVR, { 0, 0 } };
-    postSynaptic["SMDDL"] = { SMDDL, { 0, 0 } };
-    postSynaptic["SMDDR"] = { SMDDR, { 0, 0 } };
-    postSynaptic["SMDVL"] = { SMDVL, { 0, 0 } };
-    postSynaptic["SMDVR"] = { SMDVR, { 0, 0 } };
-    postSynaptic["URADL"] = { URADL, { 0, 0 } };
-    postSynaptic["URADR"] = { URADR, { 0, 0 } };
-    postSynaptic["URAVL"] = { URAVL, { 0, 0 } };
-    postSynaptic["URAVR"] = { URAVR, { 0, 0 } };
-    postSynaptic["URBL"] = { URBL, { 0, 0 } };
-    postSynaptic["URBR"] = { URBR, { 0, 0 } };
-    postSynaptic["URXL"] = { URXL, { 0, 0 } };
-    postSynaptic["URXR"] = { URXR, { 0, 0 } };
-    postSynaptic["URYDL"] = { URYDL, { 0, 0 } };
-    postSynaptic["URYDR"] = { URYDR, { 0, 0 } };
-    postSynaptic["URYVL"] = { URYVL, { 0, 0 } };
-    postSynaptic["URYVR"] = { URYVR, { 0, 0 } };
-    postSynaptic["VA1"] = { VA1, { 0, 0 } };
-    postSynaptic["VA10"] = { VA10, { 0, 0 } };
-    postSynaptic["VA11"] = { VA11, { 0, 0 } };
-    postSynaptic["VA12"] = { VA12, { 0, 0 } };
-    postSynaptic["VA2"] = { VA2, { 0, 0 } };
-    postSynaptic["VA3"] = { VA3, { 0, 0 } };
-    postSynaptic["VA4"] = { VA4, { 0, 0 } };
-    postSynaptic["VA5"] = { VA5, { 0, 0 } };
-    postSynaptic["VA6"] = { VA6, { 0, 0 } };
-    postSynaptic["VA7"] = { VA7, { 0, 0 } };
-    postSynaptic["VA8"] = { VA8, { 0, 0 } };
-    postSynaptic["VA9"] = { VA9, { 0, 0 } };
-    postSynaptic["VB1"] = { VB1, { 0, 0 } };
-    postSynaptic["VB10"] = { VB10, { 0, 0 } };
-    postSynaptic["VB11"] = { VB11, { 0, 0 } };
-    postSynaptic["VB2"] = { VB2, { 0, 0 } };
-    postSynaptic["VB3"] = { VB3, { 0, 0 } };
-    postSynaptic["VB4"] = { VB4, { 0, 0 } };
-    postSynaptic["VB5"] = { VB5, { 0, 0 } };
-    postSynaptic["VB6"] = { VB6, { 0, 0 } };
-    postSynaptic["VB7"] = { VB7, { 0, 0 } };
-    postSynaptic["VB8"] = { VB8, { 0, 0 } };
-    postSynaptic["VB9"] = { VB9, { 0, 0 } };
-    postSynaptic["VC1"] = { VC1, { 0, 0 } };
-    postSynaptic["VC2"] = { VC2, { 0, 0 } };
-    postSynaptic["VC3"] = { VC3, { 0, 0 } };
-    postSynaptic["VC4"] = { VC4, { 0, 0 } };
-    postSynaptic["VC5"] = { VC5, { 0, 0 } };
-    postSynaptic["VC6"] = { VC6, { 0, 0 } };
-    postSynaptic["VD1"] = { VD1, { 0, 0 } };
-    postSynaptic["VD10"] = { VD10, { 0, 0 } };
-    postSynaptic["VD11"] = { VD11, { 0, 0 } };
-    postSynaptic["VD12"] = { VD12, { 0, 0 } };
-    postSynaptic["VD13"] = { VD13, { 0, 0 } };
-    postSynaptic["VD2"] = { VD2, { 0, 0 } };
-    postSynaptic["VD3"] = { VD3, { 0, 0 } };
-    postSynaptic["VD4"] = { VD4, { 0, 0 } };
-    postSynaptic["VD5"] = { VD5, { 0, 0 } };
-    postSynaptic["VD6"] = { VD6, { 0, 0 } };
-    postSynaptic["VD7"] = { VD7, { 0, 0 } };
-    postSynaptic["VD8"] = { VD8, { 0, 0 } };
-    postSynaptic["VD9"] = { VD9, { 0, 0 } };
+    postSynaptic[nADAL] = { ADAL, { 0, 0 } };
+    postSynaptic[nADAR] = { ADAR, { 0, 0 } };
+    postSynaptic[nADEL] = { ADEL, { 0, 0 } };
+    postSynaptic[nADER] = { ADER, { 0, 0 } };
+    postSynaptic[nADFL] = { ADFL, { 0, 0 } };
+    postSynaptic[nADFR] = { ADFR, { 0, 0 } };
+    postSynaptic[nADLL] = { ADLL, { 0, 0 } };
+    postSynaptic[nADLR] = { ADLR, { 0, 0 } };
+    postSynaptic[nAFDL] = { AFDL, { 0, 0 } };
+    postSynaptic[nAFDR] = { AFDR, { 0, 0 } };
+    postSynaptic[nAIAL] = { AIAL, { 0, 0 } };
+    postSynaptic[nAIAR] = { AIAR, { 0, 0 } };
+    postSynaptic[nAIBL] = { AIBL, { 0, 0 } };
+    postSynaptic[nAIBR] = { AIBR, { 0, 0 } };
+    postSynaptic[nAIML] = { AIML, { 0, 0 } };
+    postSynaptic[nAIMR] = { AIMR, { 0, 0 } };
+    postSynaptic[nAINL] = { AINL, { 0, 0 } };
+    postSynaptic[nAINR] = { AINR, { 0, 0 } };
+    postSynaptic[nAIYL] = { AIYL, { 0, 0 } };
+    postSynaptic[nAIYR] = { AIYR, { 0, 0 } };
+    postSynaptic[nAIZL] = { AIZL, { 0, 0 } };
+    postSynaptic[nAIZR] = { AIZR, { 0, 0 } };
+    postSynaptic[nALA] = { ALA, { 0, 0 } };
+    postSynaptic[nALML] = { ALML, { 0, 0 } };
+    postSynaptic[nALMR] = { ALMR, { 0, 0 } };
+    postSynaptic[nALNL] = { ALNL, { 0, 0 } };
+    postSynaptic[nALNR] = { ALNR, { 0, 0 } };
+    postSynaptic[nAQR] = { AQR, { 0, 0 } };
+    postSynaptic[nAS1] = { AS1, { 0, 0 } };
+    postSynaptic[nAS10] = { AS10, { 0, 0 } };
+    postSynaptic[nAS11] = { AS11, { 0, 0 } };
+    postSynaptic[nAS2] = { AS2, { 0, 0 } };
+    postSynaptic[nAS3] = { AS3, { 0, 0 } };
+    postSynaptic[nAS4] = { AS4, { 0, 0 } };
+    postSynaptic[nAS5] = { AS5, { 0, 0 } };
+    postSynaptic[nAS6] = { AS6, { 0, 0 } };
+    postSynaptic[nAS7] = { AS7, { 0, 0 } };
+    postSynaptic[nAS8] = { AS8, { 0, 0 } };
+    postSynaptic[nAS9] = { AS9, { 0, 0 } };
+    postSynaptic[nASEL] = { ASEL, { 0, 0 } };
+    postSynaptic[nASER] = { ASER, { 0, 0 } };
+    postSynaptic[nASGL] = { ASGL, { 0, 0 } };
+    postSynaptic[nASGR] = { ASGR, { 0, 0 } };
+    postSynaptic[nASHL] = { ASHL, { 0, 0 } };
+    postSynaptic[nASHR] = { ASHR, { 0, 0 } };
+    postSynaptic[nASIL] = { ASIL, { 0, 0 } };
+    postSynaptic[nASIR] = { ASIR, { 0, 0 } };
+    postSynaptic[nASJL] = { ASJL, { 0, 0 } };
+    postSynaptic[nASJR] = { ASJR, { 0, 0 } };
+    postSynaptic[nASKL] = { ASKL, { 0, 0 } };
+    postSynaptic[nASKR] = { ASKR, { 0, 0 } };
+    postSynaptic[nAUAL] = { AUAL, { 0, 0 } };
+    postSynaptic[nAUAR] = { AUAR, { 0, 0 } };
+    postSynaptic[nAVAL] = { AVAL, { 0, 0 } };
+    postSynaptic[nAVAR] = { AVAR, { 0, 0 } };
+    postSynaptic[nAVBL] = { AVBL, { 0, 0 } };
+    postSynaptic[nAVBR] = { AVBR, { 0, 0 } };
+    postSynaptic[nAVDL] = { AVDL, { 0, 0 } };
+    postSynaptic[nAVDR] = { AVDR, { 0, 0 } };
+    postSynaptic[nAVEL] = { AVEL, { 0, 0 } };
+    postSynaptic[nAVER] = { AVER, { 0, 0 } };
+    postSynaptic[nAVFL] = { AVFL, { 0, 0 } };
+    postSynaptic[nAVFR] = { AVFR, { 0, 0 } };
+    postSynaptic[nAVG] = { AVG, { 0, 0 } };
+    postSynaptic[nAVHL] = { AVHL, { 0, 0 } };
+    postSynaptic[nAVHR] = { AVHR, { 0, 0 } };
+    postSynaptic[nAVJL] = { AVJL, { 0, 0 } };
+    postSynaptic[nAVJR] = { AVJR, { 0, 0 } };
+    postSynaptic[nAVKL] = { AVKL, { 0, 0 } };
+    postSynaptic[nAVKR] = { AVKR, { 0, 0 } };
+    postSynaptic[nAVL] = { AVL, { 0, 0 } };
+    postSynaptic[nAVM] = { AVM, { 0, 0 } };
+    postSynaptic[nAWAL] = { AWAL, { 0, 0 } };
+    postSynaptic[nAWAR] = { AWAR, { 0, 0 } };
+    postSynaptic[nAWBL] = { AWBL, { 0, 0 } };
+    postSynaptic[nAWBR] = { AWBR, { 0, 0 } };
+    postSynaptic[nAWCL] = { AWCL, { 0, 0 } };
+    postSynaptic[nAWCR] = { AWCR, { 0, 0 } };
+    postSynaptic[nBAGL] = { BAGL, { 0, 0 } };
+    postSynaptic[nBAGR] = { BAGR, { 0, 0 } };
+    postSynaptic[nBDUL] = { BDUL, { 0, 0 } };
+    postSynaptic[nBDUR] = { BDUR, { 0, 0 } };
+    postSynaptic[nCEPDL] = { CEPDL, { 0, 0 } };
+    postSynaptic[nCEPDR] = { CEPDR, { 0, 0 } };
+    postSynaptic[nCEPVL] = { CEPVL, { 0, 0 } };
+    postSynaptic[nCEPVR] = { CEPVR, { 0, 0 } };
+    postSynaptic[nDA1] = { DA1, { 0, 0 } };
+    postSynaptic[nDA2] = { DA2, { 0, 0 } };
+    postSynaptic[nDA3] = { DA3, { 0, 0 } };
+    postSynaptic[nDA4] = { DA4, { 0, 0 } };
+    postSynaptic[nDA5] = { DA5, { 0, 0 } };
+    postSynaptic[nDA6] = { DA6, { 0, 0 } };
+    postSynaptic[nDA7] = { DA7, { 0, 0 } };
+    postSynaptic[nDA8] = { DA8, { 0, 0 } };
+    postSynaptic[nDA9] = { DA9, { 0, 0 } };
+    postSynaptic[nDB1] = { DB1, { 0, 0 } };
+    postSynaptic[nDB2] = { DB2, { 0, 0 } };
+    postSynaptic[nDB3] = { DB3, { 0, 0 } };
+    postSynaptic[nDB4] = { DB4, { 0, 0 } };
+    postSynaptic[nDB5] = { DB5, { 0, 0 } };
+    postSynaptic[nDB6] = { DB6, { 0, 0 } };
+    postSynaptic[nDB7] = { DB7, { 0, 0 } };
+    postSynaptic[nDD1] = { DD1, { 0, 0 } };
+    postSynaptic[nDD2] = { DD2, { 0, 0 } };
+    postSynaptic[nDD3] = { DD3, { 0, 0 } };
+    postSynaptic[nDD4] = { DD4, { 0, 0 } };
+    postSynaptic[nDD5] = { DD5, { 0, 0 } };
+    postSynaptic[nDD6] = { DD6, { 0, 0 } };
+    postSynaptic[nDVA] = { DVA, { 0, 0 } };
+    postSynaptic[nDVB] = { DVB, { 0, 0 } };
+    postSynaptic[nDVC] = { DVC, { 0, 0 } };
+    postSynaptic[nFLPL] = { FLPL, { 0, 0 } };
+    postSynaptic[nFLPR] = { FLPR, { 0, 0 } };
+    postSynaptic[nHSNL] = { HSNL, { 0, 0 } };
+    postSynaptic[nHSNR] = { HSNR, { 0, 0 } };
+    postSynaptic[nI1L] = { I1L, { 0, 0 } };
+    postSynaptic[nI1R] = { I1R, { 0, 0 } };
+    postSynaptic[nI2L] = { I2L, { 0, 0 } };
+    postSynaptic[nI2R] = { I2R, { 0, 0 } };
+    postSynaptic[nI3] = { I3, { 0, 0 } };
+    postSynaptic[nI4] = { I4, { 0, 0 } };
+    postSynaptic[nI5] = { I5, { 0, 0 } };
+    postSynaptic[nI6] = { I6, { 0, 0 } };
+    postSynaptic[nIL1DL] = { IL1DL, { 0, 0 } };
+    postSynaptic[nIL1DR] = { IL1DR, { 0, 0 } };
+    postSynaptic[nIL1L] = { IL1L, { 0, 0 } };
+    postSynaptic[nIL1R] = { IL1R, { 0, 0 } };
+    postSynaptic[nIL1VL] = { IL1VL, { 0, 0 } };
+    postSynaptic[nIL1VR] = { IL1VR, { 0, 0 } };
+    postSynaptic[nIL2L] = { IL2L, { 0, 0 } };
+    postSynaptic[nIL2R] = { IL2R, { 0, 0 } };
+    postSynaptic[nIL2DL] = { IL2DL, { 0, 0 } };
+    postSynaptic[nIL2DR] = { IL2DR, { 0, 0 } };
+    postSynaptic[nIL2VL] = { IL2VL, { 0, 0 } };
+    postSynaptic[nIL2VR] = { IL2VR, { 0, 0 } };
+    postSynaptic[nLUAL] = { LUAL, { 0, 0 } };
+    postSynaptic[nLUAR] = { LUAR, { 0, 0 } };
+    postSynaptic[nM1] = { M1, { 0, 0 } };
+    postSynaptic[nM2L] = { M2L, { 0, 0 } };
+    postSynaptic[nM2R] = { M2R, { 0, 0 } };
+    postSynaptic[nM3L] = { M3L, { 0, 0 } };
+    postSynaptic[nM3R] = { M3R, { 0, 0 } };
+    postSynaptic[nM4] = { M4, { 0, 0 } };
+    postSynaptic[nM5] = { M5, { 0, 0 } };
+    postSynaptic[nMANAL] = { nullptr, { 0, 0 } }; // why doesnt this have weight????
+    postSynaptic[nMCL] = { MCL, { 0, 0 } };
+    postSynaptic[nMCR] = { MCR, { 0, 0 } };
+    postSynaptic[nMDL01] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL02] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL03] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL04] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL05] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL06] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL07] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL08] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL09] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL10] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL11] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL12] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL13] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL14] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL15] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL16] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL17] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL18] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL19] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL20] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL21] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL22] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL23] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDL24] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR01] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR02] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR03] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR04] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR05] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR06] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR07] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR08] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR09] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR10] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR11] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR12] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR13] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR14] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR15] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR16] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR17] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR18] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR19] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR20] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR21] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR22] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR23] = { nullptr, { 0, 0 } };
+    postSynaptic[nMDR24] = { nullptr, { 0, 0 } };
+    postSynaptic[nMI] = { MI, { 0, 0 } };
+    postSynaptic[nMVL01] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL02] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL03] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL04] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL05] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL06] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL07] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL08] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL09] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL10] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL11] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL12] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL13] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL14] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL15] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL16] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL17] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL18] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL19] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL20] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL21] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL22] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVL23] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR01] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR02] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR03] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR04] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR05] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR06] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR07] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR08] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR09] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR10] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR11] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR12] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR13] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR14] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR15] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR16] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR17] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR18] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR19] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR20] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR21] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR22] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR23] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVR24] = { nullptr, { 0, 0 } };
+    postSynaptic[nMVULVA] = { nullptr, { 0, 0 } };
+    postSynaptic[nNSML] = { NSML, { 0, 0 } };
+    postSynaptic[nNSMR] = { NSMR, { 0, 0 } };
+    postSynaptic[nOLLL] = { OLLL, { 0, 0 } };
+    postSynaptic[nOLLR] = { OLLR, { 0, 0 } };
+    postSynaptic[nOLQDL] = { OLQDL, { 0, 0 } };
+    postSynaptic[nOLQDR] = { OLQDR, { 0, 0 } };
+    postSynaptic[nOLQVL] = { OLQVL, { 0, 0 } };
+    postSynaptic[nOLQVR] = { OLQVR, { 0, 0 } };
+    postSynaptic[nPDA] = { PDA, { 0, 0 } };
+    postSynaptic[nPDB] = { PDB, { 0, 0 } };
+    postSynaptic[nPDEL] = { PDEL, { 0, 0 } };
+    postSynaptic[nPDER] = { PDER, { 0, 0 } };
+    postSynaptic[nPHAL] = { PHAL, { 0, 0 } };
+    postSynaptic[nPHAR] = { PHAR, { 0, 0 } };
+    postSynaptic[nPHBL] = { PHBL, { 0, 0 } };
+    postSynaptic[nPHBR] = { PHBR, { 0, 0 } };
+    postSynaptic[nPHCL] = { PHCL, { 0, 0 } };
+    postSynaptic[nPHCR] = { PHCR, { 0, 0 } };
+    postSynaptic[nPLML] = { PLML, { 0, 0 } };
+    postSynaptic[nPLMR] = { PLMR, { 0, 0 } };
+    postSynaptic[nPLNL] = { PLNL, { 0, 0 } };
+    postSynaptic[nPLNR] = { PLNR, { 0, 0 } };
+    postSynaptic[nPQR] = { PQR, { 0, 0 } };
+    postSynaptic[nPVCL] = { PVCL, { 0, 0 } };
+    postSynaptic[nPVCR] = { PVCR, { 0, 0 } };
+    postSynaptic[nPVDL] = { PVDL, { 0, 0 } };
+    postSynaptic[nPVDR] = { PVDR, { 0, 0 } };
+    postSynaptic[nPVM] = { PVM, { 0, 0 } };
+    postSynaptic[nPVNL] = { PVNL, { 0, 0 } };
+    postSynaptic[nPVNR] = { PVNR, { 0, 0 } };
+    postSynaptic[nPVPL] = { PVPL, { 0, 0 } };
+    postSynaptic[nPVPR] = { PVPR, { 0, 0 } };
+    postSynaptic[nPVQL] = { PVQL, { 0, 0 } };
+    postSynaptic[nPVQR] = { PVQR, { 0, 0 } };
+    postSynaptic[nPVR] = { PVR, { 0, 0 } };
+    postSynaptic[nPVT] = { PVT, { 0, 0 } };
+    postSynaptic[nPVWL] = { PVWL, { 0, 0 } };
+    postSynaptic[nPVWR] = { PVWR, { 0, 0 } };
+    postSynaptic[nRIAL] = { RIAL, { 0, 0 } };
+    postSynaptic[nRIAR] = { RIAR, { 0, 0 } };
+    postSynaptic[nRIBL] = { RIBL, { 0, 0 } };
+    postSynaptic[nRIBR] = { RIBR, { 0, 0 } };
+    postSynaptic[nRICL] = { RICL, { 0, 0 } };
+    postSynaptic[nRICR] = { RICR, { 0, 0 } };
+    postSynaptic[nRID] = { RID, { 0, 0 } };
+    postSynaptic[nRIFL] = { RIFL, { 0, 0 } };
+    postSynaptic[nRIFR] = { RIFR, { 0, 0 } };
+    postSynaptic[nRIGL] = { RIGL, { 0, 0 } };
+    postSynaptic[nRIGR] = { RIGR, { 0, 0 } };
+    postSynaptic[nRIH] = { RIH, { 0, 0 } };
+    postSynaptic[nRIML] = { RIML, { 0, 0 } };
+    postSynaptic[nRIMR] = { RIMR, { 0, 0 } };
+    postSynaptic[nRIPL] = { RIPL, { 0, 0 } };
+    postSynaptic[nRIPR] = { RIPR, { 0, 0 } };
+    postSynaptic[nRIR] = { RIR, { 0, 0 } };
+    postSynaptic[nRIS] = { RIS, { 0, 0 } };
+    postSynaptic[nRIVL] = { RIVL, { 0, 0 } };
+    postSynaptic[nRIVR] = { RIVR, { 0, 0 } };
+    postSynaptic[nRMDDL] = { RMDDL, { 0, 0 } };
+    postSynaptic[nRMDDR] = { RMDDR, { 0, 0 } };
+    postSynaptic[nRMDL] = { RMDL, { 0, 0 } };
+    postSynaptic[nRMDR] = { RMDR, { 0, 0 } };
+    postSynaptic[nRMDVL] = { RMDVL, { 0, 0 } };
+    postSynaptic[nRMDVR] = { RMDVR, { 0, 0 } };
+    postSynaptic[nRMED] = { RMED, { 0, 0 } };
+    postSynaptic[nRMEL] = { RMEL, { 0, 0 } };
+    postSynaptic[nRMER] = { RMER, { 0, 0 } };
+    postSynaptic[nRMEV] = { RMEV, { 0, 0 } };
+    postSynaptic[nRMFL] = { RMFL, { 0, 0 } };
+    postSynaptic[nRMFR] = { RMFR, { 0, 0 } };
+    postSynaptic[nRMGL] = { RMGL, { 0, 0 } };
+    postSynaptic[nRMGR] = { RMGR, { 0, 0 } };
+    postSynaptic[nRMHL] = { RMHL, { 0, 0 } };
+    postSynaptic[nRMHR] = { RMHR, { 0, 0 } };
+    postSynaptic[nSAADL] = { SAADL, { 0, 0 } };
+    postSynaptic[nSAADR] = { SAADR, { 0, 0 } };
+    postSynaptic[nSAAVL] = { SAAVL, { 0, 0 } };
+    postSynaptic[nSAAVR] = { SAAVR, { 0, 0 } };
+    postSynaptic[nSABD] = { SABD, { 0, 0 } };
+    postSynaptic[nSABVL] = { SABVL, { 0, 0 } };
+    postSynaptic[nSABVR] = { SABVR, { 0, 0 } };
+    postSynaptic[nSDQL] = { SDQL, { 0, 0 } };
+    postSynaptic[nSDQR] = { SDQR, { 0, 0 } };
+    postSynaptic[nSIADL] = { SIADL, { 0, 0 } };
+    postSynaptic[nSIADR] = { SIADR, { 0, 0 } };
+    postSynaptic[nSIAVL] = { SIAVL, { 0, 0 } };
+    postSynaptic[nSIAVR] = { SIAVR, { 0, 0 } };
+    postSynaptic[nSIBDL] = { SIBDL, { 0, 0 } };
+    postSynaptic[nSIBDR] = { SIBDR, { 0, 0 } };
+    postSynaptic[nSIBVL] = { SIBVL, { 0, 0 } };
+    postSynaptic[nSIBVR] = { SIBVR, { 0, 0 } };
+    postSynaptic[nSMBDL] = { SMBDL, { 0, 0 } };
+    postSynaptic[nSMBDR] = { SMBDR, { 0, 0 } };
+    postSynaptic[nSMBVL] = { SMBVL, { 0, 0 } };
+    postSynaptic[nSMBVR] = { SMBVR, { 0, 0 } };
+    postSynaptic[nSMDDL] = { SMDDL, { 0, 0 } };
+    postSynaptic[nSMDDR] = { SMDDR, { 0, 0 } };
+    postSynaptic[nSMDVL] = { SMDVL, { 0, 0 } };
+    postSynaptic[nSMDVR] = { SMDVR, { 0, 0 } };
+    postSynaptic[nURADL] = { URADL, { 0, 0 } };
+    postSynaptic[nURADR] = { URADR, { 0, 0 } };
+    postSynaptic[nURAVL] = { URAVL, { 0, 0 } };
+    postSynaptic[nURAVR] = { URAVR, { 0, 0 } };
+    postSynaptic[nURBL] = { URBL, { 0, 0 } };
+    postSynaptic[nURBR] = { URBR, { 0, 0 } };
+    postSynaptic[nURXL] = { URXL, { 0, 0 } };
+    postSynaptic[nURXR] = { URXR, { 0, 0 } };
+    postSynaptic[nURYDL] = { URYDL, { 0, 0 } };
+    postSynaptic[nURYDR] = { URYDR, { 0, 0 } };
+    postSynaptic[nURYVL] = { URYVL, { 0, 0 } };
+    postSynaptic[nURYVR] = { URYVR, { 0, 0 } };
+    postSynaptic[nVA1] = { VA1, { 0, 0 } };
+    postSynaptic[nVA10] = { VA10, { 0, 0 } };
+    postSynaptic[nVA11] = { VA11, { 0, 0 } };
+    postSynaptic[nVA12] = { VA12, { 0, 0 } };
+    postSynaptic[nVA2] = { VA2, { 0, 0 } };
+    postSynaptic[nVA3] = { VA3, { 0, 0 } };
+    postSynaptic[nVA4] = { VA4, { 0, 0 } };
+    postSynaptic[nVA5] = { VA5, { 0, 0 } };
+    postSynaptic[nVA6] = { VA6, { 0, 0 } };
+    postSynaptic[nVA7] = { VA7, { 0, 0 } };
+    postSynaptic[nVA8] = { VA8, { 0, 0 } };
+    postSynaptic[nVA9] = { VA9, { 0, 0 } };
+    postSynaptic[nVB1] = { VB1, { 0, 0 } };
+    postSynaptic[nVB10] = { VB10, { 0, 0 } };
+    postSynaptic[nVB11] = { VB11, { 0, 0 } };
+    postSynaptic[nVB2] = { VB2, { 0, 0 } };
+    postSynaptic[nVB3] = { VB3, { 0, 0 } };
+    postSynaptic[nVB4] = { VB4, { 0, 0 } };
+    postSynaptic[nVB5] = { VB5, { 0, 0 } };
+    postSynaptic[nVB6] = { VB6, { 0, 0 } };
+    postSynaptic[nVB7] = { VB7, { 0, 0 } };
+    postSynaptic[nVB8] = { VB8, { 0, 0 } };
+    postSynaptic[nVB9] = { VB9, { 0, 0 } };
+    postSynaptic[nVC1] = { VC1, { 0, 0 } };
+    postSynaptic[nVC2] = { VC2, { 0, 0 } };
+    postSynaptic[nVC3] = { VC3, { 0, 0 } };
+    postSynaptic[nVC4] = { VC4, { 0, 0 } };
+    postSynaptic[nVC5] = { VC5, { 0, 0 } };
+    postSynaptic[nVC6] = { VC6, { 0, 0 } };
+    postSynaptic[nVD1] = { VD1, { 0, 0 } };
+    postSynaptic[nVD10] = { VD10, { 0, 0 } };
+    postSynaptic[nVD11] = { VD11, { 0, 0 } };
+    postSynaptic[nVD12] = { VD12, { 0, 0 } };
+    postSynaptic[nVD13] = { VD13, { 0, 0 } };
+    postSynaptic[nVD2] = { VD2, { 0, 0 } };
+    postSynaptic[nVD3] = { VD3, { 0, 0 } };
+    postSynaptic[nVD4] = { VD4, { 0, 0 } };
+    postSynaptic[nVD5] = { VD5, { 0, 0 } };
+    postSynaptic[nVD6] = { VD6, { 0, 0 } };
+    postSynaptic[nVD7] = { VD7, { 0, 0 } };
+    postSynaptic[nVD8] = { VD8, { 0, 0 } };
+    postSynaptic[nVD9] = { VD9, { 0, 0 } };
 }
 
 void motorcontrol() {
     accumLeft = 0;
     accumRight = 0;
     //suboptimal
-    std::for_each(postSynaptic.begin(), postSynaptic.end(), [](const auto& pair) {
-        if(postSynaptic[pair.first].fireNeuron == nullptr) {
-            if((pair.first.find("MVL") != std::string::npos) || (pair.first.find("MDL") != std::string::npos)) {
-                // std::cout << "accumLeft = " << accumLeft << " + " << pair.first << ", " << postSynaptic[pair.first].values[nextState] << "\n";
-                accumLeft += postSynaptic[pair.first].values[nextState];
-                postSynaptic[pair.first].values[nextState] = 0;
-            } else if((pair.first.find("MVR") != std::string::npos) || (pair.first.find("MDR") != std::string::npos)) {
-                // std::cout << "accumRight = " << accumRight << " + " << pair.first << ", " << postSynaptic[pair.first].values[nextState] << "\n";
-                accumRight += postSynaptic[pair.first].values[nextState];
-                postSynaptic[pair.first].values[nextState] = 0;
+    for (int i=0; i< neuron_count; i++) {
+        if(postSynaptic[i].fireNeuron == nullptr) {
+            if( ((i >= nMVL01) && (i <=nMVL23))
+              || ((i >= nMDL01) || (i <= nMDL24) ) ) {
+                // std::cout << "accumLeft = " << accumLeft << " + " << pair.first << ", " << postSynaptic[pair.first]].values[nextState] << "\n";
+                accumLeft += postSynaptic[i].values[nextState];
+                postSynaptic[i].values[nextState] = 0;
+            } else if( ((i >= nMVR01) || (i <=nMVR24))
+              || ((i >= nMDR01) || (i<=nMDR24)) ) {
+                // std::cout << "accumRight = " << accumRight << " + " << pair.first << ", " << postSynaptic[pair.first]].values[nextState] << "\n";
+                accumRight += postSynaptic[i].values[nextState];
+                postSynaptic[i].values[nextState] = 0;
             }
         }
-    });
+    }
 }
 
 void runconnectome() {
-    std::for_each(postSynaptic.begin(), postSynaptic.end(), [](const auto& pair) { // no idea what this is lmao
-        //if(pair.first == "ADAL") std::cout << pair.first << ": [ " << pair.second.values[thisState] << ", " << pair.second.values[nextState] << " ]\n";
-        if((postSynaptic[pair.first].fireNeuron != nullptr) && (postSynaptic[pair.first].values[thisState] > fireThreshold)) {
-            postSynaptic[pair.first].fireNeuron();
-            postSynaptic[pair.first].values[nextState] = 0;
+    for (int i=0; i< neuron_count; i++) {
+        //if(pair.first == "ADAL") std::cout << pair.first << ": [ " << pair.second].values[thisState] << ", " << pair.second.values[nextState] << " ]\n";
+        if((postSynaptic[i].fireNeuron != nullptr) && (postSynaptic[i].values[thisState] > fireThreshold)) {
+            postSynaptic[i].fireNeuron();
+            postSynaptic[i].values[nextState] = 0;
         }
 
         motorcontrol();
 
-        std::for_each(postSynaptic.begin(), postSynaptic.end(), [](const auto& pair) {
-            std::cout << postSynaptic[pair.first].values[thisState] << ", " << postSynaptic[pair.first].values[nextState] << "\n";
-            postSynaptic[pair.first].values[thisState] = postSynaptic[pair.first].values[nextState];
-        });
+        for (int j=0; i< neuron_count; i++) {
+            //std::cout << postSynaptic[j].values[thisState] << ", " << postSynaptic[j].values[nextState] << "\n";
+            postSynaptic[j].values[thisState] = postSynaptic[j].values[nextState];
+        };
 
         int temp = thisState;
         thisState = nextState;
         nextState = temp;
-    });
+    }
 }
 
 void update() {
@@ -5090,6 +5103,6 @@ int main() {
     createPostSynaptic();
     while(true) {
         update();
-        // std::cout << "thisState: " << thisState << ", nextState: " << nextState << "\n";
+        //std::cout << "thisState: " << thisState << ", nextState: " << nextState << "\n";
     }
 }
